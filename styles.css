@@ -1,0 +1,1098 @@
+/* ==========================================================================
+   ScopeBee landing — design tokens
+   ========================================================================== */
+
+:root {
+  /* surfaces */
+  --bg:            #0b0b16;
+  --bg-alt:        #101024;
+  --surface:       rgba(255, 255, 255, .04);
+  --surface-hi:    rgba(255, 255, 255, .07);
+  --border:        rgba(255, 255, 255, .1);
+  --border-hi:     rgba(255, 255, 255, .18);
+
+  /* text */
+  --text:          #f5f5f7;
+  --text-muted:    rgba(245, 245, 247, .65);
+  --text-faint:    rgba(245, 245, 247, .42);
+
+  /* accents */
+  --accent:        #ff8a4c;
+  --accent-2:      #f0568f;
+  --accent-3:      #7b5cff;
+  --accent-4:      #4cd6a0;
+  --accent-grad:   linear-gradient(115deg, var(--accent), var(--accent-2) 55%, var(--accent-3));
+
+  /* layout */
+  --maxw:          1200px;
+  --maxw-hero:     min(1920px, 92vw);  /* hero pushes its columns wider than the content grid */
+  --gutter:        clamp(1.25rem, 4vw, 3rem);
+  --topbar-h:      72px;
+  --section-pad:   clamp(4rem, 9vh, 6.5rem);
+  --radius:        18px;
+
+  /* motion */
+  --ease-out:      cubic-bezier(.2, .7, .2, 1);
+  --reveal-dur:    .85s;
+
+  color-scheme: dark;
+}
+
+/* ==========================================================================
+   Base
+   ========================================================================== */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; scroll-padding-top: calc(var(--topbar-h) + 16px); }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font: 400 16px/1.6 "Inter", "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+img, svg { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+ul, ol { margin: 0; padding: 0; list-style: none; }
+h1, h2, h3 { margin: 0; line-height: 1.1; letter-spacing: -.02em; }
+p { margin: 0; }
+button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+.skip-link {
+  position: fixed;
+  top: 8px;
+  left: 8px;
+  z-index: 200;
+  padding: .6rem 1rem;
+  border-radius: 10px;
+  background: var(--accent);
+  color: #16121f;
+  font-weight: 600;
+  transform: translateY(-200%);
+  transition: transform .2s var(--ease-out);
+}
+.skip-link:focus-visible { transform: translateY(0); }
+
+/* ==========================================================================
+   Top bar
+   ========================================================================== */
+
+.topbar {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 100;
+  height: var(--topbar-h);
+  transition: background-color .3s var(--ease-out), backdrop-filter .3s var(--ease-out), border-color .3s var(--ease-out);
+  border-bottom: 1px solid transparent;
+}
+
+.topbar.is-scrolled {
+  background: rgba(11, 11, 22, .72);
+  backdrop-filter: blur(14px) saturate(140%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  border-bottom-color: var(--border);
+}
+
+.topbar__inner {
+  max-width: var(--maxw);
+  height: 100%;
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: .65rem;
+  font-weight: 700;
+  letter-spacing: -.01em;
+}
+.brand__mark { width: 36px; height: 36px; }
+.brand__name { font-size: 1.125rem; }
+
+.nav {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.nav__list {
+  display: flex;
+  align-items: center;
+  gap: 1.75rem;
+  font-size: .95rem;
+}
+
+.nav__list a {
+  position: relative;
+  color: var(--text-muted);
+  transition: color .2s var(--ease-out);
+}
+.nav__list a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  width: 100%;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--accent-grad);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .25s var(--ease-out);
+}
+.nav__list a:hover { color: var(--text); }
+.nav__list a:hover::after { transform: scaleX(1); }
+
+.lang {
+  display: inline-flex;
+  align-items: center;
+  gap: .35rem;
+  padding: .35rem .7rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  font-size: .8rem;
+  font-weight: 600;
+  letter-spacing: .06em;
+}
+.lang__btn {
+  padding: 0 .15rem;
+  color: var(--text-faint);
+  transition: color .2s var(--ease-out);
+}
+.lang__btn:hover { color: var(--text); }
+.lang__btn.is-active { color: var(--accent); }
+.lang__sep { color: var(--text-faint); }
+
+.burger {
+  display: none;
+  margin-left: auto;
+  width: 44px;
+  height: 44px;
+  padding: 11px 10px;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.burger span {
+  display: block;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--text);
+  transition: transform .3s var(--ease-out), opacity .2s var(--ease-out);
+}
+.burger[aria-expanded="true"] span:nth-child(1) { transform: translateY(10px) rotate(45deg); }
+.burger[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+.burger[aria-expanded="true"] span:nth-child(3) { transform: translateY(-10px) rotate(-45deg); }
+
+/* ==========================================================================
+   Hero
+   ========================================================================== */
+
+.hero {
+  /* One size drives both the wordmark and COMING SOON — they must read as a
+     single line of display type split across the two columns. */
+  --hero-display: clamp(2.5rem, 7.4vw, 7.25rem);
+
+  position: relative;
+  min-height: 100vh;
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.hero__bg,
+.hero__blobs,
+.hero__grain {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* Hues are kept, lightness is not: no phase of gradientShift may glare. */
+.hero__bg {
+  background: linear-gradient(125deg,
+    #08080f 0%,
+    #141032 22%,
+    #331544 42%,
+    #5c2340 58%,
+    #7d3823 74%,
+    #0f0e20 100%);
+  background-size: 300% 300%;
+  animation: gradientShift 20s ease-in-out infinite alternate;
+}
+
+.hero__blobs {
+  background:
+    radial-gradient(38% 42% at 18% 28%, rgba(255, 138, 76, .24), transparent 70%),
+    radial-gradient(34% 38% at 78% 22%, rgba(123, 92, 255, .22), transparent 70%),
+    radial-gradient(46% 44% at 62% 82%, rgba(240, 86, 143, .18), transparent 72%);
+  mix-blend-mode: screen;
+  filter: blur(28px);
+  animation: blobDrift 26s ease-in-out infinite alternate;
+}
+
+.hero__grain {
+  background:
+    linear-gradient(rgba(8, 8, 16, .3), rgba(8, 8, 16, .3)),
+    radial-gradient(120% 90% at 50% 50%, transparent 42%, rgba(6, 6, 14, .82) 100%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='.35'/%3E%3C/svg%3E");
+  opacity: .55;
+}
+
+@keyframes gradientShift {
+  0%   { background-position:   0% 50%; }
+  50%  { background-position: 100%  0%; }
+  100% { background-position:  60% 100%; }
+}
+
+@keyframes blobDrift {
+  0%   { transform: translate3d(0, 0, 0) scale(1); }
+  50%  { transform: translate3d(-3%, 2%, 0) scale(1.08); }
+  100% { transform: translate3d(2%, -3%, 0) scale(1.03); }
+}
+
+.hero__inner {
+  width: 100%;
+  max-width: var(--maxw-hero);
+  margin-inline: auto;
+  padding: calc(var(--topbar-h) + 3rem) var(--gutter) 6rem;
+  display: grid;
+  /* max-content, not auto: auto tracks swallow the free space before
+     justify-content can distribute it, and the two blocks end up centred. */
+  grid-template-columns: max-content max-content;
+  justify-content: space-between;
+  align-items: center;
+  gap: clamp(1.5rem, 3vw, 3rem);
+}
+
+.hero__left { justify-self: start; }
+
+.hero__brand {
+  display: flex;
+  align-items: center;
+  gap: clamp(.9rem, 1.6vw, 1.5rem);
+}
+
+.hero__logo {
+  flex: none;
+  width: clamp(72px, 10.5vw, 156px);
+  height: auto;
+  filter: drop-shadow(0 6px 16px rgba(0, 0, 0, .45));
+}
+
+.hero__title {
+  font-size: var(--hero-display);
+  font-weight: 800;
+  letter-spacing: -.03em;
+}
+
+/* Sized to span the brand row above it in one unbroken line: the ratio between
+   this and --hero-display is what keeps both edges flush, so they change together. */
+.hero__tagline {
+  margin-top: 1.5rem;
+  max-width: none;
+  white-space: nowrap;
+  font-size: clamp(.9rem, 2.08vw, 2.04rem);
+  color: rgba(255, 255, 255, .78);
+  line-height: 1.4;
+}
+
+.hero__right {
+  justify-self: end;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(1.25rem, 2.5vw, 2.25rem);
+}
+
+/* the editor shot leads, the status line sits under it */
+.hero__shot {
+  margin: 0;
+  width: clamp(320px, 46vw, 780px);
+  border: 1px solid rgba(255, 255, 255, .14);
+  border-radius: 14px;
+  overflow: hidden;
+  background: #1f1f1f;
+  box-shadow: 0 24px 60px -24px rgba(0, 0, 0, .75), 0 2px 8px rgba(0, 0, 0, .35);
+}
+.hero__shot img { width: 100%; height: auto; }
+
+.hero__soon {
+  display: flex;
+  flex-direction: column;
+  flex-direction: row;
+  gap: .28em;
+  font-size: clamp(1.5rem, 3.1vw, 3rem);
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -.045em;
+  background: linear-gradient(100deg, #ffffff 10%, #ffd9c0 45%, rgba(255, 255, 255, .55) 90%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.hero__scroll {
+  position: absolute;
+  left: 50%;
+  bottom: 2.25rem;
+  translate: -50% 0;
+  width: 2px;
+  height: 56px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, .18);
+  overflow: hidden;
+}
+.hero__scroll-line {
+  display: block;
+  width: 100%;
+  height: 40%;
+  border-radius: 2px;
+  background: #fff;
+  animation: scrollHint 2.4s var(--ease-out) infinite;
+}
+@keyframes scrollHint {
+  0%   { transform: translateY(-100%); opacity: 0; }
+  35%  { opacity: 1; }
+  100% { transform: translateY(250%); opacity: 0; }
+}
+
+/* ==========================================================================
+   Feature sections
+   ========================================================================== */
+
+/* clip, not hidden: the pre-reveal translateX must not widen the page,
+   but a scroll container here would break the sticky top bar */
+.feature {
+  padding-block: var(--section-pad);
+  overflow-x: clip;
+}
+
+/* every other feature gets a slightly lifted band; data-side already alternates */
+.feature[data-side="right"] {
+  background: linear-gradient(180deg, transparent, var(--bg-alt) 22%, var(--bg-alt) 78%, transparent);
+}
+
+.feature__inner {
+  max-width: var(--maxw);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+  align-items: center;
+  gap: clamp(2.5rem, 6vw, 5.5rem);
+}
+
+/* Image is always first in the DOM (so it stacks on top on mobile);
+   on wide screens data-side flips the visual order. */
+.feature[data-side="right"] .feature__media { order: 2; }
+.feature[data-side="right"] .feature__body  { order: 1; }
+
+.feature__media {
+  margin: 0;
+  border-radius: var(--radius);
+  overflow: hidden;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  box-shadow: 0 30px 80px -40px rgba(0, 0, 0, .9);
+}
+.feature__media img { width: 100%; height: auto; }
+
+.feature__eyebrow,
+.section-eyebrow {
+  margin-bottom: .9rem;
+  font-size: .8rem;
+  font-weight: 700;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  background: var(--accent-grad);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.feature__title,
+.section-title {
+  font-size: clamp(2rem, 3.6vw, 3rem);
+  font-weight: 800;
+}
+
+.feature__text {
+  margin-top: 1.1rem;
+  max-width: 46ch;
+  color: var(--text-muted);
+  font-size: 1.0625rem;
+}
+
+.checks {
+  margin-top: 2rem;
+  display: grid;
+  gap: .9rem;
+}
+
+.checks li {
+  position: relative;
+  padding-left: 2.25rem;
+  font-size: 1.0625rem;
+  font-weight: 500;
+  opacity: 0;
+  transform: translateY(14px);
+  transition:
+    opacity .5s var(--ease-out),
+    transform .5s var(--ease-out);
+  transition-delay: calc(.22s + var(--i, 0) * .09s);
+}
+
+.checks li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  translate: 0 -50%;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--accent-grad);
+  box-shadow: 0 4px 14px -4px rgba(255, 138, 76, .8);
+}
+
+.checks li::after {
+  content: "";
+  position: absolute;
+  left: 8px;
+  top: 50%;
+  width: 6px;
+  height: 11px;
+  border: solid #14101f;
+  border-width: 0 2.5px 2.5px 0;
+  translate: 0 -62%;
+  rotate: 45deg;
+}
+
+.feature__body.is-visible .checks li {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ==========================================================================
+   Comparison
+
+   Engines are rows; each metric is a number plus a bar. The bar width comes
+   from an inline `--w` — the share of the heaviest result in that column, so
+   build size and heap scale independently of each other.
+   ========================================================================== */
+
+.compare { padding-block: var(--section-pad); }
+
+.compare__inner {
+  max-width: var(--maxw);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.compare__head { margin-bottom: 2.75rem; }
+
+.compare__lead {
+  margin-top: 1.1rem;
+  max-width: 66ch;
+  color: var(--text-muted);
+  font-size: 1.0625rem;
+}
+
+.compare__block + .compare__block { margin-top: 2.25rem; }
+
+.compare__caption {
+  display: flex;
+  align-items: baseline;
+  gap: .9rem;
+  flex-wrap: wrap;
+  margin-bottom: .7rem;
+}
+.compare__caption h3 { font-size: 1.15rem; font-weight: 700; }
+
+/* Legend maps the two bars in every cell; without it the pair is unreadable. */
+.compare__platform {
+  padding: .22rem .6rem;
+  border-radius: 999px;
+  font-size: .7rem;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--accent-3);
+  background: rgba(123, 92, 255, .16);
+}
+
+/* the table itself never widens the page — it scrolls inside this box */
+.table-scroll {
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+
+.cmp {
+  width: 100%;
+  min-width: 780px;
+  border-collapse: collapse;
+}
+
+.cmp th,
+.cmp td {
+  padding: .5rem 1.1rem;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+  vertical-align: middle;
+}
+.cmp tbody tr:last-child > * { border-bottom: 0; }
+
+.cmp thead th {
+  font-size: .75rem;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  background: rgba(255, 255, 255, .03);
+}
+
+.cmp td { width: 31%; }
+.cmp td:last-child { width: auto; }
+
+.cmp__engine {
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: -.01em;
+}
+.cmp__engine small {
+  font-size: .75rem;
+  font-weight: 500;
+  color: var(--text-faint);
+}
+
+/* Cocos Creator has no wasm at all, so its row measures something else and has
+   to say so under the engine name — the inline <small> holds the version. */
+.cmp__engine-note {
+  display: block;
+  margin-top: .15rem;
+  font-size: .7rem;
+  line-height: 1.3;
+}
+
+/* Value and bar share one line: stacking them doubled every row's height,
+   and with two tables on the page that cost a whole screen of scrolling. */
+.cmp__value {
+  display: inline-block;
+  width: 5.2em;
+  font-size: .95rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  vertical-align: middle;
+}
+
+.cmp__bar {
+  display: inline-block;
+  position: relative;
+  width: calc(100% - 6em);
+  height: 8px;
+  vertical-align: middle;
+  border-radius: 5px;
+  background: rgba(255, 255, 255, .09);
+}
+.cmp__bar::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: var(--w, 0%);
+  border-radius: 5px;
+  background: rgba(255, 255, 255, .3);
+}
+
+/* our row: tinted and accented by name */
+.cmp__ours > * { background: rgba(255, 138, 76, .07); }
+.cmp__ours .cmp__engine { color: var(--accent); }
+
+/* The leader of a column gets the brand gradient — whoever it is. Marking only
+   our own row would make the table read as a claim rather than a measurement. */
+.cmp__best .cmp__value { color: var(--accent); }
+.cmp__best .cmp__bar::before { background: var(--accent-grad); }
+
+.cmp__demo {
+  display: inline-flex;
+  align-items: center;
+  gap: .3rem;
+  color: var(--accent);
+  font-weight: 600;
+  font-size: .92rem;
+}
+.cmp__demo::after {
+  content: "↗";
+  display: inline-block;
+  transition: translate .2s var(--ease-out);
+}
+.cmp__demo:hover::after { translate: 2px -2px; }
+
+.compare__note {
+  margin-top: .9rem;
+  color: var(--text-faint);
+  font-size: .875rem;
+}
+
+/* ==========================================================================
+   Roadmap
+
+   Each milestone is a three-column row: the month lives outside the card and
+   the middle column is the rail. The rail is uniform except for the current
+   milestone (.milestone--now), whose month and node are tinted with the accent
+   and whose node carries a pulsing ring — the pill states progress in words,
+   the node states it on the track.
+   ========================================================================== */
+
+.roadmap {
+  padding-block: var(--section-pad);
+  background: linear-gradient(180deg, transparent, var(--bg-alt) 20%, var(--bg-alt) 80%, transparent);
+}
+
+.roadmap__inner {
+  max-width: var(--maxw);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.roadmap__head { margin-bottom: 3rem; }
+
+.roadmap__list { display: block; }
+
+.milestone {
+  display: grid;
+  grid-template-columns: 150px 40px minmax(0, 1fr);
+  column-gap: clamp(1rem, 2.5vw, 1.75rem);
+  align-items: start;
+}
+
+.milestone__when {
+  text-align: right;
+  padding-top: .1rem;
+}
+.milestone__mon {
+  display: block;
+  font-size: clamp(1.5rem, 2.4vw, 1.9rem);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -.02em;
+}
+.milestone__year {
+  display: block;
+  margin-top: .3rem;
+  font-size: .85rem;
+  font-weight: 600;
+  letter-spacing: .12em;
+  color: var(--text-faint);
+}
+
+/* rail: a full-height track with the node pinned to the top */
+.milestone__rail {
+  position: relative;
+  justify-self: center;
+  width: 100%;
+  align-self: stretch;
+}
+.milestone__rail::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  translate: -50% 0;
+  background: rgba(255, 255, 255, .1);
+}
+/* nothing to draw past the last node */
+.milestone:last-child .milestone__rail::before { bottom: auto; height: 28px; }
+
+.milestone__node {
+  position: absolute;
+  left: 50%;
+  top: 2px;
+  translate: -50% 0;
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--bg);
+  border: 3px solid rgba(255, 255, 255, .22);
+  color: var(--bg);
+}
+.milestone__node svg { width: 12px; height: 12px; }
+
+/* the milestone under way: accent month, filled node, one soft pulsing ring */
+.milestone--now .milestone__mon { color: var(--accent); }
+.milestone--now .milestone__node {
+  background: var(--accent);
+  border-color: var(--accent);
+  box-shadow: 0 0 0 5px rgba(255, 138, 76, .14);
+}
+.milestone--now .milestone__node::after {
+  content: "";
+  position: absolute;
+  inset: -3px;
+  border-radius: 50%;
+  border: 2px solid var(--accent);
+  animation: node-pulse 2.6s ease-out infinite;
+}
+@keyframes node-pulse {
+  0%   { transform: scale(1);   opacity: .65; }
+  70%  { transform: scale(1.9); opacity: 0; }
+  100% { transform: scale(1.9); opacity: 0; }
+}
+
+.milestone__body { padding-bottom: 2.75rem; }
+.milestone:last-child .milestone__body { padding-bottom: 0; }
+
+.milestone__title {
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+  flex-wrap: wrap;
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+
+.milestone__pill {
+  padding: .2rem .6rem;
+  border-radius: 999px;
+  font-size: .7rem;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: rgba(255, 138, 76, .16);
+}
+
+.milestone__text {
+  margin-top: .35rem;
+  max-width: 60ch;
+  color: var(--text-muted);
+  font-size: .975rem;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem;
+  margin-top: 1rem;
+}
+.tags li {
+  padding: .3rem .75rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--text-muted);
+  font-size: .84rem;
+}
+
+/* ==========================================================================
+   News
+   ========================================================================== */
+
+.news {
+  padding-block: var(--section-pad);
+  border-top: 1px solid var(--border);
+  background: radial-gradient(80% 60% at 50% 0%, rgba(123, 92, 255, .1), transparent 70%);
+}
+
+.news__inner {
+  max-width: var(--maxw);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.news__head { margin-bottom: 3rem; }
+
+.news__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+  gap: 1.5rem;
+}
+
+.news-card {
+  display: flex;
+  flex-direction: column;
+  gap: .75rem;
+  padding: 1.75rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  transition: transform .3s var(--ease-out), border-color .3s var(--ease-out), background-color .3s var(--ease-out);
+}
+.news-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--border-hi);
+  background: var(--surface-hi);
+}
+
+.news-card__date {
+  font-size: .8rem;
+  font-weight: 600;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+
+.news-card__title { font-size: 1.3rem; font-weight: 700; }
+
+.news-card__text {
+  color: var(--text-muted);
+  font-size: .975rem;
+}
+
+.news-card__link {
+  margin-top: auto;
+  padding-top: .5rem;
+  font-weight: 600;
+  color: var(--accent);
+}
+.news-card__link::after {
+  content: " →";
+  display: inline-block;
+  transition: translate .2s var(--ease-out);
+}
+.news-card__link:hover::after { translate: 4px 0; }
+
+/* ==========================================================================
+   Bottom bar
+   ========================================================================== */
+
+.bottombar {
+  border-top: 1px solid var(--border);
+  background: var(--bg-alt);
+}
+
+/* A short footer: mark and tagline on one side, the one way to get in touch on
+   the other. Centred, the same three lines stacked into a tall column. */
+.bottombar__inner {
+  max-width: var(--maxw);
+  margin-inline: auto;
+  padding: clamp(2.5rem, 5vw, 3.5rem) var(--gutter);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.75rem 3rem;
+}
+
+.bottombar__inner .brand__mark { width: 36px; height: 36px; }
+.bottombar__inner .brand__name { font-size: 1.15rem; }
+
+.bottombar__tagline {
+  margin-top: .6rem;
+  color: var(--text-muted);
+  font-size: .95rem;
+}
+
+.bottombar__contact {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: .3rem;
+  text-align: right;
+}
+
+.bottombar__collab {
+  font-size: .85rem;
+  letter-spacing: .04em;
+  color: var(--text-faint);
+}
+
+.bottombar__mail {
+  position: relative;
+  color: var(--accent);
+  font-weight: 600;
+  font-size: 1.05rem;
+}
+/* underline grows on hover instead of sitting there permanently */
+.bottombar__mail::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -3px;
+  width: 100%;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--accent-grad);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .25s var(--ease-out);
+}
+.bottombar__mail:hover::after { transform: scaleX(1); }
+
+/* below the fold of a phone the two halves stack and both align left */
+@media (max-width: 640px) {
+  .bottombar__contact { align-items: flex-start; text-align: left; }
+}
+
+.bottombar__base {
+  max-width: var(--maxw);
+  margin-inline: auto;
+  padding: 1.5rem var(--gutter) 2.5rem;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: center;
+  color: var(--text-faint);
+  font-size: .875rem;
+}
+
+/* ==========================================================================
+   Scroll reveal
+   ========================================================================== */
+
+[data-reveal] {
+  opacity: 0;
+  transition:
+    opacity .6s var(--ease-out),
+    transform var(--reveal-dur) var(--ease-out);
+  transition-delay: calc(var(--i, 0) * .1s);
+  will-change: transform, opacity;
+}
+
+/* default: rise from below (text columns, news cards, headings) */
+[data-reveal] { transform: translateY(28px); }
+
+/* media slides in from the side the section declares */
+.feature[data-side="left"]  .feature__media[data-reveal] { transform: translateX(-70px); }
+.feature[data-side="right"] .feature__media[data-reveal] { transform: translateX(70px); }
+
+/* text column drifts in from the opposite side, more subtly */
+.feature[data-side="left"]  .feature__body[data-reveal] { transform: translateX(40px); }
+.feature[data-side="right"] .feature__body[data-reveal] { transform: translateX(-40px); }
+
+[data-reveal].is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* ==========================================================================
+   Responsive
+   ========================================================================== */
+
+/* The nav collapses earlier than the rest of the layout: seven items in
+   Russian ("Дорожная карта", "Сообщество") need ~1055px, so keeping the
+   inline menu down to 900px would let it collide with the logo.
+   Anything below is layout-only and stays on the 900px breakpoint. */
+@media (max-width: 1150px) {
+  .burger { display: flex; }
+
+  .nav {
+    position: fixed;
+    inset: var(--topbar-h) 0 auto 0;
+    margin: 0;
+    padding: 1.5rem var(--gutter) 2rem;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.5rem;
+    background: rgba(11, 11, 22, .96);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+    transform: translateY(-8px);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity .25s var(--ease-out), transform .25s var(--ease-out), visibility .25s;
+  }
+  .nav.is-open {
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .nav__list {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.15rem;
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 900px) {
+  :root { --topbar-h: 64px; }
+
+  .hero__inner {
+    grid-template-columns: 1fr;
+    padding-bottom: 5rem;
+    gap: 2.5rem;
+  }
+  /* Stacked layout: the tagline no longer has a brand row to match, so it
+     wraps normally and the display size drops to fit a single column. */
+  .hero { --hero-display: clamp(2.75rem, 12vw, 6rem); }
+  .hero__right { justify-self: start; align-items: flex-start; }
+  .hero__shot { width: 100%; }
+  .hero__tagline { white-space: normal; max-width: 30ch; font-size: clamp(1.05rem, 3.4vw, 1.5rem); }
+
+  .feature__inner { grid-template-columns: 1fr; }
+  .feature[data-side="right"] .feature__media,
+  .feature[data-side="right"] .feature__body { order: initial; }
+
+  .bottombar__inner { grid-template-columns: 1fr; }
+
+  /* rail moves to the left edge; the quarter sits above the card */
+  .milestone {
+    grid-template-columns: 34px minmax(0, 1fr);
+    row-gap: .35rem;
+  }
+  .milestone__rail { grid-column: 1; grid-row: 1 / span 2; }
+  .milestone__when { grid-column: 2; grid-row: 1; text-align: left; padding-top: 0; }
+  .milestone__mon { display: inline; font-size: 1.4rem; }
+  .milestone__year { display: inline; margin-left: .4rem; }
+  .milestone__body { grid-column: 2; grid-row: 2; }
+}
+
+@media (max-width: 560px) {
+  .hero__logo { width: 56px; }
+
+  .feature[data-side="left"]  .feature__media[data-reveal],
+  .feature[data-side="right"] .feature__media[data-reveal] { transform: translateY(28px); }
+  .feature[data-side="left"]  .feature__body[data-reveal],
+  .feature[data-side="right"] .feature__body[data-reveal] { transform: translateY(28px); }
+
+  }
+
+/* ==========================================================================
+   Reduced motion
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+
+  *, *::before, *::after {
+    animation-duration: .001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .001ms !important;
+    transition-delay: 0ms !important;
+  }
+
+  .hero__bg { background-position: 30% 50%; }
+
+  [data-reveal],
+  .checks li {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .hero__scroll { display: none; }
+}

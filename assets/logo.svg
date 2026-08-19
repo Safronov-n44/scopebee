@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="CoBee logo">
+  <defs>
+    <!-- userSpaceOnUse, not the default objectBoundingBox: the stroke and the
+         honey are separate paths, and a per-path ramp would break the single
+         light source — the top of the cell must stay lighter than its bottom. -->
+    <linearGradient id="cb-grad" gradientUnits="userSpaceOnUse" x1="18" y1="11" x2="46" y2="53">
+      <stop offset="0" stop-color="#ffeec4"/>
+      <stop offset="1" stop-color="#f0a52a"/>
+    </linearGradient>
+  </defs>
+  <!-- A honeycomb cell filled to just below half. The honey is drawn first and
+       the wall on top, so the stroke covers where the fill meets the edge;
+       its surface is deliberately flat — a meniscus would imply a volume the
+       engine does not render. -->
+  <path d="M13.81 38.5H50.19V42.5L32 53 13.81 42.5Z" fill="#e08c00"/>
+  <path d="M32 11 50.19 21.5 50.19 42.5 32 53 13.81 42.5 13.81 21.5Z"
+        fill="none" stroke="url(#cb-grad)" stroke-width="5" stroke-linejoin="round" stroke-linecap="round"/>
+</svg>

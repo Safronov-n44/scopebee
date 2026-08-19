@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="CoBee logo">
+  <!-- Same geometry as logo.svg, inheriting its colour from the host.
+       Meant for the editor, where this mark denotes a scene. The honey keeps
+       the same value as the wall: at icon size the filled bottom reads as
+       shape, and a second tint would only muddy it. -->
+  <g fill="currentColor" stroke="currentColor" stroke-width="5" stroke-linejoin="round" stroke-linecap="round">
+    <path d="M13.81 38.5H50.19V42.5L32 53 13.81 42.5Z" stroke="none"/>
+    <path d="M32 11 50.19 21.5 50.19 42.5 32 53 13.81 42.5 13.81 21.5Z" fill="none"/>
+  </g>
+</svg>
