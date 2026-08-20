@@ -572,6 +572,9 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 }
 
 .cmp td { width: 31%; }
+/* Physics table has one data column instead of two, so it gets a wider one —
+   at 31% the bar would sit in a sliver next to an oversized demo column. */
+.cmp--physics td { width: 55%; }
 .cmp td:last-child { width: auto; }
 
 .cmp__engine {

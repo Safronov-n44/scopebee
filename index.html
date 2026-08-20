@@ -251,6 +251,52 @@
         </div>
         <p class="compare__note" data-i18n="compare.note2">The same game ported to each engine. Exported with default settings, release build.</p>
       </div>
+
+      <div class="compare__block" data-reveal style="--i:2">
+        <div class="compare__caption">
+          <h3 data-i18n="compare.physics">Physics stress test</h3>
+          <span class="compare__platform">HTML5 · 60 FPS</span>
+        </div>
+        <div class="table-scroll">
+          <table class="cmp cmp--physics">
+            <thead>
+              <tr>
+                <th data-i18n="compare.th.engine">Engine</th>
+                <th data-i18n="compare.th.bodies">Bodies at 60 FPS</th>
+                <th data-i18n="compare.th.demo">Demo</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="cmp__ours">
+                <th class="cmp__engine">ScopeBee <small>0.1.0</small><small class="cmp__engine-note">Box2D 3.1</small></th>
+                <td class="cmp__best"><span class="cmp__value">7500</span><span class="cmp__bar" style="--w:100%"></span></td>
+                <td><a class="cmp__demo" href="games/tumbler/scopebee/" data-i18n="compare.open">Open</a></td>
+              </tr>
+              <tr>
+                <th class="cmp__engine">Unity <small>6.4</small><small class="cmp__engine-note">Low Level Physics</small></th>
+                <td><span class="cmp__value">4500</span><span class="cmp__bar" style="--w:60%"></span></td>
+                <td><a class="cmp__demo" href="games/tumbler/unity-lowlevel/" data-i18n="compare.open">Open</a></td>
+              </tr>
+              <tr>
+                <th class="cmp__engine">Defold <small>1.13.0</small><small class="cmp__engine-note">Box2D v3</small></th>
+                <td><span class="cmp__value">4500</span><span class="cmp__bar" style="--w:60%"></span></td>
+                <td><a class="cmp__demo" href="games/tumbler/defold/" data-i18n="compare.open">Open</a></td>
+              </tr>
+              <tr>
+                <th class="cmp__engine">Unity <small>6.4</small><small class="cmp__engine-note">Standard Physics</small></th>
+                <td><span class="cmp__value">2000</span><span class="cmp__bar" style="--w:26.7%"></span></td>
+                <td><a class="cmp__demo" href="games/tumbler/unity/" data-i18n="compare.open">Open</a></td>
+              </tr>
+              <tr>
+                <th class="cmp__engine">Cocos Creator <small>3.8</small></th>
+                <td><span class="cmp__value">1500</span><span class="cmp__bar" style="--w:20%"></span></td>
+                <td><a class="cmp__demo" href="games/tumbler/cocos/" data-i18n="compare.open">Open</a></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="compare__note" data-i18n="compare.note3">The same tumbler scene in every engine: a rotating box, bodies added until the frame stops holding 60 FPS. Higher is better. Measured on a Mac mini M2, 16 GB, Chrome 151.0.7922.138 (arm64).</p>
+      </div>
     </div>
   </section>
 
