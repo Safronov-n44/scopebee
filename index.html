@@ -5,8 +5,24 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>ScopeBee — Web-first, lightweight and performant game engine</title>
 <meta name="description" content="ScopeBee — most lightweight and performant game engine. Coming soon.">
+<meta name="theme-color" content="#0b0b16">
+
+<!-- Link previews. og:image is relative on purpose: the page has no fixed
+     domain yet and every major scraper resolves it against the page URL. -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="ScopeBee — Web-first, lightweight and performant game engine">
+<meta property="og:description" content="A 2D game engine that ships the smallest binary and the fastest frame. Coming soon.">
+<meta property="og:image" content="assets/editor.png">
+<meta property="og:image:width" content="1500">
+<meta property="og:image:height" content="812">
+<meta name="twitter:card" content="summary_large_image">
+
 <link rel="icon" href="assets/logo.svg" type="image/svg+xml">
 <link rel="stylesheet" href="styles.css">
+
+<!-- Marks that scripting is on, before first paint. Every scroll-reveal rule
+     hangs off .js, so with JS blocked the page renders fully instead of blank. -->
+<script>document.documentElement.classList.add('js');</script>
 </head>
 <body>
 
@@ -19,7 +35,7 @@
       <span class="brand__name">ScopeBee</span>
     </a>
 
-    <button class="burger" id="burger" aria-expanded="false" aria-controls="nav" aria-label="Menu">
+    <button class="burger" id="burger" aria-expanded="false" aria-controls="nav" aria-label="Menu" data-i18n-aria="a11y.menu">
       <span></span><span></span><span></span>
     </button>
 
@@ -33,7 +49,7 @@
         <li><a href="#roadmap" data-i18n="nav.roadmap">Roadmap</a></li>
         <li><a href="#footer" data-i18n="nav.contact">Contact</a></li>
       </ul>
-      <div class="lang" role="group" aria-label="Language">
+      <div class="lang" role="group" aria-label="Language" data-i18n-aria="a11y.lang">
         <button type="button" class="lang__btn" data-lang="en">EN</button>
         <span class="lang__sep" aria-hidden="true">/</span>
         <button type="button" class="lang__btn" data-lang="ru">RU</button>
@@ -59,8 +75,11 @@
       </div>
       <div class="hero__right">
         <figure class="hero__shot">
-          <img src="assets/editor.png" alt="ScopeBee editor: hierarchy, scene viewport and inspector"
-               width="1500" height="812" fetchpriority="high">
+          <picture>
+            <source srcset="assets/editor.webp" type="image/webp">
+            <img src="assets/editor.png" alt="ScopeBee editor: hierarchy, scene viewport and inspector"
+                 data-i18n-alt="alt.editor" width="1500" height="812" fetchpriority="high" decoding="async">
+          </picture>
         </figure>
         <p class="hero__soon"><span>COMING</span><span>SOON</span></p>
       </div>
@@ -75,8 +94,11 @@
   <section class="feature" id="engine" data-side="left">
     <div class="feature__inner">
       <figure class="feature__media" data-reveal>
-        <img src="assets/engine-shot.png" alt="ScopeBee editor with a Flappy Bird scene open"
-             loading="lazy" width="1400" height="1050">
+        <picture>
+          <source srcset="assets/engine-shot.webp" type="image/webp">
+          <img src="assets/engine-shot.png" alt="ScopeBee editor with a Flappy Bird scene open"
+               data-i18n-alt="alt.engine" loading="lazy" decoding="async" width="1400" height="1050">
+        </picture>
       </figure>
       <div class="feature__body" data-reveal>
         <p class="feature__eyebrow" data-i18n="engine.eyebrow">Runtime</p>
@@ -96,7 +118,7 @@
   <section class="feature" id="beef" data-side="right">
     <div class="feature__inner">
       <figure class="feature__media" data-reveal>
-        <img src="assets/feature-beef.svg" alt="" loading="lazy" width="800" height="600">
+        <img src="assets/feature-beef.svg" alt="" loading="lazy" decoding="async" width="800" height="600">
       </figure>
       <div class="feature__body" data-reveal>
         <p class="feature__eyebrow" data-i18n="beef.eyebrow">Language</p>
@@ -115,8 +137,11 @@
   <section class="feature" id="editor" data-side="left">
     <div class="feature__inner">
       <figure class="feature__media" data-reveal>
-        <img src="assets/editor-panels.png" alt="ScopeBee editor panels: colour picker, gradient and curve editors"
-             loading="lazy" width="1400" height="1050">
+        <picture>
+          <source srcset="assets/editor-panels.webp" type="image/webp">
+          <img src="assets/editor-panels.png" alt="ScopeBee editor panels: colour picker, gradient and curve editors"
+               data-i18n-alt="alt.panels" loading="lazy" decoding="async" width="1400" height="1050">
+        </picture>
       </figure>
       <div class="feature__body" data-reveal>
         <p class="feature__eyebrow" data-i18n="editor.eyebrow">Tooling</p>
@@ -135,8 +160,11 @@
   <section class="feature" id="converter" data-side="right">
     <div class="feature__inner">
       <figure class="feature__media" data-reveal>
-        <img src="assets/converter-shot.png" alt="The converter window inside Unity, listing assemblies and types to export"
-             loading="lazy" width="1400" height="1050">
+        <picture>
+          <source srcset="assets/converter-shot.webp" type="image/webp">
+          <img src="assets/converter-shot.png" alt="The converter window inside Unity, listing assemblies and types to export"
+               data-i18n-alt="alt.converter" loading="lazy" decoding="async" width="1400" height="1050">
+        </picture>
       </figure>
       <div class="feature__body" data-reveal>
         <p class="feature__eyebrow" data-i18n="convert.eyebrow">Migration</p>
@@ -157,140 +185,140 @@
       <header class="compare__head" data-reveal>
         <p class="section-eyebrow" data-i18n="compare.eyebrow">Numbers, not promises</p>
         <h2 class="section-title" data-i18n="compare.title">Comparison</h2>
-        <p class="compare__lead" data-i18n="compare.lead">The same projects built with different engines using default settings. Bar length is the share of the heaviest result in that column.</p>
+        <p class="compare__lead" data-i18n="compare.lead">The same projects built with different engines. Bar length is the share of the largest value in that column.</p>
       </header>
 
       <div class="compare__block" data-reveal style="--i:0">
         <div class="compare__caption">
-          <h3 data-i18n="compare.empty">Empty project</h3>
-          <span class="compare__platform">HTML5 · .wasm, uncompressed</span>
+          <h3 id="cmp-empty" data-i18n="compare.empty">Empty project</h3>
+          <span class="compare__platform" data-i18n="compare.platform.wasm">HTML5 · .wasm, uncompressed</span>
         </div>
-        <div class="table-scroll">
+        <div class="table-scroll" role="region" aria-labelledby="cmp-empty" tabindex="0">
           <table class="cmp">
             <thead>
               <tr>
-                <th data-i18n="compare.th.engine">Engine</th>
-                <th data-i18n="compare.th.wasm">WASM size</th>
-                <th data-i18n="compare.th.heap">Heap Snapshot</th>
-                <th data-i18n="compare.th.demo">Demo</th>
+                <th scope="col" data-i18n="compare.th.engine">Engine</th>
+                <th scope="col" data-i18n="compare.th.wasm">WASM size</th>
+                <th scope="col" data-i18n="compare.th.heap">Heap Snapshot</th>
+                <th scope="col" data-i18n="compare.th.demo">Demo</th>
               </tr>
             </thead>
             <tbody>
               <tr class="cmp__ours">
-                <th class="cmp__engine">ScopeBee <small>0.1.0</small></th>
+                <th class="cmp__engine" scope="row">ScopeBee <small>0.1.0</small></th>
                 <td class="cmp__best"><span class="cmp__value">690 KB</span><span class="cmp__bar" style="--w:3.8%"></span></td>
                 <td><span class="cmp__value">9.4 MB</span><span class="cmp__bar" style="--w:7.9%"></span></td>
-                <td><a class="cmp__demo" href="games/empty/scopebee/" data-i18n="compare.open">Open</a></td>
+                <td><a class="cmp__demo" href="games/empty/scopebee/" target="_blank" rel="noopener" data-i18n="compare.open">Open</a></td>
               </tr>
               <tr>
-                <th class="cmp__engine">Cocos Creator <small>3.8</small><small class="cmp__engine-note" data-i18n="compare.cocos.note">(no wasm — assets + cocos-js measured)</small></th>
+                <th class="cmp__engine" scope="row">Cocos Creator <small>3.8</small><small class="cmp__engine-note" data-i18n="compare.cocos.note">(no wasm — assets + cocos-js measured)</small></th>
                 <td><span class="cmp__value">1.14 MB</span><span class="cmp__bar" style="--w:6.4%"></span></td>
                 <td class="cmp__best"><span class="cmp__value">9.0 MB</span><span class="cmp__bar" style="--w:7.6%"></span></td>
-                <td><a class="cmp__demo" href="games/empty/cocos/" data-i18n="compare.open">Open</a></td>
+                <td><a class="cmp__demo" href="games/empty/cocos/" target="_blank" rel="noopener" data-i18n="compare.open">Open</a></td>
               </tr>
               <tr>
-                <th class="cmp__engine">Defold <small>1.13.0</small></th>
+                <th class="cmp__engine" scope="row">Defold <small>1.13.0</small></th>
                 <td><span class="cmp__value">1.44 MB</span><span class="cmp__bar" style="--w:8.1%"></span></td>
                 <td><span class="cmp__value">40.3 MB</span><span class="cmp__bar" style="--w:33.9%"></span></td>
-                <td><a class="cmp__demo" href="games/empty/defold/" data-i18n="compare.open">Open</a></td>
+                <td><a class="cmp__demo" href="games/empty/defold/" target="_blank" rel="noopener" data-i18n="compare.open">Open</a></td>
               </tr>
               <tr>
-                <th class="cmp__engine">Unity <small>6.4</small></th>
+                <th class="cmp__engine" scope="row">Unity <small>6.4</small></th>
                 <td><span class="cmp__value">17.8 MB</span><span class="cmp__bar" style="--w:100%"></span></td>
                 <td><span class="cmp__value">119 MB</span><span class="cmp__bar" style="--w:100%"></span></td>
-                <td><a class="cmp__demo" href="games/empty/unity/" data-i18n="compare.open">Open</a></td>
+                <td><a class="cmp__demo" href="games/empty/unity/" target="_blank" rel="noopener" data-i18n="compare.open">Open</a></td>
               </tr>
             </tbody>
           </table>
         </div>
-        <p class="compare__note" data-i18n="compare.note1">Empty project, exported with default settings, release build.</p>
+        <p class="compare__note" data-i18n="compare.note1">Empty project, release build, stripped as far as each engine allows. WASM size is the uncompressed .wasm on disk — Cocos Creator ships no wasm, so its assets and cocos-js folders are measured instead. Heap is a Chrome DevTools heap snapshot taken on an idle scene right after load.</p>
       </div>
 
       <div class="compare__block" data-reveal style="--i:1">
         <div class="compare__caption">
-          <h3>Flappy Bird</h3>
-          <span class="compare__platform">HTML5 · .wasm, uncompressed</span>
+          <h3 id="cmp-flappy">Flappy Bird</h3>
+          <span class="compare__platform" data-i18n="compare.platform.wasm">HTML5 · .wasm, uncompressed</span>
         </div>
-        <div class="table-scroll">
+        <div class="table-scroll" role="region" aria-labelledby="cmp-flappy" tabindex="0">
           <table class="cmp">
             <thead>
               <tr>
-                <th data-i18n="compare.th.engine">Engine</th>
-                <th data-i18n="compare.th.wasm">WASM size</th>
-                <th data-i18n="compare.th.heap">Heap Snapshot</th>
-                <th data-i18n="compare.th.demo">Demo</th>
+                <th scope="col" data-i18n="compare.th.engine">Engine</th>
+                <th scope="col" data-i18n="compare.th.wasm">WASM size</th>
+                <th scope="col" data-i18n="compare.th.heap">Heap Snapshot</th>
+                <th scope="col" data-i18n="compare.th.demo">Demo</th>
               </tr>
             </thead>
             <tbody>
               <tr class="cmp__ours">
-                <th class="cmp__engine">ScopeBee <small>0.1.0</small></th>
+                <th class="cmp__engine" scope="row">ScopeBee <small>0.1.0</small></th>
                 <td class="cmp__best"><span class="cmp__value">1.14 MB</span><span class="cmp__bar" style="--w:5.4%"></span></td>
                 <td class="cmp__best"><span class="cmp__value">15.6 MB</span><span class="cmp__bar" style="--w:10.2%"></span></td>
-                <td><a class="cmp__demo" href="games/flappybird/scopebee/" data-i18n="compare.play">Play</a></td>
+                <td><a class="cmp__demo" href="games/flappybird/scopebee/" target="_blank" rel="noopener" data-i18n="compare.play">Play</a></td>
               </tr>
               <tr>
-                <th class="cmp__engine">Defold <small>1.13.0</small></th>
+                <th class="cmp__engine" scope="row">Defold <small>1.13.0</small></th>
                 <td><span class="cmp__value">2.26 MB</span><span class="cmp__bar" style="--w:10.7%"></span></td>
                 <td><span class="cmp__value">42.2 MB</span><span class="cmp__bar" style="--w:27.6%"></span></td>
-                <td><a class="cmp__demo" href="games/flappybird/defold/" data-i18n="compare.play">Play</a></td>
+                <td><a class="cmp__demo" href="games/flappybird/defold/" target="_blank" rel="noopener" data-i18n="compare.play">Play</a></td>
               </tr>
               <tr>
-                <th class="cmp__engine">Cocos Creator <small>3.8</small><small class="cmp__engine-note" data-i18n="compare.cocos.note">(no wasm — assets + cocos-js measured)</small></th>
+                <th class="cmp__engine" scope="row">Cocos Creator <small>3.8</small><small class="cmp__engine-note" data-i18n="compare.cocos.note">(no wasm — assets + cocos-js measured)</small></th>
                 <td><span class="cmp__value">3.46 MB</span><span class="cmp__bar" style="--w:16.4%"></span></td>
                 <td><span class="cmp__value">20.5 MB</span><span class="cmp__bar" style="--w:13.4%"></span></td>
-                <td><a class="cmp__demo" href="games/flappybird/cocos/" data-i18n="compare.play">Play</a></td>
+                <td><a class="cmp__demo" href="games/flappybird/cocos/" target="_blank" rel="noopener" data-i18n="compare.play">Play</a></td>
               </tr>
               <tr>
-                <th class="cmp__engine">Unity <small>6.4</small></th>
+                <th class="cmp__engine" scope="row">Unity <small>6.4</small></th>
                 <td><span class="cmp__value">21.1 MB</span><span class="cmp__bar" style="--w:100%"></span></td>
                 <td><span class="cmp__value">153 MB</span><span class="cmp__bar" style="--w:100%"></span></td>
-                <td><a class="cmp__demo" href="games/flappybird/unity/" data-i18n="compare.play">Play</a></td>
+                <td><a class="cmp__demo" href="games/flappybird/unity/" target="_blank" rel="noopener" data-i18n="compare.play">Play</a></td>
               </tr>
             </tbody>
           </table>
         </div>
-        <p class="compare__note" data-i18n="compare.note2">The same game ported to each engine. Exported with default settings, release build.</p>
+        <p class="compare__note" data-i18n="compare.note2">The same game ported to each engine, release build, default settings. WASM size is the uncompressed .wasm on disk — Cocos Creator ships no wasm, so its assets and cocos-js folders are measured instead. Heap is a Chrome DevTools heap snapshot taken on an idle scene right after load.</p>
       </div>
 
       <div class="compare__block" data-reveal style="--i:2">
         <div class="compare__caption">
-          <h3 data-i18n="compare.physics">Physics stress test</h3>
-          <span class="compare__platform">HTML5 · 60 FPS</span>
+          <h3 id="cmp-physics" data-i18n="compare.physics">Physics stress test</h3>
+          <span class="compare__platform" data-i18n="compare.platform.fps">HTML5 · 60 FPS</span>
         </div>
-        <div class="table-scroll">
+        <div class="table-scroll" role="region" aria-labelledby="cmp-physics" tabindex="0">
           <table class="cmp cmp--physics">
             <thead>
               <tr>
-                <th data-i18n="compare.th.engine">Engine</th>
-                <th data-i18n="compare.th.bodies">Bodies at 60 FPS</th>
-                <th data-i18n="compare.th.demo">Demo</th>
+                <th scope="col" data-i18n="compare.th.engine">Engine</th>
+                <th scope="col" data-i18n="compare.th.bodies">Bodies at 60 FPS</th>
+                <th scope="col" data-i18n="compare.th.demo">Demo</th>
               </tr>
             </thead>
             <tbody>
               <tr class="cmp__ours">
-                <th class="cmp__engine">ScopeBee <small>0.1.0</small><small class="cmp__engine-note">Box2D 3.1</small></th>
+                <th class="cmp__engine" scope="row">ScopeBee <small>0.1.0</small><small class="cmp__engine-note">Box2D 3.1</small></th>
                 <td class="cmp__best"><span class="cmp__value">7500</span><span class="cmp__bar" style="--w:100%"></span></td>
-                <td><a class="cmp__demo" href="games/tumbler/scopebee/" data-i18n="compare.open">Open</a></td>
+                <td><a class="cmp__demo" href="games/tumbler/scopebee/" target="_blank" rel="noopener" data-i18n="compare.open">Open</a></td>
               </tr>
               <tr>
-                <th class="cmp__engine">Unity <small>6.4</small><small class="cmp__engine-note">Low Level Physics</small></th>
+                <th class="cmp__engine" scope="row">Unity <small>6.4</small><small class="cmp__engine-note">Low Level Physics</small></th>
                 <td><span class="cmp__value">4500</span><span class="cmp__bar" style="--w:60%"></span></td>
-                <td><a class="cmp__demo" href="games/tumbler/unity-lowlevel/" data-i18n="compare.open">Open</a></td>
+                <td><a class="cmp__demo" href="games/tumbler/unity-lowlevel/" target="_blank" rel="noopener" data-i18n="compare.open">Open</a></td>
               </tr>
               <tr>
-                <th class="cmp__engine">Defold <small>1.13.0</small><small class="cmp__engine-note">Box2D v3</small></th>
+                <th class="cmp__engine" scope="row">Defold <small>1.13.0</small><small class="cmp__engine-note">Box2D v3</small></th>
                 <td><span class="cmp__value">4500</span><span class="cmp__bar" style="--w:60%"></span></td>
-                <td><a class="cmp__demo" href="games/tumbler/defold/" data-i18n="compare.open">Open</a></td>
+                <td><a class="cmp__demo" href="games/tumbler/defold/" target="_blank" rel="noopener" data-i18n="compare.open">Open</a></td>
               </tr>
               <tr>
-                <th class="cmp__engine">Unity <small>6.4</small><small class="cmp__engine-note">Standard Physics</small></th>
+                <th class="cmp__engine" scope="row">Unity <small>6.4</small><small class="cmp__engine-note">Standard Physics</small></th>
                 <td><span class="cmp__value">2000</span><span class="cmp__bar" style="--w:26.7%"></span></td>
-                <td><a class="cmp__demo" href="games/tumbler/unity/" data-i18n="compare.open">Open</a></td>
+                <td><a class="cmp__demo" href="games/tumbler/unity/" target="_blank" rel="noopener" data-i18n="compare.open">Open</a></td>
               </tr>
               <tr>
-                <th class="cmp__engine">Cocos Creator <small>3.8</small></th>
+                <th class="cmp__engine" scope="row">Cocos Creator <small>3.8</small></th>
                 <td><span class="cmp__value">1500</span><span class="cmp__bar" style="--w:20%"></span></td>
-                <td><a class="cmp__demo" href="games/tumbler/cocos/" data-i18n="compare.open">Open</a></td>
+                <td><a class="cmp__demo" href="games/tumbler/cocos/" target="_blank" rel="noopener" data-i18n="compare.open">Open</a></td>
               </tr>
             </tbody>
           </table>
@@ -394,7 +422,7 @@
   <div class="bottombar__inner">
     <div class="bottombar__brand">
       <a class="brand" href="#top">
-        <img class="brand__mark" src="assets/logo.svg" alt="" width="32" height="32">
+        <img class="brand__mark" src="assets/logo.svg" alt="" width="36" height="36">
         <span class="brand__name">ScopeBee</span>
       </a>
       <p class="bottombar__tagline" data-i18n="footer.tagline">Web-first, lightweight and performant game engine.</p>

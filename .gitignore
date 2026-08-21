@@ -16,5 +16,6 @@ lab/
 *.log
 *.tmp
 
-# локальная инструкция для Claude Code — не публикуется
+# локальные файлы Claude Code — не публикуются
 CLAUDE.md
+.claude/

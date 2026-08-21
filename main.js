@@ -7,13 +7,27 @@
   /* ---------------------------------------------------------------------
      i18n
      Every user-visible string in index.html carries data-i18n="<key>".
-     Adding a string means adding the key to BOTH dictionaries below.
+     Text that lives in an attribute instead of a text node uses the sibling
+     forms data-i18n-aria (aria-label) and data-i18n-alt (alt) — same keys,
+     same dictionaries. Adding a string means adding the key to BOTH
+     dictionaries below.
      The tagline and "COMING SOON" stay English in every locale by design.
      --------------------------------------------------------------------- */
 
   var I18N = {
     en: {
       'skip': 'Skip to content',
+
+      'meta.title': 'ScopeBee \u2014 Web-first, lightweight and performant game engine',
+      'meta.description': 'ScopeBee \u2014 most lightweight and performant game engine. Coming soon.',
+
+      'a11y.menu': 'Menu',
+      'a11y.lang': 'Language',
+
+      'alt.editor': 'ScopeBee editor: hierarchy, scene viewport and inspector',
+      'alt.engine': 'ScopeBee editor with a Flappy Bird scene open',
+      'alt.panels': 'ScopeBee editor panels: colour picker, gradient and curve editors',
+      'alt.converter': 'The converter window inside Unity, listing assemblies and types to export',
 
       'nav.engine': 'Engine',
       'nav.beef': 'Beef',
@@ -65,6 +79,8 @@
       'compare.th.demo': 'Demo',
       'compare.open': 'Open',
       'compare.play': 'Play',
+      'compare.platform.wasm': 'HTML5 · .wasm, uncompressed',
+      'compare.platform.fps': 'HTML5 · 60 FPS',
       'compare.cocos.note': '(no wasm — assets + cocos-js measured)',
       'compare.note1': 'Empty project, release build, stripped as far as each engine allows. WASM size is the uncompressed .wasm on disk — Cocos Creator ships no wasm, so its assets and cocos-js folders are measured instead. Heap is a Chrome DevTools heap snapshot taken on an idle scene right after load.',
       'compare.note3': 'The same tumbler scene in every engine: a rotating box, bodies added until the frame stops holding 60 FPS. Higher is better. Measured on a Mac mini M2, 16 GB, Chrome 151.0.7922.138 (arm64).',
@@ -112,6 +128,17 @@
 
     ru: {
       'skip': 'Перейти к содержимому',
+
+      'meta.title': 'ScopeBee — web-first игровой движок: лёгкий и производительный',
+      'meta.description': 'ScopeBee — самый лёгкий и производительный игровой движок. Скоро.',
+
+      'a11y.menu': 'Меню',
+      'a11y.lang': 'Язык',
+
+      'alt.editor': 'Редактор ScopeBee: иерархия, вьюпорт сцены и инспектор',
+      'alt.engine': 'Редактор ScopeBee с открытой сценой Flappy Bird',
+      'alt.panels': 'Панели редактора ScopeBee: пипетка, редакторы градиентов и кривых',
+      'alt.converter': 'Окно конвертера внутри Unity со списком сборок и типов для экспорта',
 
       'nav.engine': 'Движок',
       'nav.beef': 'Beef',
@@ -163,6 +190,8 @@
       'compare.th.demo': 'Демо',
       'compare.open': 'Открыть',
       'compare.play': 'Играть',
+      'compare.platform.wasm': 'HTML5 · .wasm, без сжатия',
+      'compare.platform.fps': 'HTML5 · 60 FPS',
       'compare.cocos.note': '(нет wasm — замерены assets + cocos-js)',
       'compare.note1': 'Пустой проект, release-сборка, настройки урезаны настолько, насколько позволяет движок. Размер WASM — несжатый .wasm на диске; Cocos Creator wasm не собирает, поэтому для него замерены папки assets и cocos-js. Heap — снапшот кучи в Chrome DevTools, снятый на простаивающей сцене сразу после загрузки.',
       'compare.note3': 'Одна и та же сцена на каждом движке: вращающийся ящик, тела добавляются до тех пор, пока кадр держит 60 FPS. Больше — лучше. Замеры на Mac mini M2, 16 ГБ, Chrome 151.0.7922.138 (arm64).',
@@ -226,6 +255,8 @@
     } catch (e) { /* not fatal */ }
   }
 
+  var metaDescription = document.querySelector('meta[name="description"]');
+
   function applyLang(lang) {
     var dict = I18N[lang] || I18N.en;
 
@@ -233,6 +264,21 @@
       var value = dict[node.dataset.i18n];
       if (typeof value === 'string') node.textContent = value;
     });
+
+    document.querySelectorAll('[data-i18n-aria]').forEach(function (node) {
+      var value = dict[node.dataset.i18nAria];
+      if (typeof value === 'string') node.setAttribute('aria-label', value);
+    });
+
+    document.querySelectorAll('[data-i18n-alt]').forEach(function (node) {
+      var value = dict[node.dataset.i18nAlt];
+      if (typeof value === 'string') node.setAttribute('alt', value);
+    });
+
+    if (typeof dict['meta.title'] === 'string') document.title = dict['meta.title'];
+    if (metaDescription && typeof dict['meta.description'] === 'string') {
+      metaDescription.setAttribute('content', dict['meta.description']);
+    }
 
     document.documentElement.lang = lang;
 
@@ -315,16 +361,29 @@
     burger.setAttribute('aria-expanded', String(open));
   }
 
+  function isMenuOpen() {
+    return burger.getAttribute('aria-expanded') === 'true';
+  }
+
   burger.addEventListener('click', function () {
-    setMenu(burger.getAttribute('aria-expanded') !== 'true');
+    setMenu(!isMenuOpen());
   });
 
   nav.querySelectorAll('a').forEach(function (link) {
     link.addEventListener('click', function () { setMenu(false); });
   });
 
+  // tapping the page behind an open menu should dismiss it, not fall through
+  document.addEventListener('click', function (e) {
+    if (!isMenuOpen()) return;
+    if (nav.contains(e.target) || burger.contains(e.target)) return;
+    setMenu(false);
+  });
+
   document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape') setMenu(false);
+    if (e.key !== 'Escape' || !isMenuOpen()) return;
+    setMenu(false);
+    burger.focus(); // Escape must not strand the focus inside a hidden panel
   });
 
   // must match the nav breakpoint in styles.css, not the layout one

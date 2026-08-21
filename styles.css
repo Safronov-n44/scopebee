@@ -7,25 +7,30 @@
   --bg:            #0b0b16;
   --bg-alt:        #101024;
   --surface:       rgba(255, 255, 255, .04);
-  --surface-hi:    rgba(255, 255, 255, .07);
   --border:        rgba(255, 255, 255, .1);
-  --border-hi:     rgba(255, 255, 255, .18);
 
-  /* text */
+  /* text
+     --text-faint is the floor: at .42 it measured 3.8:1 on --bg, under the 4.5:1
+     WCAG AA needs for text this small. .52 lands at 5.1:1 and reads the same. */
   --text:          #f5f5f7;
   --text-muted:    rgba(245, 245, 247, .65);
-  --text-faint:    rgba(245, 245, 247, .42);
+  --text-faint:    rgba(245, 245, 247, .52);
 
   /* accents */
   --accent:        #ff8a4c;
   --accent-2:      #f0568f;
   --accent-3:      #7b5cff;
-  --accent-4:      #4cd6a0;
+  /* --accent-3 as text on its own .16 tint is 3.8:1; this lighter twin clears AA
+     without touching the gradient, which is where --accent-3 earns its value. */
+  --accent-3-hi:   #9683ff;
   --accent-grad:   linear-gradient(115deg, var(--accent), var(--accent-2) 55%, var(--accent-3));
 
   /* layout */
   --maxw:          1200px;
-  --maxw-hero:     min(1920px, 92vw);  /* hero pushes its columns wider than the content grid */
+  /* Hero pushes its columns wider than the content grid. The vw half only
+     matters below 2000px, where it buys back the room the shot needs to stay
+     at its 780px cap on a 1728px laptop; past that the 1920px cap governs. */
+  --maxw-hero:     min(1920px, 96vw);
   --gutter:        clamp(1.25rem, 4vw, 3rem);
   --topbar-h:      72px;
   --section-pad:   clamp(4rem, 9vh, 6.5rem);
@@ -170,9 +175,18 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   letter-spacing: .06em;
 }
 .lang__btn {
+  position: relative;
   padding: 0 .15rem;
   color: var(--text-faint);
   transition: color .2s var(--ease-out);
+}
+/* EN and RU are 22x20 of ink. The pill's proportions are the design, so the
+   touch target is grown with a pseudo-element instead of padding — it clears
+   the 24px minimum without moving a pixel. */
+.lang__btn::before {
+  content: "";
+  position: absolute;
+  inset: -.5rem -.35rem;
 }
 .lang__btn:hover { color: var(--text); }
 .lang__btn.is-active { color: var(--accent); }
@@ -274,9 +288,14 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   margin-inline: auto;
   padding: calc(var(--topbar-h) + 3rem) var(--gutter) 6rem;
   display: grid;
-  /* max-content, not auto: auto tracks swallow the free space before
-     justify-content can distribute it, and the two blocks end up centred. */
-  grid-template-columns: max-content max-content;
+  /* The left track is max-content — the brand row and the nowrap tagline are
+     cut to the same width on purpose, and auto tracks would centre them.
+     The right track takes what is left instead of a second max-content: two
+     max-content tracks cannot shrink, so between 900px and 1600px they summed
+     past the container and the editor shot was clipped by the page's
+     overflow-x. Above ~1620px the leftover already exceeds the shot's 780px
+     cap, so wide screens render exactly as before. */
+  grid-template-columns: max-content minmax(0, 1fr);
   justify-content: space-between;
   align-items: center;
   gap: clamp(1.5rem, 3vw, 3rem);
@@ -316,6 +335,11 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 
 .hero__right {
   justify-self: end;
+  /* The cap has to sit on the grid item, not on .hero__shot: a percentage on
+     the figure would resolve against a shrink-to-fit parent and cancel itself
+     out, and justify-self:end would then push the overflow left, over the
+     wordmark. Here 100% is the grid track, which is a definite width. */
+  max-width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -326,6 +350,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .hero__shot {
   margin: 0;
   width: clamp(320px, 46vw, 780px);
+  max-width: 100%;  /* never wider than the track the grid leaves for it */
   border: 1px solid rgba(255, 255, 255, .14);
   border-radius: 14px;
   overflow: hidden;
@@ -336,7 +361,6 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 
 .hero__soon {
   display: flex;
-  flex-direction: column;
   flex-direction: row;
   gap: .28em;
   font-size: clamp(1.5rem, 3.1vw, 3rem);
@@ -452,6 +476,10 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   padding-left: 2.25rem;
   font-size: 1.0625rem;
   font-weight: 500;
+}
+
+/* staggered only when JS is there to un-stagger them — see Scroll reveal */
+.js .checks li {
   opacity: 0;
   transform: translateY(14px);
   transition:
@@ -486,7 +514,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   rotate: 45deg;
 }
 
-.feature__body.is-visible .checks li {
+.js .feature__body.is-visible .checks li {
   opacity: 1;
   transform: translateY(0);
 }
@@ -535,17 +563,29 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   font-weight: 700;
   letter-spacing: .1em;
   text-transform: uppercase;
-  color: var(--accent-3);
+  color: var(--accent-3-hi);
   background: rgba(123, 92, 255, .16);
 }
 
-/* the table itself never widens the page — it scrolls inside this box */
+/* The table itself never widens the page — it scrolls inside this box.
+   On a phone roughly half of it is off-screen, including the Demo column,
+   and macOS/iOS overlay scrollbars give no hint that it moves. The two
+   `local` covers ride the content and uncover a shadow at whichever edge
+   still has table behind it; both vanish once you reach that end. Pure CSS,
+   no scroll handler. */
 .table-scroll {
   overflow-x: auto;
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  background: var(--surface);
+  background:
+    linear-gradient(90deg,  var(--bg), rgba(11, 11, 22, 0)) 0 0 / 28px 100% no-repeat local,
+    linear-gradient(270deg, var(--bg), rgba(11, 11, 22, 0)) 100% 0 / 28px 100% no-repeat local,
+    radial-gradient(farthest-side at 0 50%,   rgba(255, 255, 255, .26), rgba(255, 255, 255, 0)) 0 0 / 22px 100% no-repeat scroll,
+    radial-gradient(farthest-side at 100% 50%, rgba(255, 255, 255, .26), rgba(255, 255, 255, 0)) 100% 0 / 22px 100% no-repeat scroll,
+    var(--surface);
 }
+/* the region is focusable so the table can be scrolled from the keyboard */
+.table-scroll:focus-visible { outline-offset: -2px; }
 
 .cmp {
   width: 100%;
@@ -636,12 +676,19 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .cmp__best .cmp__bar::before { background: var(--accent-grad); }
 
 .cmp__demo {
+  position: relative;
   display: inline-flex;
   align-items: center;
   gap: .3rem;
   color: var(--accent);
   font-weight: 600;
   font-size: .92rem;
+}
+/* grows the touch target past 24px without adding to the row height */
+.cmp__demo::before {
+  content: "";
+  position: absolute;
+  inset: -.4rem -.3rem;
 }
 .cmp__demo::after {
   content: "↗";
@@ -811,74 +858,6 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 }
 
 /* ==========================================================================
-   News
-   ========================================================================== */
-
-.news {
-  padding-block: var(--section-pad);
-  border-top: 1px solid var(--border);
-  background: radial-gradient(80% 60% at 50% 0%, rgba(123, 92, 255, .1), transparent 70%);
-}
-
-.news__inner {
-  max-width: var(--maxw);
-  margin-inline: auto;
-  padding-inline: var(--gutter);
-}
-
-.news__head { margin-bottom: 3rem; }
-
-.news__grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
-  gap: 1.5rem;
-}
-
-.news-card {
-  display: flex;
-  flex-direction: column;
-  gap: .75rem;
-  padding: 1.75rem;
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  background: var(--surface);
-  transition: transform .3s var(--ease-out), border-color .3s var(--ease-out), background-color .3s var(--ease-out);
-}
-.news-card:hover {
-  transform: translateY(-4px);
-  border-color: var(--border-hi);
-  background: var(--surface-hi);
-}
-
-.news-card__date {
-  font-size: .8rem;
-  font-weight: 600;
-  letter-spacing: .1em;
-  text-transform: uppercase;
-  color: var(--text-faint);
-}
-
-.news-card__title { font-size: 1.3rem; font-weight: 700; }
-
-.news-card__text {
-  color: var(--text-muted);
-  font-size: .975rem;
-}
-
-.news-card__link {
-  margin-top: auto;
-  padding-top: .5rem;
-  font-weight: 600;
-  color: var(--accent);
-}
-.news-card__link::after {
-  content: " →";
-  display: inline-block;
-  transition: translate .2s var(--ease-out);
-}
-.news-card__link:hover::after { translate: 4px 0; }
-
-/* ==========================================================================
    Bottom bar
    ========================================================================== */
 
@@ -965,7 +944,12 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
    Scroll reveal
    ========================================================================== */
 
-[data-reveal] {
+/* Everything here hangs off .js, which index.html sets in <head> before the
+   first paint. Only JS can take an element out of the hidden state, so without
+   it these rules must not apply at all — otherwise a blocked or broken main.js
+   leaves the page as a hero, a footer, and five screens of nothing. */
+
+.js [data-reveal] {
   opacity: 0;
   transition:
     opacity .6s var(--ease-out),
@@ -974,18 +958,25 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   will-change: transform, opacity;
 }
 
-/* default: rise from below (text columns, news cards, headings) */
-[data-reveal] { transform: translateY(28px); }
+/* default: rise from below (text columns, section headings) */
+.js [data-reveal] { transform: translateY(28px); }
 
-/* media slides in from the side the section declares */
-.feature[data-side="left"]  .feature__media[data-reveal] { transform: translateX(-70px); }
-.feature[data-side="right"] .feature__media[data-reveal] { transform: translateX(70px); }
+/* media slides in from the side the section declares; text drifts in from the
+   opposite side, more subtly.
 
-/* text column drifts in from the opposite side, more subtly */
-.feature[data-side="left"]  .feature__body[data-reveal] { transform: translateX(40px); }
-.feature[data-side="right"] .feature__body[data-reveal] { transform: translateX(-40px); }
+   :not(.is-visible) is load-bearing, not decoration. A bare
+   `.feature[data-side] .feature__media[data-reveal]` outweighs
+   `[data-reveal].is-visible`, so the offset survived the reveal and every
+   image stayed parked 70px off its column — far enough that on a tablet the
+   card hung past the left edge and was clipped. Scoping the offset to the
+   hidden state takes the two rules out of each other's way. */
+.js .feature[data-side="left"]  .feature__media[data-reveal]:not(.is-visible) { transform: translateX(-70px); }
+.js .feature[data-side="right"] .feature__media[data-reveal]:not(.is-visible) { transform: translateX(70px); }
 
-[data-reveal].is-visible {
+.js .feature[data-side="left"]  .feature__body[data-reveal]:not(.is-visible) { transform: translateX(40px); }
+.js .feature[data-side="right"] .feature__body[data-reveal]:not(.is-visible) { transform: translateX(-40px); }
+
+.js [data-reveal].is-visible {
   opacity: 1;
   transform: none;
 }
@@ -1009,6 +1000,13 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
     flex-direction: column;
     align-items: flex-start;
     gap: 1.5rem;
+    /* The panel is ~420px tall and fixed. On a phone in landscape (844x390)
+       that put Roadmap, Contact and the language switch below the fold with
+       no way to reach them — the panel does not move with the page. */
+    max-height: calc(100vh - var(--topbar-h));
+    max-height: calc(100dvh - var(--topbar-h));
+    overflow-y: auto;
+    overscroll-behavior: contain;
     background: rgba(11, 11, 22, .96);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
@@ -1024,12 +1022,16 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
     visibility: visible;
   }
 
+  /* 21px of ink per row was under the 24px minimum touch target. The padding
+     absorbs most of the old gap, so the rhythm between rows barely moves. */
   .nav__list {
     flex-direction: column;
     align-items: flex-start;
-    gap: 1.15rem;
+    gap: .3rem;
     font-size: 1.1rem;
   }
+  .nav__list a { display: block; padding-block: .5rem; }
+  .nav__list a::after { bottom: .35rem; }
 }
 
 @media (max-width: 900px) {
@@ -1051,8 +1053,6 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   .feature[data-side="right"] .feature__media,
   .feature[data-side="right"] .feature__body { order: initial; }
 
-  .bottombar__inner { grid-template-columns: 1fr; }
-
   /* rail moves to the left edge; the quarter sits above the card */
   .milestone {
     grid-template-columns: 34px minmax(0, 1fr);
@@ -1068,12 +1068,19 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 @media (max-width: 560px) {
   .hero__logo { width: 56px; }
 
-  .feature[data-side="left"]  .feature__media[data-reveal],
-  .feature[data-side="right"] .feature__media[data-reveal] { transform: translateY(28px); }
-  .feature[data-side="left"]  .feature__body[data-reveal],
-  .feature[data-side="right"] .feature__body[data-reveal] { transform: translateY(28px); }
+  .js .feature[data-side="left"]  .feature__media[data-reveal]:not(.is-visible),
+  .js .feature[data-side="right"] .feature__media[data-reveal]:not(.is-visible) { transform: translateY(28px); }
+  .js .feature[data-side="left"]  .feature__body[data-reveal]:not(.is-visible),
+  .js .feature[data-side="right"] .feature__body[data-reveal]:not(.is-visible) { transform: translateY(28px); }
 
-  }
+  /* Buys back ~140px of table width, which is the difference between the Demo
+     column being one flick away and being three. */
+  .cmp { min-width: 640px; }
+  .cmp th,
+  .cmp td { padding: .5rem .65rem; }
+  .cmp__value { width: 4.6em; font-size: .9rem; }
+  .cmp__bar { width: calc(100% - 5.2em); }
+}
 
 /* ==========================================================================
    Reduced motion
@@ -1098,4 +1105,33 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   }
 
   .hero__scroll { display: none; }
+}
+
+/* ==========================================================================
+   Forced colours
+
+   Windows High Contrast replaces every background, which erases any text
+   painted with background-clip. The wordmark's status line and all three
+   eyebrow labels vanished; here they fall back to plain system colours.
+   ========================================================================== */
+
+@media (forced-colors: active) {
+  .hero__soon,
+  .feature__eyebrow,
+  .section-eyebrow {
+    background: none;
+    color: CanvasText;
+    -webkit-text-fill-color: CanvasText;
+  }
+
+  /* the tick is drawn as a border over a gradient disc — both get replaced */
+  .checks li::before { background: Highlight; }
+  .checks li::after  { border-color: Canvas; }
+
+  .milestone--now .milestone__node {
+    background: Highlight;
+    border-color: Highlight;
+  }
+  .cmp__bar::before { background: Highlight; }
+  .cmp__best .cmp__bar::before { background: Highlight; }
 }
