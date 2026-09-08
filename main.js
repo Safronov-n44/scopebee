@@ -11,7 +11,7 @@
      forms data-i18n-aria (aria-label) and data-i18n-alt (alt) — same keys,
      same dictionaries. Adding a string means adding the key to BOTH
      dictionaries below.
-     The tagline and "COMING SOON" stay English in every locale by design.
+     The tagline stays English in every locale by design.
      --------------------------------------------------------------------- */
 
   var I18N = {
@@ -23,6 +23,8 @@
 
       'a11y.menu': 'Menu',
       'a11y.lang': 'Language',
+
+      'a11y.demo': 'ScopeBee demo: converting a Unity project and running it in the browser',
 
       'alt.editor': 'ScopeBee editor: hierarchy, scene viewport and inspector',
       'alt.engine': 'ScopeBee editor with a Flappy Bird scene open',
@@ -134,6 +136,8 @@
 
       'a11y.menu': 'Меню',
       'a11y.lang': 'Язык',
+
+      'a11y.demo': 'Демо ScopeBee: конвертация Unity-проекта и запуск в браузере',
 
       'alt.editor': 'Редактор ScopeBee: иерархия, вьюпорт сцены и инспектор',
       'alt.engine': 'Редактор ScopeBee с открытой сценой Flappy Bird',

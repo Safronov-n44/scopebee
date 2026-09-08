@@ -82,13 +82,14 @@
       </div>
       <div class="hero__right">
         <figure class="hero__shot">
-          <picture>
-            <source srcset="assets/editor.webp" type="image/webp">
-            <img src="assets/editor.png" alt="ScopeBee editor: hierarchy, scene viewport and inspector"
-                 data-i18n-alt="alt.editor" width="1500" height="812" fetchpriority="high" decoding="async">
-          </picture>
+          <!-- preload="metadata" keeps the 20 MB file off the first paint; the
+               poster is a frame of the editor, so the hero reads as the engine
+               even before anyone presses play. -->
+          <video src="assets/scopebee-demo.mp4" poster="assets/demo-poster.jpg"
+                 width="2560" height="1440" controls playsinline preload="metadata"
+                 aria-label="ScopeBee demo: converting a Unity project and running it in the browser"
+                 data-i18n-aria="a11y.demo"></video>
         </figure>
-        <p class="hero__soon"><span>COMING</span><span>SOON</span></p>
       </div>
     </div>
 
