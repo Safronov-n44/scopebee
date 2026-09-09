@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en" data-i18n-title="agame.meta.title" data-i18n-desc="agame.meta.desc">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>An idle game — UI, atlas baking and responsive layout</title>
+<meta name="description" content="An idle game built with ScopeBee, showing the UI layer, atlas baking and responsive layout.">
+<meta name="theme-color" content="#0b0b16">
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="An idle game — UI, atlas baking and responsive layout">
+<meta property="og:description" content="An idle game built with ScopeBee: the UI layer, atlas baking and responsive layout.">
+<meta property="og:image" content="../assets/editor.png">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" href="../assets/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../styles.css">
+
+<script>document.documentElement.classList.add('js');</script>
+<script defer src="https://cloud.umami.is/script.js"
+        data-website-id="d878d1d4-c979-49f4-8593-c104f9459d83"
+        data-domains="scopebee.tech,www.scopebee.tech"
+        data-performance="true"></script>
+</head>
+<body>
+
+<a class="skip-link" href="#main" data-i18n="skip">Skip to content</a>
+
+<header class="topbar" id="topbar">
+  <div class="topbar__inner">
+    <a class="brand" href="../index.html#top">
+      <img class="brand__mark" src="../assets/logo.svg" alt="" width="36" height="36">
+      <span class="brand__name">ScopeBee</span>
+    </a>
+
+    <button class="burger" id="burger" aria-expanded="false" aria-controls="nav" aria-label="Menu" data-i18n-aria="a11y.menu">
+      <span></span><span></span><span></span>
+    </button>
+
+    <nav class="nav" id="nav">
+      <ul class="nav__list">
+        <li><a href="../index.html#news" data-i18n="nav.news">News</a></li>
+        <li><a href="../index.html#engine" data-i18n="nav.features">Features</a></li>
+        <li><a href="../index.html#compare" data-i18n="nav.compare">Comparison</a></li>
+        <li><a href="../index.html#roadmap" data-i18n="nav.roadmap">Roadmap</a></li>
+        <li><a href="../index.html#footer" data-i18n="nav.contact">Contact</a></li>
+      </ul>
+      <div class="lang" role="group" aria-label="Language" data-i18n-aria="a11y.lang">
+        <button type="button" class="lang__btn" data-lang="en">EN</button>
+        <span class="lang__sep" aria-hidden="true">/</span>
+        <button type="button" class="lang__btn" data-lang="ru">RU</button>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+  <article class="article">
+    <a class="article__back" href="../index.html#news">
+      <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M8.5 3 4.5 7l4 4"/>
+      </svg>
+      <span data-i18n="article.back">Back to the site</span>
+    </a>
+
+    <p class="article__when"><time datetime="2026-09-08" data-i18n="agame.when">8 SEP 2026</time></p>
+    <h1 class="article__title" data-i18n="agame.title">A more complex sample game</h1>
+    <p class="article__lead" data-i18n="agame.lead">An idle game, built to show three things that are hard to judge from a feature list: the UI layer, what atlas baking does to draw calls, and how a layout survives a screen it was not designed for.</p>
+
+    <p class="article__cta-row"><a class="article__cta" href="../games/farm/scopebee/" target="_blank" rel="noopener"
+       data-umami-event="demo-open" data-umami-event-project="farm" data-umami-event-engine="scopebee"
+       data-i18n="agame.play">Play it in the browser</a></p>
+
+    <div class="article__body">
+      <p data-i18n="agame.p1">Go easy on the game design and the art &mdash; the whole thing was put together to show the engine off. The cows came out rather nice, though.</p>
+
+      <h2 data-i18n="agame.h1">The UI layer</h2>
+      <p data-i18n="agame.p2">Menus, the HUD and every button are built from the same UI system, laid out in the editor rather than positioned from code. Elements anchor to the edges and corners they belong to, so the layout is described once and holds wherever it lands. The windows lean on ScrollRect for scrolling lists, on the Layout components for arranging their contents, and on RectMask2D to clip whatever runs past the edge. Text is drawn from SDF, so labels stay crisp at whatever scale the layout puts them at.</p>
+
+      <h2 data-i18n="agame.h2">Atlas baking</h2>
+      <p data-i18n="agame.p4">Every sprite drawn from its own texture is a separate draw call, and draw calls are what a browser runs out of first. Baking those textures into one atlas lets the renderer batch them: the same frame, the same pixels, far fewer calls to the GPU.</p>
+      <p data-i18n="agame.p5">The editor bakes the atlas as part of the build, so this is not something to remember to do. The shots below are the same scene built both ways, with the counter left on screen — the only honest way to show the difference.</p>
+
+      <figure class="article__media article__media--wide">
+        <div class="article__shots article__shots--row" data-gallery>
+          <button type="button" class="shot" data-i18n-aria="a11y.zoom" aria-label="Open the image at full size">
+            <img src="../assets/news/NoSpriteAtlas.webp" width="1506" height="971" loading="lazy" decoding="async"
+                 alt="The farm scene without a baked atlas: the counter reads 181 draw calls"
+                 data-i18n-alt="agame.alt1">
+          </button>
+          <button type="button" class="shot" data-i18n-aria="a11y.zoom" aria-label="Open the image at full size">
+            <img src="../assets/news/WithSpriteAtlas.webp" width="1506" height="976" loading="lazy" decoding="async"
+                 alt="The same scene with a baked atlas: the counter reads 22 draw calls"
+                 data-i18n-alt="agame.alt2">
+          </button>
+        </div>
+        <figcaption class="article__caption" data-i18n="agame.cap1">The same scene, same 257 quads: 181 draw calls without a baked atlas, 22 with one</figcaption>
+      </figure>
+
+      <h2 data-i18n="agame.h3">Responsive layout</h2>
+      <p data-i18n="agame.p6">A web game does not get to pick its screen. It opens inside a portal frame, on a phone held either way, on a desktop window someone is actively dragging. The sample handles all of it through anchors and scaling rules rather than a set of fixed breakpoints.</p>
+
+      <figure class="article__media">
+        <div class="article__shots article__shots--screens" data-gallery>
+          <button type="button" class="shot" data-i18n-aria="a11y.zoom" aria-label="Open the image at full size">
+            <img src="../assets/news/Portrait.webp" width="651" height="978" loading="lazy" decoding="async"
+                 alt="The game in a portrait window" data-i18n-alt="agame.alt3">
+          </button>
+          <button type="button" class="shot" data-i18n-aria="a11y.zoom" aria-label="Open the image at full size">
+            <img src="../assets/news/Album.webp" width="1696" height="977" loading="lazy" decoding="async"
+                 alt="The same build in a landscape window" data-i18n-alt="agame.alt4">
+          </button>
+        </div>
+        <figcaption class="article__caption" data-i18n="agame.cap2">The same build in portrait and landscape: the HUD stays in its corners, the bar keeps the bottom edge</figcaption>
+      </figure>
+
+      <h2 data-i18n="agame.h5">What it weighs</h2>
+      <p><span data-i18n="agame.p8a">Numbers only mean something next to other numbers, so here is the farm against a game of the same kind from a real portal:</span>
+        <a href="https://yandex.ru/games/app/bulba-kliker-562743" target="_blank" rel="noopener" data-i18n="agame.p8link">Bulba Clicker</a><span data-i18n="agame.p8b"> on Yandex Games — also a clicker, also built in Unity, with artwork of a comparable weight.</span></p>
+
+      <table class="article__table">
+        <thead>
+          <tr>
+            <td></td>
+            <th scope="col" class="is-ours">ScopeBee</th>
+            <th scope="col">Unity</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row" data-i18n="agame.w.net">Downloaded</th>
+            <td class="is-ours">1.86 MB</td>
+            <td>13.20 MB</td>
+          </tr>
+          <tr>
+            <th scope="row" data-i18n="agame.w.res">Unpacked</th>
+            <td class="is-ours">5.23 MB</td>
+            <td>50.25 MB</td>
+          </tr>
+          <tr>
+            <th scope="row" data-i18n="agame.w.heap">Heap snapshot</th>
+            <td class="is-ours">29 MB</td>
+            <td>140 MB</td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="article__note" data-i18n="agame.w.note">Both measured the same way: everything the browser pulls on a cold load, then the same files unpacked, then a Chrome DevTools heap snapshot on an idle scene.</p>
+
+      <h2 data-i18n="agame.h4">Try it</h2>
+      <p data-i18n="agame.p7">The build runs in the browser, so the UI, the atlas and the layout can be poked at directly rather than taken on trust.</p>
+      <p class="article__cta-row"><a class="article__cta" href="../games/farm/scopebee/" target="_blank" rel="noopener"
+         data-umami-event="demo-open" data-umami-event-project="farm" data-umami-event-engine="scopebee"
+         data-i18n="agame.play">Play it in the browser</a></p>
+    </div>
+  </article>
+</main>
+
+<script src="news-i18n.js"></script>
+<script src="../main.js"></script>
+</body>
+</html>

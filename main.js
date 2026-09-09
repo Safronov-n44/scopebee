@@ -24,17 +24,26 @@
       'a11y.menu': 'Menu',
       'a11y.lang': 'Language',
 
+      'a11y.zoom': 'Open the image at full size',
+      'a11y.close': 'Close',
+      'a11y.prev': 'Previous image',
+      'a11y.next': 'Next image',
       'a11y.demo': 'ScopeBee demo: converting a Unity project and running it in the browser',
 
-      'alt.editor': 'ScopeBee editor: hierarchy, scene viewport and inspector',
       'alt.engine': 'ScopeBee editor with a Flappy Bird scene open',
       'alt.panels': 'ScopeBee editor panels: colour picker, gradient and curve editors',
       'alt.converter': 'The converter window inside Unity, listing assemblies and types to export',
 
-      'nav.engine': 'Engine',
-      'nav.beef': 'Beef',
-      'nav.editor': 'Editor',
-      'nav.converter': 'Converter',
+      'hero.stat.size': 'Downloaded',
+      'hero.stat.memory': 'Memory',
+      'hero.stat.physics': 'Physics at 60 FPS',
+      'hero.stat.note': 'The same Flappy Bird, release build',
+      'hero.stat.link': 'see how it was measured',
+
+      'news.title': 'News',
+
+      'nav.news': 'News',
+      'nav.features': 'Features',
       'nav.compare': 'Comparison',
       'nav.roadmap': 'Roadmap',
       'nav.contact': 'Contact',
@@ -77,6 +86,7 @@
       'compare.th.engine': 'Engine',
       'compare.th.wasm': 'WASM size',
       'compare.th.bodies': 'Bodies at 60 FPS',
+      'compare.th.transferred': 'Transferred',
       'compare.th.heap': 'Heap Snapshot',
       'compare.th.demo': 'Demo',
       'compare.open': 'Open',
@@ -84,13 +94,14 @@
       'compare.platform.wasm': 'HTML5 · .wasm',
       'compare.platform.fps': 'HTML5 · 60 FPS',
       'compare.cocos.note': '(no wasm — assets + cocos-js measured)',
-      'compare.note1': 'Empty project, release build, stripped as far as each engine allows. WASM size is the .wasm on disk — Cocos Creator ships no wasm, so its assets and cocos-js folders are measured instead. Heap is a Chrome DevTools heap snapshot taken on an idle scene right after load.',
+      'compare.note1': 'Empty project, release build, stripped as far as each engine allows. WASM size is the .wasm on disk — Cocos Creator ships no wasm, so its assets and cocos-js folders are measured instead. Heap is a Chrome DevTools heap snapshot taken on an idle scene right after load. Transferred is what the browser actually downloads from the live site, with the server’s compression applied — Unity ships its wasm pre-gzipped, so the server passes it through as is.',
       'compare.note3': 'The same tumbler scene in every engine: a rotating box, bodies added until the frame stops holding 60 FPS. Higher is better. Measured on a Mac mini M2, 16 GB, Chrome 151.0.7922.138 (arm64).',
-      'compare.note2': 'The same game ported to each engine, release build, default settings. WASM size is the .wasm on disk — Cocos Creator ships no wasm, so its assets and cocos-js folders are measured instead. Heap is a Chrome DevTools heap snapshot taken on an idle scene right after load.',
+      'compare.note2': 'The same game ported to each engine, release build, default settings. WASM size is the .wasm on disk — Cocos Creator ships no wasm, so its assets and cocos-js folders are measured instead. Heap is a Chrome DevTools heap snapshot taken on an idle scene right after load. Transferred is what the browser actually downloads from the live site, with the server’s compression applied — Unity ships its wasm pre-gzipped, so the server passes it through as is.',
 
       'roadmap.eyebrow': "What's next",
       'roadmap.title': 'Roadmap',
       'roadmap.now': 'In progress',
+      'roadmap.done': 'Done',
       'roadmap.m1': 'AUG',
       'roadmap.m2': 'SEP',
       'roadmap.m3': 'OCT',
@@ -101,27 +112,26 @@
       'roadmap.1.tag1': 'Language coverage',
       'roadmap.1.tag2': 'Frustum culling',
       'roadmap.1.tag3': 'Web portals integration',
-      'roadmap.2.title': 'Binary assets and gizmos',
-      'roadmap.2.text': 'A compact binary data format, asset browsing in the editor, move and rotate handles right in the scene.',
+      'roadmap.1.tag4': 'Gizmos',
+      'roadmap.2.title': 'Binary assets & 3D',
+      'roadmap.2.text': 'A compact binary data format, and the first dimension past flat: models loaded straight from glb and drawn in the scene.',
       'roadmap.2.tag1': 'Binary serialisation',
-      'roadmap.2.tag2': 'Asset browser',
-      'roadmap.2.tag3': 'References and dependencies',
-      'roadmap.2.tag4': 'Gizmos',
-      'roadmap.3.title': 'Particles and materials',
-      'roadmap.3.text': 'An effects system of its own, tunable materials, blend modes and shared presets.',
+      'roadmap.2.tag2': 'glb import',
+      'roadmap.2.tag3': '3D rendering',
+      'roadmap.3.title': 'Particles, materials and 3D physics',
+      'roadmap.3.text': 'An effects system of its own, tunable materials and blend modes, and bodies that collide in three dimensions.',
       'roadmap.3.tag1': 'Particle system',
       'roadmap.3.tag2': 'Material parameters',
       'roadmap.3.tag3': 'Blend modes and presets',
-      'roadmap.4.title': 'Sound and tilemaps',
-      'roadmap.4.text': 'Sound with mixers and volume groups, tile-based levels assembled in the editor.',
-      'roadmap.4.tag1': 'Audio system',
-      'roadmap.4.tag2': 'Mixers',
-      'roadmap.4.tag3': 'Tilemap',
-      'roadmap.5.title': '3D for real',
-      'roadmap.5.text': 'Model import with materials, skeletons that move, bodies that collide in three dimensions.',
-      'roadmap.5.tag1': 'Model import',
-      'roadmap.5.tag2': 'Skeletal animation',
-      'roadmap.5.tag3': '3D physics',
+      'roadmap.3.tag4': '3D physics',
+      'roadmap.4.title': 'Tilemaps and audio mixers',
+      'roadmap.4.text': 'Tile-based levels assembled from a palette in the editor, and sound routed through mixers and volume groups.',
+      'roadmap.4.tag1': 'Tilemap',
+      'roadmap.4.tag2': 'Audio system',
+      'roadmap.4.tag3': 'Mixers',
+      'roadmap.5.title': 'Cross-platform',
+      'roadmap.5.text': 'The same project packaged past the browser without a second codebase, starting with Android.',
+      'roadmap.5.tag1': 'Android',
 
       'footer.tagline': 'Web-first, lightweight and performant game engine.',
       'footer.collab': 'Interested in working together?',
@@ -137,17 +147,26 @@
       'a11y.menu': 'Меню',
       'a11y.lang': 'Язык',
 
+      'a11y.zoom': 'Открыть изображение в полном размере',
+      'a11y.close': 'Закрыть',
+      'a11y.prev': 'Предыдущее изображение',
+      'a11y.next': 'Следующее изображение',
       'a11y.demo': 'Демо ScopeBee: конвертация Unity-проекта и запуск в браузере',
 
-      'alt.editor': 'Редактор ScopeBee: иерархия, вьюпорт сцены и инспектор',
       'alt.engine': 'Редактор ScopeBee с открытой сценой Flappy Bird',
       'alt.panels': 'Панели редактора ScopeBee: пипетка, редакторы градиентов и кривых',
       'alt.converter': 'Окно конвертера внутри Unity со списком сборок и типов для экспорта',
 
-      'nav.engine': 'Движок',
-      'nav.beef': 'Beef',
-      'nav.editor': 'Редактор',
-      'nav.converter': 'Конвертер',
+      'hero.stat.size': 'Скачивается',
+      'hero.stat.memory': 'Память',
+      'hero.stat.physics': 'Физика при 60 FPS',
+      'hero.stat.note': 'Та же Flappy Bird, release-сборка',
+      'hero.stat.link': 'как это измерялось',
+
+      'news.title': 'Новости',
+
+      'nav.news': 'Новости',
+      'nav.features': 'Возможности',
       'nav.compare': 'Сравнение',
       'nav.roadmap': 'Дорожная карта',
       'nav.contact': 'Контакты',
@@ -190,6 +209,7 @@
       'compare.th.engine': 'Движок',
       'compare.th.wasm': 'Размер WASM',
       'compare.th.bodies': 'Тел при 60 FPS',
+      'compare.th.transferred': 'По сети',
       'compare.th.heap': 'Heap Snapshot',
       'compare.th.demo': 'Демо',
       'compare.open': 'Открыть',
@@ -197,13 +217,14 @@
       'compare.platform.wasm': 'HTML5 · .wasm',
       'compare.platform.fps': 'HTML5 · 60 FPS',
       'compare.cocos.note': '(нет wasm — замерены assets + cocos-js)',
-      'compare.note1': 'Пустой проект, release-сборка, настройки урезаны настолько, насколько позволяет движок. Размер WASM — .wasm на диске; Cocos Creator wasm не собирает, поэтому для него замерены папки assets и cocos-js. Heap — снапшот кучи в Chrome DevTools, снятый на простаивающей сцене сразу после загрузки.',
+      'compare.note1': 'Пустой проект, release-сборка, настройки урезаны настолько, насколько позволяет движок. Размер WASM — .wasm на диске; Cocos Creator wasm не собирает, поэтому для него замерены папки assets и cocos-js. Heap — снапшот кучи в Chrome DevTools, снятый на простаивающей сцене сразу после загрузки. «По сети» — то, что браузер реально скачивает с боевого сайта, со сжатием сервера: Unity отдаёт свой wasm уже сжатым, поэтому сервер передаёт его как есть.',
       'compare.note3': 'Одна и та же сцена на каждом движке: вращающийся ящик, тела добавляются до тех пор, пока кадр держит 60 FPS. Больше — лучше. Замеры на Mac mini M2, 16 ГБ, Chrome 151.0.7922.138 (arm64).',
-      'compare.note2': 'Одна и та же игра, портированная на каждый движок, release-сборка, настройки по умолчанию. Размер WASM — .wasm на диске; Cocos Creator wasm не собирает, поэтому для него замерены папки assets и cocos-js. Heap — снапшот кучи в Chrome DevTools, снятый на простаивающей сцене сразу после загрузки.',
+      'compare.note2': 'Одна и та же игра, портированная на каждый движок, release-сборка, настройки по умолчанию. Размер WASM — .wasm на диске; Cocos Creator wasm не собирает, поэтому для него замерены папки assets и cocos-js. Heap — снапшот кучи в Chrome DevTools, снятый на простаивающей сцене сразу после загрузки. «По сети» — то, что браузер реально скачивает с боевого сайта, со сжатием сервера: Unity отдаёт свой wasm уже сжатым, поэтому сервер передаёт его как есть.',
 
       'roadmap.eyebrow': 'Что дальше',
       'roadmap.title': 'Дорожная карта',
       'roadmap.now': 'Сейчас',
+      'roadmap.done': 'Готово',
       'roadmap.m1': 'АВГ',
       'roadmap.m2': 'СЕН',
       'roadmap.m3': 'ОКТ',
@@ -214,33 +235,43 @@
       'roadmap.1.tag1': 'Покрытие языка',
       'roadmap.1.tag2': 'Отсечение по фрустуму',
       'roadmap.1.tag3': 'Интеграция веб-порталов',
-      'roadmap.2.title': 'Бинарные ассеты и гизмо',
-      'roadmap.2.text': 'Компактный бинарный формат данных, обзор ассетов в редакторе, рукоятки перемещения и поворота прямо в сцене.',
+      'roadmap.1.tag4': 'Гизмо',
+      'roadmap.2.title': 'Бинарные ассеты и 3D',
+      'roadmap.2.text': 'Компактный бинарный формат данных и первое измерение за пределами плоскости: модели загружаются прямо из glb и рисуются в сцене.',
       'roadmap.2.tag1': 'Бинарная сериализация',
-      'roadmap.2.tag2': 'Браузер ассетов',
-      'roadmap.2.tag3': 'Ссылки и зависимости',
-      'roadmap.2.tag4': 'Гизмо',
-      'roadmap.3.title': 'Частицы и материалы',
-      'roadmap.3.text': 'Собственная система эффектов, настраиваемые материалы, режимы наложения и общие пресеты.',
+      'roadmap.2.tag2': 'Импорт glb',
+      'roadmap.2.tag3': '3D-рендеринг',
+      'roadmap.3.title': 'Частицы, материалы и 3D-физика',
+      'roadmap.3.text': 'Собственная система эффектов, настраиваемые материалы и режимы наложения, а также столкновение тел в трёх измерениях.',
       'roadmap.3.tag1': 'Система частиц',
       'roadmap.3.tag2': 'Параметры материалов',
       'roadmap.3.tag3': 'Режимы наложения и пресеты',
-      'roadmap.4.title': 'Звук и тайлмапы',
-      'roadmap.4.text': 'Звук с микшерами и группами громкости, сборка уровней из тайлов в редакторе.',
-      'roadmap.4.tag1': 'Аудиосистема',
-      'roadmap.4.tag2': 'Микшеры',
-      'roadmap.4.tag3': 'Тайлмап',
-      'roadmap.5.title': '3D по-настоящему',
-      'roadmap.5.text': 'Импорт моделей вместе с материалами, движение скелетов, столкновение тел в трёх измерениях.',
-      'roadmap.5.tag1': 'Импорт моделей',
-      'roadmap.5.tag2': 'Скелетная анимация',
-      'roadmap.5.tag3': '3D-физика',
+      'roadmap.3.tag4': '3D-физика',
+      'roadmap.4.title': 'Тайлмапы и аудиомикшеры',
+      'roadmap.4.text': 'Уровни из тайлов, выкладываемые в редакторе из палитры, и звук через микшеры и группы громкости.',
+      'roadmap.4.tag1': 'Тайлмап',
+      'roadmap.4.tag2': 'Аудиосистема',
+      'roadmap.4.tag3': 'Микшеры',
+      'roadmap.5.title': 'Кроссплатформенность',
+      'roadmap.5.text': 'Тот же проект собирается за пределы браузера без второй кодовой базы — начиная с Android.',
+      'roadmap.5.tag1': 'Android',
 
       'footer.tagline': 'Web-first игровой движок: лёгкий и производительный.',
       'footer.collab': 'Интересует сотрудничество?',
       'footer.copyright': '© 2026 ScopeBee. Все права защищены.',
     }
   };
+
+  /* Sub-pages (news/) ship their own strings in a small script loaded before
+     this one, so a new article never means editing the dictionaries above.
+     Same shape as I18N: { en: {...}, ru: {...} }. */
+  var extra = window.SCOPEBEE_I18N_EXTRA;
+  if (extra) {
+    Object.keys(I18N).forEach(function (lang) {
+      if (!extra[lang]) return;
+      Object.keys(extra[lang]).forEach(function (key) { I18N[lang][key] = extra[lang][key]; });
+    });
+  }
 
   var STORAGE_KEY = 'scopebee.lang';
   var langButtons = document.querySelectorAll('.lang__btn');
@@ -279,9 +310,13 @@
       if (typeof value === 'string') node.setAttribute('alt', value);
     });
 
-    if (typeof dict['meta.title'] === 'string') document.title = dict['meta.title'];
-    if (metaDescription && typeof dict['meta.description'] === 'string') {
-      metaDescription.setAttribute('content', dict['meta.description']);
+    /* A news page sets data-i18n-title / data-i18n-desc on <html> to point at
+       its own strings; the landing page has neither and keeps meta.*. */
+    var titleKey = document.documentElement.dataset.i18nTitle || 'meta.title';
+    var descKey = document.documentElement.dataset.i18nDesc || 'meta.description';
+    if (typeof dict[titleKey] === 'string') document.title = dict[titleKey];
+    if (metaDescription && typeof dict[descKey] === 'string') {
+      metaDescription.setAttribute('content', dict[descKey]);
     }
 
     document.documentElement.lang = lang;
@@ -345,13 +380,102 @@
     ticking = false;
   }
 
-  window.addEventListener('scroll', function () {
-    if (ticking) return;
-    ticking = true;
-    window.requestAnimationFrame(syncTopbar);
-  }, { passive: true });
+  if (topbar) {
+    window.addEventListener('scroll', function () {
+      if (ticking) return;
+      ticking = true;
+      window.requestAnimationFrame(syncTopbar);
+    }, { passive: true });
 
-  syncTopbar();
+    syncTopbar();
+  }
+
+  /* ---------------------------------------------------------------------
+     Lightbox
+     Any [data-gallery] turns its .shot buttons into a viewer. The arrows walk
+     the gallery the image was opened from and wrap inside it, so two separate
+     pairs of shots never spill into one another. Nothing runs on pages that
+     have no gallery.
+     --------------------------------------------------------------------- */
+
+  var galleries = [].slice.call(document.querySelectorAll('[data-gallery]'));
+
+  if (galleries.length) {
+    var ICON = {
+      close: '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M5 5l10 10M15 5L5 15"/></svg>',
+      prev:  '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4l-6 6 6 6"/></svg>',
+      next:  '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 4l6 6-6 6"/></svg>'
+    };
+
+    var box = document.createElement('div');
+    box.className = 'lightbox';
+    box.hidden = true;
+    box.setAttribute('role', 'dialog');
+    box.setAttribute('aria-modal', 'true');
+    box.innerHTML =
+      '<button type="button" class="lightbox__close" data-i18n-aria="a11y.close" aria-label="Close">' + ICON.close + '</button>' +
+      '<button type="button" class="lightbox__prev" data-i18n-aria="a11y.prev" aria-label="Previous image">' + ICON.prev + '</button>' +
+      '<img class="lightbox__img" alt="">' +
+      '<button type="button" class="lightbox__next" data-i18n-aria="a11y.next" aria-label="Next image">' + ICON.next + '</button>' +
+      '<p class="lightbox__caption"></p>';
+    document.body.appendChild(box);
+
+    var boxImg = box.querySelector('.lightbox__img');
+    var boxCaption = box.querySelector('.lightbox__caption');
+    var current = [];     // shots of the gallery being viewed
+    var index = 0;
+    var opener = null;    // button to hand focus back to
+
+    function show(i) {
+      index = (i + current.length) % current.length;
+      var img = current[index].querySelector('img');
+      boxImg.src = img.currentSrc || img.src;
+      boxImg.alt = img.alt;
+      boxCaption.textContent = img.alt;
+    }
+
+    function open(shot) {
+      var group = shot.closest('[data-gallery]');
+      current = [].slice.call(group.querySelectorAll('.shot'));
+      opener = shot;
+      box.classList.toggle('is-solo', current.length < 2);
+      show(current.indexOf(shot));
+      box.hidden = false;
+      document.body.classList.add('has-lightbox');
+      // one frame before the class, or the fade has nothing to animate from
+      requestAnimationFrame(function () { box.classList.add('is-open'); });
+      box.querySelector('.lightbox__close').focus();
+    }
+
+    function close() {
+      box.classList.remove('is-open');
+      box.hidden = true;
+      document.body.classList.remove('has-lightbox');
+      boxImg.removeAttribute('src');
+      if (opener) opener.focus();
+      opener = null;
+    }
+
+    galleries.forEach(function (group) {
+      group.querySelectorAll('.shot').forEach(function (shot) {
+        shot.addEventListener('click', function () { open(shot); });
+      });
+    });
+
+    box.querySelector('.lightbox__close').addEventListener('click', close);
+    box.querySelector('.lightbox__prev').addEventListener('click', function () { show(index - 1); });
+    box.querySelector('.lightbox__next').addEventListener('click', function () { show(index + 1); });
+
+    // clicking the backdrop closes; clicking the image or a control does not
+    box.addEventListener('click', function (e) { if (e.target === box) close(); });
+
+    document.addEventListener('keydown', function (e) {
+      if (box.hidden) return;
+      if (e.key === 'Escape') { e.preventDefault(); close(); }
+      else if (e.key === 'ArrowLeft' && current.length > 1) { e.preventDefault(); show(index - 1); }
+      else if (e.key === 'ArrowRight' && current.length > 1) { e.preventDefault(); show(index + 1); }
+    });
+  }
 
   /* ---------------------------------------------------------------------
      Mobile menu

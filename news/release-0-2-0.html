@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" data-i18n-title="a020.meta.title" data-i18n-desc="a020.meta.desc">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ScopeBee 0.2.0 — gizmos and frustum culling</title>
+<meta name="description" content="ScopeBee 0.2.0 adds gizmos in the scene view and frustum culling in the renderer.">
+<meta name="theme-color" content="#0b0b16">
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="ScopeBee 0.2.0 — gizmos and frustum culling">
+<meta property="og:description" content="Gizmos in the scene view, and a renderer that stops drawing what the camera cannot see.">
+<meta property="og:image" content="../assets/editor.png">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" href="../assets/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../styles.css">
+
+<script>document.documentElement.classList.add('js');</script>
+<script defer src="https://cloud.umami.is/script.js"
+        data-website-id="d878d1d4-c979-49f4-8593-c104f9459d83"
+        data-domains="scopebee.tech,www.scopebee.tech"
+        data-performance="true"></script>
+</head>
+<body>
+
+<a class="skip-link" href="#main" data-i18n="skip">Skip to content</a>
+
+<header class="topbar" id="topbar">
+  <div class="topbar__inner">
+    <a class="brand" href="../index.html#top">
+      <img class="brand__mark" src="../assets/logo.svg" alt="" width="36" height="36">
+      <span class="brand__name">ScopeBee</span>
+    </a>
+
+    <button class="burger" id="burger" aria-expanded="false" aria-controls="nav" aria-label="Menu" data-i18n-aria="a11y.menu">
+      <span></span><span></span><span></span>
+    </button>
+
+    <nav class="nav" id="nav">
+      <ul class="nav__list">
+        <li><a href="../index.html#news" data-i18n="nav.news">News</a></li>
+        <li><a href="../index.html#engine" data-i18n="nav.features">Features</a></li>
+        <li><a href="../index.html#compare" data-i18n="nav.compare">Comparison</a></li>
+        <li><a href="../index.html#roadmap" data-i18n="nav.roadmap">Roadmap</a></li>
+        <li><a href="../index.html#footer" data-i18n="nav.contact">Contact</a></li>
+      </ul>
+      <div class="lang" role="group" aria-label="Language" data-i18n-aria="a11y.lang">
+        <button type="button" class="lang__btn" data-lang="en">EN</button>
+        <span class="lang__sep" aria-hidden="true">/</span>
+        <button type="button" class="lang__btn" data-lang="ru">RU</button>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+  <article class="article">
+    <a class="article__back" href="../index.html#news">
+      <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M8.5 3 4.5 7l4 4"/>
+      </svg>
+      <span data-i18n="article.back">Back to the site</span>
+    </a>
+
+    <p class="article__when"><time datetime="2026-08-31" data-i18n="a020.when">31 AUG 2026</time></p>
+    <h1 class="article__title" data-i18n="a020.title">ScopeBee 0.2.0</h1>
+    <p class="article__lead" data-i18n="a020.lead">Two things this release is about: you can now move and rotate objects directly in the scene, and the renderer stops drawing what the camera cannot see.</p>
+
+    <div class="article__body">
+      <p data-i18n="a020.p1">Until now, placing an object meant typing numbers into the inspector. You knew where the sprite had to go, but you had to describe that position in coordinates instead of pointing at it. That is a strange way to build a scene, and it is the first thing this release fixes.</p>
+
+      <h2 data-i18n="a020.h1">Gizmos</h2>
+      <p data-i18n="a020.p2">Selecting an object now draws handles on it. Drag an axis to move along it, drag the corner to move freely, grab the ring to rotate. The inspector keeps working exactly as before and the fields update as you drag, so nothing you already know stops being true — there is simply a second way to say the same thing, and it is the faster one.</p>
+      <p data-i18n="a020.p3">The handles keep a constant size on screen regardless of zoom, so they stay usable when you are far out looking at a whole level, and they do not swallow the object when you are close in on a single sprite.</p>
+
+      <figure class="article__media">
+        <video src="../assets/news/gizmos.mp4" poster="../assets/news/gizmos-poster.jpg"
+               width="1054" height="676" controls playsinline preload="metadata"></video>
+        <figcaption class="article__caption" data-i18n="a020.cap1">Moving, rotating and scaling an object with gizmos</figcaption>
+      </figure>
+
+      <h2 data-i18n="a020.h2">Frustum culling</h2>
+      <p data-i18n="a020.p4">The other half of the release is invisible by design. The renderer now checks every sprite against the camera before drawing it, and everything outside the view is dropped before it costs anything. A level much larger than the screen used to pay for all of itself on every frame; now it pays for the part you can actually see.</p>
+      <p data-i18n="a020.p5">The saving grows with the gap between level size and screen size, so a side-scroller with a long map benefits most and a single-screen game barely notices. It is on by default and there is nothing to configure.</p>
+
+      <figure class="article__media">
+        <video src="../assets/news/frustum-culling.mp4" poster="../assets/news/frustum-culling-poster.jpg"
+               width="1054" height="676" controls playsinline preload="metadata"></video>
+        <figcaption class="article__caption" data-i18n="a020.cap2">Watch the draw call count as the camera&rsquo;s orthographic size changes</figcaption>
+      </figure>
+
+      <h2 data-i18n="a020.h3">Also in this release</h2>
+      <ul>
+        <li data-i18n="a020.li1">Deeper C# to Beef conversion, covering more of the language</li>
+        <li data-i18n="a020.li2">A web facade for the Yandex Games and CrazyGames APIs</li>
+      </ul>
+    </div>
+  </article>
+</main>
+
+<script src="news-i18n.js"></script>
+<script src="../main.js"></script>
+</body>
+</html>

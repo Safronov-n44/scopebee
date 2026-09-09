@@ -23,6 +23,13 @@
   /* --accent-3 as text on its own .16 tint is 3.8:1; this lighter twin clears AA
      without touching the gradient, which is where --accent-3 earns its value. */
   --accent-3-hi:   #9683ff;
+
+  /* the one non-accent signal on the page: a shipped milestone */
+  --ok:            #4ade80;
+
+  /* section separator: sits a touch above --border because one of these lands
+     on the hero's gradient, where the page's own tint is already light */
+  --hairline:      rgba(255, 255, 255, .16);
   --accent-grad:   linear-gradient(115deg, var(--accent), var(--accent-2) 55%, var(--accent-3));
 
   /* layout */
@@ -333,6 +340,51 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   line-height: 1.4;
 }
 
+/* Two columns, three rows: the engine names sit in the header, so every number
+   below them is claimed without repeating whose it is. One structure holds from
+   360px to a wide desktop — nothing wraps away from its label. */
+.hero__stats {
+  margin-top: clamp(1.4rem, 3vh, 2.2rem);
+  width: 100%;          /* spans the column the wordmark and tagline set */
+  border-collapse: collapse;
+  text-align: left;
+}
+.hero__stats th,
+.hero__stats td { padding: .3rem 0; }
+.hero__stats thead th,
+.hero__stats tbody th {
+  font-weight: 400;
+  font-size: .8125rem;
+  color: rgba(255, 255, 255, .55);
+}
+.hero__stats thead .is-ours { color: var(--accent); font-weight: 600; }
+.hero__stats thead th { width: 50%; }
+.hero__stats tbody th {
+  width: 1%;            /* shrink-to-fit: the two value columns take the rest */
+  padding-right: clamp(1rem, 3vw, 2.25rem);
+  white-space: nowrap;
+}
+
+/* the value columns: ours carries the weight, Unity's stays a reference point */
+.hero__stats tbody td {
+  width: 50%;
+  font-size: .9375rem;
+  color: rgba(255, 255, 255, .5);
+  white-space: nowrap;
+}
+.hero__stats tbody td.is-ours {
+  font-size: clamp(1.15rem, 2vw, 1.6rem);
+  font-weight: 800;
+  letter-spacing: -.02em;
+  color: var(--text);
+}
+.hero__stats tbody tr + tr th,
+.hero__stats tbody tr + tr td { border-top: 1px solid rgba(255, 255, 255, .07); }
+
+.hero__stats-note { margin-top: 1.1rem; font-size: .8125rem; color: rgba(255, 255, 255, .5); }
+.hero__stats-note a { border-bottom: 1px solid rgba(255, 255, 255, .25); }
+.hero__stats-note a:hover { color: var(--text); border-bottom-color: var(--text); }
+
 .hero__right {
   justify-self: end;
   /* The cap has to sit on the grid item, not on .hero__shot: a percentage on
@@ -391,6 +443,382 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   0%   { transform: translateY(-100%); opacity: 0; }
   35%  { opacity: 1; }
   100% { transform: translateY(250%); opacity: 0; }
+}
+
+/* ==========================================================================
+   News
+
+   Sits between the hero and the feature sections, so it stays quiet: cards on
+   the same --surface tint as the rest of the page, no shadow, and one accent
+   reserved for the newest date.
+   ========================================================================== */
+
+.news__inner {
+  max-width: var(--maxw);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+  /* hairlines run with the content, not edge to edge: a full-bleed rule reads
+     as a page break on a wide monitor, and this block is part of the flow */
+  border-block: 1px solid var(--hairline);
+  padding-block: var(--section-pad);
+}
+
+.news__head { margin-bottom: 2.75rem; }
+
+/* auto-fit rather than a fixed three, so the row reflows on its own and the
+   min() keeps a card from demanding more than the viewport on a narrow phone */
+.news__list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr));
+  gap: clamp(1rem, 2vw, 1.5rem);
+}
+/* the card is a link inside the li, so the li has to pass the row height on —
+   without this a shorter entry leaves a ragged bottom edge next to a longer one */
+.news__list > li { display: flex; }
+.news__list > li > .news-card { flex: 1; }
+
+.news-card {
+  display: flex;
+  flex-direction: column;
+  gap: .7rem;
+  padding: clamp(1.25rem, 2.4vw, 1.75rem);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  transition: border-color .2s var(--ease-out), background-color .2s var(--ease-out);
+}
+/* the whole card is the link, so the hit area matches what people aim at */
+a.news-card:hover {
+  border-color: rgba(255, 255, 255, .22);
+  background: rgba(255, 255, 255, .06);
+}
+
+.news-card__when {
+  font-size: .8rem;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.news-card__title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.news-card__text {
+  color: var(--text-muted);
+  font-size: 1rem;
+}
+
+/* ==========================================================================
+   News article  (news/*.html)
+
+   One column, one measure. The landing page is a showcase; an article is
+   reading material, so nothing here competes with the text.
+   ========================================================================== */
+
+.article {
+  max-width: 46rem;
+  margin-inline: auto;
+  padding: calc(var(--topbar-h) + 3.5rem) var(--gutter) 5rem;
+}
+
+.article__back {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  margin-bottom: 2.5rem;
+  padding: .45rem .9rem .45rem .75rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  font-size: .875rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  transition: color .2s var(--ease-out), border-color .2s var(--ease-out);
+}
+.article__back:hover { color: var(--text); border-color: rgba(255, 255, 255, .22); }
+.article__back svg { width: 14px; height: 14px; }
+
+.article__when {
+  margin-bottom: .9rem;
+  font-size: .8rem;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.article__title {
+  font-size: clamp(2rem, 4.6vw, 3.1rem);
+  font-weight: 800;
+  letter-spacing: -.025em;
+}
+
+.article__lead {
+  margin-top: 1.1rem;
+  color: var(--text-muted);
+  font-size: clamp(1.05rem, 1.6vw, 1.25rem);
+  line-height: 1.5;
+}
+
+.article__body { margin-top: 3rem; }
+.article__body > * + * { margin-top: 1.25rem; }
+
+.article__body h2 {
+  margin-top: 3rem;
+  font-size: clamp(1.35rem, 2.2vw, 1.75rem);
+  font-weight: 700;
+}
+
+.article__body p { color: var(--text-muted); font-size: 1.0625rem; }
+/* links inside running text: the CTA is a button, these must not look like one */
+.article__body p a:not(.article__cta) {
+  color: var(--text);
+  border-bottom: 1px solid rgba(255, 255, 255, .3);
+  transition: border-color .2s var(--ease-out);
+}
+.article__body p a:not(.article__cta):hover { border-bottom-color: var(--accent); }
+.article__body strong { color: var(--text); font-weight: 600; }
+
+.article__body ul {
+  display: grid;
+  gap: .6rem;
+  color: var(--text-muted);
+  font-size: 1.0625rem;
+}
+.article__body li { padding-left: 1.1rem; position: relative; }
+.article__body li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: .65em;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+/* A link out to the thing the article is about, at both ends of the piece. */
+.article__cta-row { margin-top: 1.75rem; text-align: center; }
+.article__cta {
+  display: inline-block;
+  padding: .7rem 1.4rem;
+  border-radius: 999px;
+  background: var(--accent);
+  color: #1a1005;
+  font-weight: 700;
+  transition: filter .2s var(--ease-out);
+}
+.article__cta:hover { filter: brightness(1.08); }
+
+/* Paired screenshots. Stacked by default so a wide shot keeps its detail; the
+   two orientation shots instead sit side by side and are matched on height,
+   because their different shapes are the point being made. */
+.article__shots { display: grid; gap: .75rem; }
+.article__shots img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+/* Comparison shots break out of the text column: side by side is how you read
+   a difference, and at 46rem two of them would be too small to see one. The
+   width is picked so each half is no smaller than it was stacked full-width. */
+.article__media--wide {
+  position: relative;
+  left: 50%;
+  translate: -50% 0;
+  width: min(1400px, 94vw);
+}
+.article__shots--row { grid-auto-flow: column; grid-auto-columns: 1fr; }
+
+@media (max-width: 900px) {
+  .article__media--wide { position: static; left: auto; translate: none; width: 100%; }
+  .article__shots--row { grid-auto-flow: row; }
+}
+
+.article__shots--screens {
+  grid-auto-flow: column;
+  justify-content: start;
+  align-items: end;
+}
+.article__shots--screens img { width: auto; height: clamp(190px, 30vw, 275px); }
+
+@media (max-width: 620px) {
+  .article__shots--screens { grid-auto-flow: row; justify-items: center; }
+  .article__shots--screens img { width: auto; max-width: 100%; height: auto; }
+}
+
+/* Each shot is a button: opening it full size is an action, and a button gets
+   keyboard focus and Enter/Space for free. */
+.shot {
+  display: block;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: zoom-in;
+  border-radius: var(--radius);
+}
+.shot img { transition: filter .2s var(--ease-out); }
+.shot:hover img { filter: brightness(1.07); }
+
+/* ==========================================================================
+   Lightbox
+
+   Built once by main.js and reused. Arrows only ever move within the gallery
+   the image was opened from, so one pair of shots never leads into the next.
+   ========================================================================== */
+
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  display: grid;
+  place-items: center;
+  padding: clamp(1rem, 4vw, 3rem);
+  background: rgba(4, 6, 14, .92);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  opacity: 0;
+  transition: opacity .2s var(--ease-out);
+}
+.lightbox.is-open { opacity: 1; }
+/* `display: grid` above outranks the browser's own `[hidden] { display: none }`,
+   so without this the closed lightbox stays in the layout as a transparent
+   full-screen sheet and swallows every click on the page. */
+.lightbox[hidden] { display: none; }
+
+.lightbox__img {
+  display: block;
+  max-width: 100%;
+  max-height: calc(100vh - 9rem);
+  width: auto;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 30px 80px -30px rgba(0, 0, 0, .9);
+}
+
+.lightbox__caption {
+  position: absolute;
+  left: 50%;
+  bottom: clamp(.75rem, 2.5vw, 1.5rem);
+  translate: -50% 0;
+  max-width: min(60ch, 90vw);
+  text-align: center;
+  font-size: .875rem;
+  color: rgba(255, 255, 255, .65);
+}
+
+.lightbox button {
+  position: absolute;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, .18);
+  background: rgba(0, 0, 0, .45);
+  color: #fff;
+  transition: background-color .2s var(--ease-out), border-color .2s var(--ease-out);
+}
+.lightbox button:hover { background: rgba(255, 255, 255, .16); border-color: rgba(255, 255, 255, .4); }
+.lightbox button svg { width: 18px; height: 18px; }
+
+.lightbox__close { top: clamp(.75rem, 2.5vw, 1.5rem); right: clamp(.75rem, 2.5vw, 1.5rem); }
+.lightbox__prev  { left: clamp(.5rem, 2vw, 1.5rem); top: 50%; translate: 0 -50%; }
+.lightbox__next  { right: clamp(.5rem, 2vw, 1.5rem); top: 50%; translate: 0 -50%; }
+/* a single-image gallery has nowhere to step to */
+.lightbox.is-solo .lightbox__prev,
+.lightbox.is-solo .lightbox__next { display: none; }
+
+/* the page behind must not scroll under an open lightbox */
+body.has-lightbox { overflow: hidden; }
+
+/* A small comparison table inside an article. Same reading as the hero table:
+   the engine names head the columns, ours carries the weight. */
+.article__table {
+  width: 100%;
+  margin-top: 2rem;
+  border-collapse: collapse;
+  text-align: left;
+}
+.article__table th,
+.article__table td { padding: .6rem 0; }
+.article__table thead th,
+.article__table tbody th {
+  font-weight: 400;
+  font-size: .875rem;
+  color: var(--text-faint);
+}
+.article__table thead .is-ours { color: var(--accent); font-weight: 600; }
+.article__table thead th { width: 32%; }
+.article__table tbody th { width: 36%; padding-right: 1rem; }
+.article__table tbody td { font-size: 1rem; color: rgba(255, 255, 255, .55); white-space: nowrap; }
+.article__table tbody td.is-ours { font-size: 1.15rem; font-weight: 700; color: var(--text); }
+.article__table tbody tr + tr th,
+.article__table tbody tr + tr td { border-top: 1px solid rgba(255, 255, 255, .07); }
+
+.article__note {
+  margin-top: 1rem;
+  font-size: .8125rem;
+  line-height: 1.5;
+  color: var(--text-faint);
+}
+
+/* Placeholder for a clip that is not shot yet. Swap the whole .video-slot for
+   a <video controls preload="metadata" poster="…"> — .article__media already
+   carries the frame, so nothing else has to change. */
+.article__media { margin: 2.5rem 0 0; }
+
+.video-slot {
+  display: grid;
+  place-items: center;
+  align-content: center;   /* rows sit together, not spread down the box */
+  gap: .75rem;
+  aspect-ratio: 16 / 9;
+  padding: 1.5rem;
+  border: 1px dashed rgba(255, 255, 255, .2);
+  border-radius: var(--radius);
+  background: var(--surface);
+  text-align: center;
+}
+.video-slot__mark {
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  color: var(--text-faint);
+}
+.video-slot__mark svg { width: 16px; height: 16px; }
+.video-slot__label {
+  max-width: 34ch;
+  color: var(--text-faint);
+  font-size: .9375rem;
+}
+
+.article__caption {
+  margin-top: .85rem;
+  color: var(--text-faint);
+  font-size: .875rem;
+  text-align: center;
+}
+
+/* no aspect-ratio here on purpose: a clip is whatever shape it was recorded in,
+   and the width/height attributes hold the box before it loads. The 16/9 on
+   .video-slot is only there because a placeholder has no shape of its own. */
+.article__media video {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: #04101a;
 }
 
 /* ==========================================================================
@@ -522,12 +950,14 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
    build size and heap scale independently of each other.
    ========================================================================== */
 
-.compare { padding-block: var(--section-pad); }
-
 .compare__inner {
   max-width: var(--maxw);
   margin-inline: auto;
   padding-inline: var(--gutter);
+  /* padding lives on the inner, not the section, so the rule sits on the seam
+     between blocks instead of floating inside the section's own top gap */
+  border-top: 1px solid var(--hairline);
+  padding-block: var(--section-pad);
 }
 
 .compare__head { margin-bottom: 2.75rem; }
@@ -606,7 +1036,8 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   background: rgba(255, 255, 255, .03);
 }
 
-.cmp td { width: 31%; }
+/* four value columns now share the row with the engine name and the demo link */
+.cmp td { width: 24%; }
 /* Physics table has one data column instead of two, so it gets a wider one —
    at 31% the bar would sit in a sliver next to an oversized demo column. */
 .cmp--physics td { width: 55%; }
@@ -709,7 +1140,6 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
    ========================================================================== */
 
 .roadmap {
-  padding-block: var(--section-pad);
   background: linear-gradient(180deg, transparent, var(--bg-alt) 20%, var(--bg-alt) 80%, transparent);
 }
 
@@ -717,6 +1147,8 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   max-width: var(--maxw);
   margin-inline: auto;
   padding-inline: var(--gutter);
+  border-top: 1px solid var(--hairline);
+  padding-block: var(--section-pad);
 }
 
 .roadmap__head { margin-bottom: 3rem; }
@@ -805,6 +1237,19 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   0%   { transform: scale(1);   opacity: .65; }
   70%  { transform: scale(1.9); opacity: 0; }
   100% { transform: scale(1.9); opacity: 0; }
+}
+
+/* a shipped milestone: green node with a tick, no pulse — it is not asking for
+   attention the way the one under way is. The tick inherits colour from the
+   node, which already paints currentColor as the page background. */
+.milestone--done .milestone__mon { color: var(--ok); }
+.milestone--done .milestone__node {
+  background: var(--ok);
+  border-color: var(--ok);
+}
+.milestone--done .milestone__pill {
+  color: var(--ok);
+  background: rgba(74, 222, 128, .16);
 }
 
 .milestone__body { padding-bottom: 2.75rem; }
@@ -1041,6 +1486,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
      wraps normally and the display size drops to fit a single column. */
   .hero { --hero-display: clamp(2.75rem, 12vw, 6rem); }
   .hero__right { justify-self: start; align-items: flex-start; }
+
   .hero__shot { width: 100%; }
   .hero__tagline { white-space: normal; max-width: 30ch; font-size: clamp(1.05rem, 3.4vw, 1.5rem); }
 
@@ -1122,7 +1568,8 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   .checks li::before { background: Highlight; }
   .checks li::after  { border-color: Canvas; }
 
-  .milestone--now .milestone__node {
+  .milestone--now .milestone__node,
+  .milestone--done .milestone__node {
     background: Highlight;
     border-color: Highlight;
   }

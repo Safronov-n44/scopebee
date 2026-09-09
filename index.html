@@ -48,10 +48,8 @@
 
     <nav class="nav" id="nav">
       <ul class="nav__list">
-        <li><a href="#engine" data-i18n="nav.engine">Engine</a></li>
-        <li><a href="#beef" data-i18n="nav.beef">Beef</a></li>
-        <li><a href="#editor" data-i18n="nav.editor">Editor</a></li>
-        <li><a href="#converter" data-i18n="nav.converter">Converter</a></li>
+        <li><a href="#news" data-i18n="nav.news">News</a></li>
+        <li><a href="#engine" data-i18n="nav.features">Features</a></li>
         <li><a href="#compare" data-i18n="nav.compare">Comparison</a></li>
         <li><a href="#roadmap" data-i18n="nav.roadmap">Roadmap</a></li>
         <li><a href="#footer" data-i18n="nav.contact">Contact</a></li>
@@ -79,6 +77,34 @@
           <h1 class="hero__title">ScopeBee</h1>
         </div>
         <p class="hero__tagline">Web-first, lightweight and performant game engine</p>
+
+        <table class="hero__stats">
+          <thead>
+            <tr>
+              <td></td>
+              <th scope="col" class="is-ours">ScopeBee</th>
+              <th scope="col">Unity</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row" data-i18n="hero.stat.size">Downloaded</th>
+              <td class="is-ours">491 KB</td>
+              <td>5.82 MB</td>
+            </tr>
+            <tr>
+              <th scope="row" data-i18n="hero.stat.memory">Memory</th>
+              <td class="is-ours">15.6 MB</td>
+              <td>153 MB</td>
+            </tr>
+            <tr>
+              <th scope="row" data-i18n="hero.stat.physics">Physics at 60 FPS</th>
+              <td class="is-ours">7500</td>
+              <td>4500</td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="hero__stats-note"><span data-i18n="hero.stat.note">The same Flappy Bird, release build</span> &mdash; <a href="#compare" data-i18n="hero.stat.link">see how it was measured</a></p>
       </div>
       <div class="hero__right">
         <figure class="hero__shot">
@@ -95,6 +121,36 @@
 
     <div class="hero__scroll" aria-hidden="true">
       <span class="hero__scroll-line"></span>
+    </div>
+  </section>
+
+  <!-- News — first stop in the nav, straight under the hero. Hairlines above and
+       below set it apart from the hero and the feature sections. -->
+  <section class="news" id="news">
+    <div class="news__inner">
+      <header class="news__head" data-reveal>
+        <h2 class="section-title" data-i18n="news.title">News</h2>
+      </header>
+
+      <ul class="news__list">
+        <li>
+          <a class="news-card" href="news/sample-game.html" data-reveal style="--i:0"
+             data-umami-event="news-open" data-umami-event-post="sample-game">
+            <p class="news-card__when"><time datetime="2026-09-08" data-i18n="agame.when">8 SEP 2026</time></p>
+            <h3 class="news-card__title" data-i18n="agame.card.title">A more complex sample game</h3>
+            <p class="news-card__text" data-i18n="agame.card.text">An idle game showing the UI layer, what atlas baking does to draw calls, and a layout that survives any screen.</p>
+          </a>
+        </li>
+
+        <li>
+          <a class="news-card" href="news/release-0-2-0.html" data-reveal style="--i:1"
+             data-umami-event="news-open" data-umami-event-post="release-0-2-0">
+            <p class="news-card__when"><time datetime="2026-08-31" data-i18n="a020.when">31 AUG 2026</time></p>
+            <h3 class="news-card__title" data-i18n="a020.card.title">ScopeBee 0.2.0</h3>
+            <p class="news-card__text" data-i18n="a020.card.text">Gizmos in the scene view, and a renderer that stops drawing what the camera cannot see.</p>
+          </a>
+        </li>
+      </ul>
     </div>
   </section>
 
@@ -207,32 +263,37 @@
               <tr>
                 <th scope="col" data-i18n="compare.th.engine">Engine</th>
                 <th scope="col" data-i18n="compare.th.wasm">WASM size</th>
+                <th scope="col" data-i18n="compare.th.transferred">Transferred</th>
                 <th scope="col" data-i18n="compare.th.heap">Heap Snapshot</th>
                 <th scope="col" data-i18n="compare.th.demo">Demo</th>
               </tr>
             </thead>
             <tbody>
               <tr class="cmp__ours">
-                <th class="cmp__engine" scope="row">ScopeBee <small>0.1.0</small></th>
+                <th class="cmp__engine" scope="row">ScopeBee <small>0.2.0</small></th>
                 <td class="cmp__best"><span class="cmp__value">690 KB</span><span class="cmp__bar" style="--w:3.8%"></span></td>
+                <td class="cmp__best"><span class="cmp__value">276 KB</span><span class="cmp__bar" style="--w:5.5%"></span></td>
                 <td><span class="cmp__value">9.4 MB</span><span class="cmp__bar" style="--w:7.9%"></span></td>
                 <td><a class="cmp__demo" href="games/empty/scopebee/" data-umami-event="demo-open" data-umami-event-project="empty" data-umami-event-engine="scopebee" target="_blank" rel="noopener" data-i18n="compare.open">Open</a></td>
               </tr>
               <tr>
                 <th class="cmp__engine" scope="row">Cocos Creator <small>3.8</small><small class="cmp__engine-note" data-i18n="compare.cocos.note">(no wasm — assets + cocos-js measured)</small></th>
                 <td><span class="cmp__value">1.14 MB</span><span class="cmp__bar" style="--w:6.4%"></span></td>
+                <td><span class="cmp__value">295 KB</span><span class="cmp__bar" style="--w:5.9%"></span></td>
                 <td class="cmp__best"><span class="cmp__value">9.0 MB</span><span class="cmp__bar" style="--w:7.6%"></span></td>
                 <td><a class="cmp__demo" href="games/empty/cocos/" data-umami-event="demo-open" data-umami-event-project="empty" data-umami-event-engine="cocos" target="_blank" rel="noopener" data-i18n="compare.open">Open</a></td>
               </tr>
               <tr>
                 <th class="cmp__engine" scope="row">Defold <small>1.13.0</small></th>
                 <td><span class="cmp__value">1.44 MB</span><span class="cmp__bar" style="--w:8.1%"></span></td>
+                <td><span class="cmp__value">590 KB</span><span class="cmp__bar" style="--w:11.8%"></span></td>
                 <td><span class="cmp__value">40.3 MB</span><span class="cmp__bar" style="--w:33.9%"></span></td>
                 <td><a class="cmp__demo" href="games/empty/defold/" data-umami-event="demo-open" data-umami-event-project="empty" data-umami-event-engine="defold" target="_blank" rel="noopener" data-i18n="compare.open">Open</a></td>
               </tr>
               <tr>
                 <th class="cmp__engine" scope="row">Unity <small>6.4</small></th>
                 <td><span class="cmp__value">17.8 MB</span><span class="cmp__bar" style="--w:100%"></span></td>
+                <td><span class="cmp__value">4.88 MB</span><span class="cmp__bar" style="--w:100%"></span></td>
                 <td><span class="cmp__value">119 MB</span><span class="cmp__bar" style="--w:100%"></span></td>
                 <td><a class="cmp__demo" href="games/empty/unity/" data-umami-event="demo-open" data-umami-event-project="empty" data-umami-event-engine="unity" target="_blank" rel="noopener" data-i18n="compare.open">Open</a></td>
               </tr>
@@ -253,32 +314,37 @@
               <tr>
                 <th scope="col" data-i18n="compare.th.engine">Engine</th>
                 <th scope="col" data-i18n="compare.th.wasm">WASM size</th>
+                <th scope="col" data-i18n="compare.th.transferred">Transferred</th>
                 <th scope="col" data-i18n="compare.th.heap">Heap Snapshot</th>
                 <th scope="col" data-i18n="compare.th.demo">Demo</th>
               </tr>
             </thead>
             <tbody>
               <tr class="cmp__ours">
-                <th class="cmp__engine" scope="row">ScopeBee <small>0.1.0</small></th>
+                <th class="cmp__engine" scope="row">ScopeBee <small>0.2.0</small></th>
                 <td class="cmp__best"><span class="cmp__value">1.14 MB</span><span class="cmp__bar" style="--w:5.4%"></span></td>
+                <td class="cmp__best"><span class="cmp__value">491 KB</span><span class="cmp__bar" style="--w:8.2%"></span></td>
                 <td class="cmp__best"><span class="cmp__value">15.6 MB</span><span class="cmp__bar" style="--w:10.2%"></span></td>
                 <td><a class="cmp__demo" href="games/flappybird/scopebee/" data-umami-event="demo-open" data-umami-event-project="flappybird" data-umami-event-engine="scopebee" target="_blank" rel="noopener" data-i18n="compare.play">Play</a></td>
               </tr>
               <tr>
                 <th class="cmp__engine" scope="row">Defold <small>1.13.0</small></th>
                 <td><span class="cmp__value">2.26 MB</span><span class="cmp__bar" style="--w:10.7%"></span></td>
+                <td><span class="cmp__value">962 KB</span><span class="cmp__bar" style="--w:16.1%"></span></td>
                 <td><span class="cmp__value">42.2 MB</span><span class="cmp__bar" style="--w:27.6%"></span></td>
                 <td><a class="cmp__demo" href="games/flappybird/defold/" data-umami-event="demo-open" data-umami-event-project="flappybird" data-umami-event-engine="defold" target="_blank" rel="noopener" data-i18n="compare.play">Play</a></td>
               </tr>
               <tr>
                 <th class="cmp__engine" scope="row">Cocos Creator <small>3.8</small><small class="cmp__engine-note" data-i18n="compare.cocos.note">(no wasm — assets + cocos-js measured)</small></th>
                 <td><span class="cmp__value">3.46 MB</span><span class="cmp__bar" style="--w:16.4%"></span></td>
+                <td><span class="cmp__value">1.62 MB</span><span class="cmp__bar" style="--w:27.8%"></span></td>
                 <td><span class="cmp__value">20.5 MB</span><span class="cmp__bar" style="--w:13.4%"></span></td>
                 <td><a class="cmp__demo" href="games/flappybird/cocos/" data-umami-event="demo-open" data-umami-event-project="flappybird" data-umami-event-engine="cocos" target="_blank" rel="noopener" data-i18n="compare.play">Play</a></td>
               </tr>
               <tr>
                 <th class="cmp__engine" scope="row">Unity <small>6.4</small></th>
                 <td><span class="cmp__value">21.1 MB</span><span class="cmp__bar" style="--w:100%"></span></td>
+                <td><span class="cmp__value">5.82 MB</span><span class="cmp__bar" style="--w:100%"></span></td>
                 <td><span class="cmp__value">153 MB</span><span class="cmp__bar" style="--w:100%"></span></td>
                 <td><a class="cmp__demo" href="games/flappybird/unity/" data-umami-event="demo-open" data-umami-event-project="flappybird" data-umami-event-engine="unity" target="_blank" rel="noopener" data-i18n="compare.play">Play</a></td>
               </tr>
@@ -304,7 +370,7 @@
             </thead>
             <tbody>
               <tr class="cmp__ours">
-                <th class="cmp__engine" scope="row">ScopeBee <small>0.1.0</small><small class="cmp__engine-note">Box2D 3.1</small></th>
+                <th class="cmp__engine" scope="row">ScopeBee <small>0.2.0</small><small class="cmp__engine-note">Box2D 3.1</small></th>
                 <td class="cmp__best"><span class="cmp__value">7500</span><span class="cmp__bar" style="--w:100%"></span></td>
                 <td><a class="cmp__demo" href="games/tumbler/scopebee/" data-umami-event="demo-open" data-umami-event-project="tumbler" data-umami-event-engine="scopebee" target="_blank" rel="noopener" data-i18n="compare.open">Open</a></td>
               </tr>
@@ -344,36 +410,39 @@
       </header>
 
       <ol class="roadmap__list">
-        <li class="milestone milestone--now" data-reveal style="--i:0">
+        <li class="milestone milestone--done" data-reveal style="--i:0">
           <div class="milestone__when"><span class="milestone__mon" data-i18n="roadmap.m1">AUG</span><span class="milestone__year">2026</span></div>
           <div class="milestone__rail" aria-hidden="true">
-<span class="milestone__node"></span>
+<span class="milestone__node"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 6.4 4.7 9 10 3.2"/></svg></span>
           </div>
           <div class="milestone__body">
             <h3 class="milestone__title">
               <span data-i18n="roadmap.1.title">C# → Beef</span>
-              <span class="milestone__pill" data-i18n="roadmap.now">In progress</span>
+              <span class="milestone__pill" data-i18n="roadmap.done">Done</span>
             </h3>
             <p class="milestone__text" data-i18n="roadmap.1.text">Deeper and more accurate language conversion, sprites outside the view frustum dropped before drawing, hooks into web platforms.</p>
             <ul class="tags">
               <li data-i18n="roadmap.1.tag1">Language coverage</li>
               <li data-i18n="roadmap.1.tag2">Frustum culling</li>
               <li data-i18n="roadmap.1.tag3">Web portals integration</li>
+              <li data-i18n="roadmap.1.tag4">Gizmos</li>
             </ul>
           </div>
         </li>
 
-        <li class="milestone" data-reveal style="--i:1">
+        <li class="milestone milestone--now" data-reveal style="--i:1">
           <div class="milestone__when"><span class="milestone__mon" data-i18n="roadmap.m2">SEP</span><span class="milestone__year">2026</span></div>
           <div class="milestone__rail" aria-hidden="true"><span class="milestone__node"></span></div>
           <div class="milestone__body">
-            <h3 class="milestone__title" data-i18n="roadmap.2.title">Binary assets and gizmos</h3>
-            <p class="milestone__text" data-i18n="roadmap.2.text">A compact binary data format, asset browsing in the editor, move and rotate handles right in the scene.</p>
+            <h3 class="milestone__title">
+              <span data-i18n="roadmap.2.title">Binary assets &amp; 3D</span>
+              <span class="milestone__pill" data-i18n="roadmap.now">In progress</span>
+            </h3>
+            <p class="milestone__text" data-i18n="roadmap.2.text">A compact binary data format, and the first dimension past flat: models loaded straight from glb and drawn in the scene.</p>
             <ul class="tags">
               <li data-i18n="roadmap.2.tag1">Binary serialisation</li>
-              <li data-i18n="roadmap.2.tag2">Asset browser</li>
-              <li data-i18n="roadmap.2.tag3">References and dependencies</li>
-              <li data-i18n="roadmap.2.tag4">Gizmos</li>
+              <li data-i18n="roadmap.2.tag2">glb import</li>
+              <li data-i18n="roadmap.2.tag3">3D rendering</li>
             </ul>
           </div>
         </li>
@@ -382,12 +451,13 @@
           <div class="milestone__when"><span class="milestone__mon" data-i18n="roadmap.m3">OCT</span><span class="milestone__year">2026</span></div>
           <div class="milestone__rail" aria-hidden="true"><span class="milestone__node"></span></div>
           <div class="milestone__body">
-            <h3 class="milestone__title" data-i18n="roadmap.3.title">Particles and materials</h3>
-            <p class="milestone__text" data-i18n="roadmap.3.text">An effects system of its own, tunable materials, blend modes and shared presets.</p>
+            <h3 class="milestone__title" data-i18n="roadmap.3.title">Particles, materials and 3D physics</h3>
+            <p class="milestone__text" data-i18n="roadmap.3.text">An effects system of its own, tunable materials and blend modes, and bodies that collide in three dimensions.</p>
             <ul class="tags">
               <li data-i18n="roadmap.3.tag1">Particle system</li>
               <li data-i18n="roadmap.3.tag2">Material parameters</li>
               <li data-i18n="roadmap.3.tag3">Blend modes and presets</li>
+              <li data-i18n="roadmap.3.tag4">3D physics</li>
             </ul>
           </div>
         </li>
@@ -396,12 +466,12 @@
           <div class="milestone__when"><span class="milestone__mon" data-i18n="roadmap.m4">NOV</span><span class="milestone__year">2026</span></div>
           <div class="milestone__rail" aria-hidden="true"><span class="milestone__node"></span></div>
           <div class="milestone__body">
-            <h3 class="milestone__title" data-i18n="roadmap.4.title">Sound and tilemaps</h3>
-            <p class="milestone__text" data-i18n="roadmap.4.text">Sound with mixers and volume groups, tile-based levels assembled in the editor.</p>
+            <h3 class="milestone__title" data-i18n="roadmap.4.title">Tilemaps and audio mixers</h3>
+            <p class="milestone__text" data-i18n="roadmap.4.text">Tile-based levels assembled from a palette in the editor, and sound routed through mixers and volume groups.</p>
             <ul class="tags">
-              <li data-i18n="roadmap.4.tag1">Audio system</li>
-              <li data-i18n="roadmap.4.tag2">Mixers</li>
-              <li data-i18n="roadmap.4.tag3">Tilemap</li>
+              <li data-i18n="roadmap.4.tag1">Tilemap</li>
+              <li data-i18n="roadmap.4.tag2">Audio system</li>
+              <li data-i18n="roadmap.4.tag3">Mixers</li>
             </ul>
           </div>
         </li>
@@ -410,12 +480,10 @@
           <div class="milestone__when"><span class="milestone__mon" data-i18n="roadmap.m5">DEC</span><span class="milestone__year">2026</span></div>
           <div class="milestone__rail" aria-hidden="true"><span class="milestone__node"></span></div>
           <div class="milestone__body">
-            <h3 class="milestone__title" data-i18n="roadmap.5.title">3D for real</h3>
-            <p class="milestone__text" data-i18n="roadmap.5.text">Model import with materials, skeletons that move, bodies that collide in three dimensions.</p>
+            <h3 class="milestone__title" data-i18n="roadmap.5.title">Cross-platform</h3>
+            <p class="milestone__text" data-i18n="roadmap.5.text">The same project packaged past the browser without a second codebase, starting with Android.</p>
             <ul class="tags">
-              <li data-i18n="roadmap.5.tag1">Model import</li>
-              <li data-i18n="roadmap.5.tag2">Skeletal animation</li>
-              <li data-i18n="roadmap.5.tag3">3D physics</li>
+              <li data-i18n="roadmap.5.tag1">Android</li>
             </ul>
           </div>
         </li>
@@ -447,6 +515,8 @@
   </div>
 </footer>
 
+<!-- article strings; the news cards below read from it too -->
+<script src="news/news-i18n.js"></script>
 <script src="main.js"></script>
 </body>
 </html>
