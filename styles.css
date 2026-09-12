@@ -1041,6 +1041,12 @@ body.has-lightbox { overflow: hidden; }
 /* Physics table has one data column instead of two, so it gets a wider one —
    at 31% the bar would sit in a sliver next to an oversized demo column. */
 .cmp--physics td { width: 55%; }
+
+/* The playable table carries five value columns instead of three, so the shares
+   drop and the table needs more room before the bars turn into stubs. It lives
+   inside .article__media--wide, which is wider than the text column it follows. */
+.cmp--playable { min-width: 1000px; }
+.cmp--playable td { width: 15%; }
 .cmp td:last-child { width: auto; }
 
 .cmp__engine {
@@ -1517,6 +1523,9 @@ body.has-lightbox { overflow: hidden; }
   /* Buys back ~140px of table width, which is the difference between the Demo
      column being one flick away and being three. */
   .cmp { min-width: 640px; }
+  /* five value columns cannot shrink as far — below this the value and its bar
+     stop fitting on one line and every row doubles in height */
+  .cmp--playable { min-width: 860px; }
   .cmp th,
   .cmp td { padding: .5rem .65rem; }
   .cmp__value { width: 4.6em; font-size: .9rem; }

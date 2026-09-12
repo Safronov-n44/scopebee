@@ -35,6 +35,39 @@ window.SCOPEBEE_I18N_EXTRA = {
     'a020.li1': 'Deeper C# to Beef conversion, covering more of the language',
     'a020.li2': 'A web facade for the Yandex Games and CrazyGames APIs',
 
+    /* --- 0.3.0 --------------------------------------------------------- */
+    'a030.meta.title': 'ScopeBee 0.3.0 \u2014 playable ad builds',
+    'a030.meta.desc': 'ScopeBee 0.3.0 builds a playable ad: the whole game in one HTML file, packed with Zstd.',
+    'a030.when': '11 SEP 2026',
+    'a030.title': 'ScopeBee 0.3.0',
+    'a030.card.title': 'ScopeBee 0.3.0',
+    'a030.card.text': 'A playable ad build: the whole game in a single HTML file, packed with Zstd.',
+    'a030.lead': 'The release is about one build mode. --playable puts the whole game \u2014 wasm, assets and script \u2014 into a single HTML file that an ad network can run with nothing behind it.',
+
+    'a030.h1': 'What a playable ad is',
+    'a030.p1': 'A playable ad is a short interactive creative in another app\u2019s ad slot: a few seconds of the actual game, then a button to the store. The network drops the file into a WebView and gives it nothing else \u2014 no server, no second request. Everything the game needs has to be inside the file that was uploaded, and that file has a hard size limit, usually between two and five megabytes.',
+    'a030.p2': 'So it is not judged the way a web build is. What counts is the weight of the file, how fast the first frame arrives, and how much memory it holds on someone else\u2019s phone.',
+
+    'a030.h2': 'One file',
+    'a030.p3': 'The new mode packs the engine, the assets and the script into the page itself. The creative makes no network requests at all \u2014 it starts from what is already in the file.',
+    'a030.p4': 'The ad network layer goes in with it: the build recognises Meta, Google Ads, Mintegral, AppLovin, ironSource and the rest, and hands the CTA click and the pause to whichever one is showing it. Nothing in the project changes between a web build and a creative.',
+
+    'a030.h3': 'Zstd, not Brotli',
+    'a030.p6': 'A site serves the build Brotli-compressed for free, because the decoder is the browser\u2019s own. A creative has no server: the file is served exactly as it was uploaded, so the compression has to live inside the page \u2014 and the decoder rides along inside the same limit.',
+    'a030.p7': 'That changes the answer. A Brotli decoder weighs around 151 KB against 8 KB for Zstd, and Zstd compresses this game only about 36 KB worse \u2014 94 KB saved on the page by picking the smaller decoder over the better ratio.',
+
+    'a030.h4': 'What it comes to',
+    'a030.p9': 'The same Flappy Bird as in the comparison on the front page, built as a single-file creative in each engine that has that mode. Unity has none: it cannot export one HTML file, and its wasm alone is heavier than any network\u2019s limit for the whole creative.',
+    'a030.t.caption': 'Flappy Bird as a playable ad',
+    'a030.t.file': 'HTML file',
+    'a030.t.res': 'Resources',
+    'a030.t.first': 'First frame',
+    'a030.cap1': 'The same game as a single-file creative in three engines. Bar length is the share of the largest value in that column.',
+    'a030.note': 'HTML file is the file on disk \u2014 what gets uploaded, and what the network measures against its limit. Transferred is that file over the wire with gzip, the way this site is served. Resources and Heap Snapshot come from Chrome DevTools on the loaded page. First frame is the line each build prints when its first frame is drawn. Median of five cold loads, Mac mini M2, 16 GB, Chrome 153.',
+
+    'a030.h5': 'Try it',
+    'a030.p10': 'All three creatives are behind the links in the table above, each the single file its network would receive. Open one with DevTools on the Network tab: one request, and the whole game behind it.',
+
     /* --- sample game --------------------------------------------------- */
     'agame.meta.title': 'An idle game — UI, atlas baking and responsive layout',
     'agame.meta.desc': 'An idle game built with ScopeBee, showing the UI layer, atlas baking and responsive layout.',
@@ -103,6 +136,39 @@ window.SCOPEBEE_I18N_EXTRA = {
     'a020.h3': 'Что ещё в этой версии',
     'a020.li1': 'Более глубокая конвертация C# в Beef, покрыто больше языка',
     'a020.li2': 'Веб-фасад для вызова API Yandex Games и CrazyGames',
+
+    /* --- 0.3.0 --------------------------------------------------------- */
+    'a030.meta.title': 'ScopeBee 0.3.0 \u2014 сборка Playable Ad',
+    'a030.meta.desc': 'В ScopeBee 0.3.0 появилась сборка playable-креатива: вся игра в одном HTML-файле, упакованная Zstd.',
+    'a030.when': '11 СЕН 2026',
+    'a030.title': 'ScopeBee 0.3.0',
+    'a030.card.title': 'ScopeBee 0.3.0',
+    'a030.card.text': 'Сборка Playable Ad: вся игра в одном HTML-файле, упакованная Zstd.',
+    'a030.lead': 'Релиз про один режим сборки. --playable складывает всю игру \u2014 wasm, ассеты и скрипт \u2014 в единственный HTML-файл, который рекламная площадка запускает, не имея за собой ничего.',
+
+    'a030.h1': 'Что такое playable',
+    'a030.p1': 'Playable \u2014 это короткий интерактивный креатив в рекламном блоке чужого приложения: несколько секунд настоящей игры и кнопка в стор. Площадка кладёт файл в WebView и больше не даёт ничего \u2014 ни сервера, ни второго запроса. Всё, что игре нужно, должно лежать внутри загруженного файла, а у файла есть жёсткий лимит размера \u2014 обычно от двух до пяти мегабайт.',
+    'a030.p2': 'Поэтому меряется он не тем же, чем веб-сборка. Важны вес файла, время до первого кадра и объём памяти на чужом телефоне.',
+
+    'a030.h2': 'Один файл',
+    'a030.p3': 'Новый режим упаковывает движок, ассеты и скрипт в саму страницу. Креатив не делает ни одного сетевого запроса \u2014 он стартует с того, что уже лежит в файле.',
+    'a030.p4': 'Вместе с ним внутрь попадает и слой рекламных сетей: сборка узнаёт Meta, Google Ads, Mintegral, AppLovin, ironSource и остальных и передаёт клик по CTA и паузу той, которая показывает креатив. В проекте между веб-сборкой и креативом не меняется ничего.',
+
+    'a030.h3': 'Zstd вместо Brotli',
+    'a030.p6': 'На сайте сборка отдаётся сжатой Brotli, и это бесплатно: декодер там браузерный. У креатива сервера нет \u2014 файл отдают ровно таким, каким его загрузили, поэтому сжатие приходится держать внутри страницы, а декодер едет туда же, внутрь того же лимита.',
+    'a030.p7': 'От этого меняется ответ. Декодер Brotli весит около 151 КБ против 8 КБ у Zstd, а сжимает Zstd эту игру всего на 36 КБ хуже \u2014 94 КБ экономии на странице за выбор меньшего декодера вместо лучшего сжатия.',
+
+    'a030.h4': 'Что получилось',
+    'a030.p9': 'Тот же Flappy Bird, что и в сравнении на главной, собранный однофайловым креативом в каждом движке, у которого такой режим есть. У Unity его нет: выгрузить один HTML он не умеет, а его wasm в одиночку тяжелее, чем лимит любой площадки на весь креатив.',
+    'a030.t.caption': 'Flappy Bird как playable-креатив',
+    'a030.t.file': 'HTML-файл',
+    'a030.t.res': 'Resources',
+    'a030.t.first': 'Первый кадр',
+    'a030.cap1': 'Одна и та же игра однофайловым креативом на трёх движках. Длина полосы \u2014 доля от наибольшего значения в столбце.',
+    'a030.note': 'HTML-файл \u2014 это файл на диске: то, что загружают на площадку, и то, с чем она сверяет свой лимит. Transferred \u2014 тот же файл по сети с gzip, так же, как отдаётся этот сайт. Resources и Heap Snapshot \u2014 из Chrome DevTools на загруженной странице. Первый кадр \u2014 строка, которую каждая сборка печатает при отрисовке первого кадра. Медиана пяти холодных загрузок, Mac mini M2, 16 ГБ, Chrome 153.',
+
+    'a030.h5': 'Попробовать',
+    'a030.p10': 'Все три креатива открываются по ссылкам в таблице выше \u2014 каждый тем самым единственным файлом, который получила бы площадка. Откройте любой с DevTools на вкладке Network: один запрос, и за ним вся игра.',
 
     /* --- пример игры --------------------------------------------------- */
     'agame.meta.title': 'Idle-игра — UI, запекание атласа и адаптивная вёрстка',

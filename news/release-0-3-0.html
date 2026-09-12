@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en" data-i18n-title="a030.meta.title" data-i18n-desc="a030.meta.desc">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ScopeBee 0.3.0 — playable ad builds</title>
+<meta name="description" content="ScopeBee 0.3.0 builds a playable ad: the whole game in one HTML file, packed with Zstd.">
+<meta name="theme-color" content="#0b0b16">
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="ScopeBee 0.3.0 — playable ad builds">
+<meta property="og:description" content="The whole game in a single HTML file, packed with Zstd, measured against Defold and Cocos Creator.">
+<meta property="og:image" content="../assets/editor.png">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" href="../assets/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../styles.css">
+
+<script>document.documentElement.classList.add('js');</script>
+<script defer src="https://cloud.umami.is/script.js"
+        data-website-id="d878d1d4-c979-49f4-8593-c104f9459d83"
+        data-domains="scopebee.tech,www.scopebee.tech"
+        data-performance="true"></script>
+</head>
+<body>
+
+<a class="skip-link" href="#main" data-i18n="skip">Skip to content</a>
+
+<header class="topbar" id="topbar">
+  <div class="topbar__inner">
+    <a class="brand" href="../index.html#top">
+      <img class="brand__mark" src="../assets/logo.svg" alt="" width="36" height="36">
+      <span class="brand__name">ScopeBee</span>
+    </a>
+
+    <button class="burger" id="burger" aria-expanded="false" aria-controls="nav" aria-label="Menu" data-i18n-aria="a11y.menu">
+      <span></span><span></span><span></span>
+    </button>
+
+    <nav class="nav" id="nav">
+      <ul class="nav__list">
+        <li><a href="../index.html#news" data-i18n="nav.news">News</a></li>
+        <li><a href="../index.html#engine" data-i18n="nav.features">Features</a></li>
+        <li><a href="../index.html#compare" data-i18n="nav.compare">Comparison</a></li>
+        <li><a href="../index.html#roadmap" data-i18n="nav.roadmap">Roadmap</a></li>
+        <li><a href="../index.html#footer" data-i18n="nav.contact">Contact</a></li>
+      </ul>
+      <div class="lang" role="group" aria-label="Language" data-i18n-aria="a11y.lang">
+        <button type="button" class="lang__btn" data-lang="en">EN</button>
+        <span class="lang__sep" aria-hidden="true">/</span>
+        <button type="button" class="lang__btn" data-lang="ru">RU</button>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+  <article class="article">
+    <a class="article__back" href="../index.html#news">
+      <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M8.5 3 4.5 7l4 4"/>
+      </svg>
+      <span data-i18n="article.back">Back to the site</span>
+    </a>
+
+    <p class="article__when"><time datetime="2026-09-11" data-i18n="a030.when">11 SEP 2026</time></p>
+    <h1 class="article__title" data-i18n="a030.title">ScopeBee 0.3.0</h1>
+    <p class="article__lead" data-i18n="a030.lead">The release is about one build mode. --playable puts the whole game — wasm, assets and script — into a single HTML file that an ad network can run with nothing behind it.</p>
+
+
+    <div class="article__body">
+      <h2 data-i18n="a030.h1">What a playable ad is</h2>
+      <p data-i18n="a030.p1">A playable ad is a short interactive creative in another app&rsquo;s ad slot: a few seconds of the actual game, then a button to the store. The network drops the file into a WebView and gives it nothing else &mdash; no server, no second request. Everything the game needs has to be inside the file that was uploaded, and that file has a hard size limit, usually between two and five megabytes.</p>
+      <p data-i18n="a030.p2">So it is not judged the way a web build is. What counts is the weight of the file, how fast the first frame arrives, and how much memory it holds on someone else&rsquo;s phone.</p>
+
+      <h2 data-i18n="a030.h2">One file</h2>
+      <p data-i18n="a030.p3">The new mode packs the engine, the assets and the script into the page itself. The creative makes no network requests at all &mdash; it starts from what is already in the file.</p>
+      <p data-i18n="a030.p4">The ad network layer goes in with it: the build recognises Meta, Google Ads, Mintegral, AppLovin, ironSource and the rest, and hands the CTA click and the pause to whichever one is showing it. Nothing in the project changes between a web build and a creative.</p>
+
+      <h2 data-i18n="a030.h3">Zstd, not Brotli</h2>
+      <p data-i18n="a030.p6">A site serves the build Brotli-compressed for free, because the decoder is the browser&rsquo;s own. A creative has no server: the file is served exactly as it was uploaded, so the compression has to live inside the page &mdash; and the decoder rides along inside the same limit.</p>
+      <p data-i18n="a030.p7">That changes the answer. A Brotli decoder weighs around 151 KB against 8 KB for Zstd, and Zstd compresses this game only about 36 KB worse &mdash; 94 KB saved on the page by picking the smaller decoder over the better ratio.</p>
+
+      <h2 data-i18n="a030.h4">What it comes to</h2>
+      <p data-i18n="a030.p9">The same Flappy Bird as in the comparison on the front page, built as a single-file creative in each engine that has that mode. Unity has none: it cannot export one HTML file, and its wasm alone is heavier than any network&rsquo;s limit for the whole creative.</p>
+
+      <figure class="article__media article__media--wide">
+        <div class="table-scroll" role="region" aria-label="Flappy Bird as a playable ad" data-i18n-aria="a030.t.caption" tabindex="0">
+          <table class="cmp cmp--playable">
+            <thead>
+              <tr>
+                <th scope="col" data-i18n="compare.th.engine">Engine</th>
+                <th scope="col" data-i18n="a030.t.file">HTML file</th>
+                <th scope="col" data-i18n="compare.th.transferred">Transferred</th>
+                <th scope="col" data-i18n="a030.t.res">Resources</th>
+                <th scope="col" data-i18n="compare.th.heap">Heap Snapshot</th>
+                <th scope="col" data-i18n="a030.t.first">First frame</th>
+                <th scope="col" data-i18n="compare.th.demo">Demo</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="cmp__ours">
+                <th class="cmp__engine" scope="row">ScopeBee <small>0.3.0</small></th>
+                <td class="cmp__best"><span class="cmp__value">766 KB</span><span class="cmp__bar" style="--w:51.5%"></span></td>
+                <td class="cmp__best"><span class="cmp__value">573 KB</span><span class="cmp__bar" style="--w:52.6%"></span></td>
+                <td class="cmp__best"><span class="cmp__value">766 KB</span><span class="cmp__bar" style="--w:20.6%"></span></td>
+                <td class="cmp__best"><span class="cmp__value">14.1 MB</span><span class="cmp__bar" style="--w:37.0%"></span></td>
+                <td class="cmp__best"><span class="cmp__value">138 ms</span><span class="cmp__bar" style="--w:35.0%"></span></td>
+                <td><a class="cmp__demo" href="../games/playableflappybird/scopebee/" data-umami-event="demo-open" data-umami-event-project="playable-flappybird" data-umami-event-engine="scopebee" target="_blank" rel="noopener" data-i18n="compare.play">Play</a></td>
+              </tr>
+              <tr>
+                <th class="cmp__engine" scope="row">Defold <small>1.13.1</small></th>
+                <td><span class="cmp__value">1.22 MB</span><span class="cmp__bar" style="--w:84.0%"></span></td>
+                <td><span class="cmp__value">940 KB</span><span class="cmp__bar" style="--w:86.3%"></span></td>
+                <td><span class="cmp__value">1.22 MB</span><span class="cmp__bar" style="--w:33.7%"></span></td>
+                <td><span class="cmp__value">38.1 MB</span><span class="cmp__bar" style="--w:100%"></span></td>
+                <td><span class="cmp__value">395 ms</span><span class="cmp__bar" style="--w:100%"></span></td>
+                <td><a class="cmp__demo" href="../games/playableflappybird/defold/" data-umami-event="demo-open" data-umami-event-project="playable-flappybird" data-umami-event-engine="defold" target="_blank" rel="noopener" data-i18n="compare.play">Play</a></td>
+              </tr>
+              <tr>
+                <th class="cmp__engine" scope="row">Cocos Creator <small>3.8.8</small></th>
+                <td><span class="cmp__value">1.45 MB</span><span class="cmp__bar" style="--w:100%"></span></td>
+                <td><span class="cmp__value">1.06 MB</span><span class="cmp__bar" style="--w:100%"></span></td>
+                <td><span class="cmp__value">3.63 MB</span><span class="cmp__bar" style="--w:100%"></span></td>
+                <td><span class="cmp__value">32.1 MB</span><span class="cmp__bar" style="--w:84.4%"></span></td>
+                <td><span class="cmp__value">385 ms</span><span class="cmp__bar" style="--w:97.5%"></span></td>
+                <td><a class="cmp__demo" href="../games/playableflappybird/cocos/" data-umami-event="demo-open" data-umami-event-project="playable-flappybird" data-umami-event-engine="cocos" target="_blank" rel="noopener" data-i18n="compare.play">Play</a></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <figcaption class="article__caption" data-i18n="a030.cap1">The same game as a single-file creative in three engines. Bar length is the share of the largest value in that column.</figcaption>
+      </figure>
+
+      <p class="article__note" data-i18n="a030.note">HTML file is the file on disk &mdash; what gets uploaded, and what the network measures against its limit. Transferred is that file over the wire with gzip, the way this site is served. Resources and Heap Snapshot come from Chrome DevTools on the loaded page. First frame is the line each build prints when its first frame is drawn. Median of five cold loads, Mac mini M2, 16 GB, Chrome 153.</p>
+
+      <h2 data-i18n="a030.h5">Try it</h2>
+      <p data-i18n="a030.p10">All three creatives are behind the links in the table above, each the single file its network would receive. Open one with DevTools on the Network tab: one request, and the whole game behind it.</p>
+    </div>
+  </article>
+</main>
+
+<script src="news-i18n.js"></script>
+<script src="../main.js"></script>
+</body>
+</html>
