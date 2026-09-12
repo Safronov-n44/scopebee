@@ -1046,7 +1046,11 @@ body.has-lightbox { overflow: hidden; }
    drop and the table needs more room before the bars turn into stubs. It lives
    inside .article__media--wide, which is wider than the text column it follows. */
 .cmp--playable { min-width: 1000px; }
-.cmp--playable td { width: 15%; }
+.cmp--playable td { width: 14%; }
+/* Five columns leave every cell narrower, so the value gives the bar back the
+   width it needs — the same trade the narrow-screen rules make below. */
+.cmp--playable .cmp__value { width: 4.6em; font-size: .9rem; }
+.cmp--playable .cmp__bar { width: calc(100% - 5.2em); }
 .cmp td:last-child { width: auto; }
 
 .cmp__engine {
@@ -1128,6 +1132,16 @@ body.has-lightbox { overflow: hidden; }
   transition: translate .2s var(--ease-out);
 }
 .cmp__demo:hover::after { translate: 2px -2px; }
+
+/* Per-block description. The section lead explains the bars once; a block that
+   measures something other than a plain web build needs a line of its own. */
+.compare__blurb {
+  margin: -.2rem 0 .9rem;
+  max-width: 70ch;
+  color: var(--text-muted);
+  font-size: .9375rem;
+  line-height: 1.55;
+}
 
 .compare__note {
   margin-top: .9rem;

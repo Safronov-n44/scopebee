@@ -365,6 +365,59 @@
 
       <div class="compare__block" data-reveal style="--i:2">
         <div class="compare__caption">
+          <h3 id="cmp-playable" data-i18n="compare.playable">Flappy Bird as a playable ad</h3>
+          <span class="compare__platform" data-i18n="compare.platform.html">HTML5 &middot; .html</span>
+        </div>
+        <p class="compare__blurb" data-i18n="compare.playable.lead">The same game as an ad creative: one HTML file with the engine, the assets and the script inside it, the way an ad network runs it &mdash; no server behind it and no second request. Unity has no such build mode.</p>
+        <div class="table-scroll" role="region" aria-labelledby="cmp-playable" tabindex="0">
+          <table class="cmp cmp--playable">
+            <thead>
+              <tr>
+                <th scope="col" data-i18n="compare.th.engine">Engine</th>
+                <th scope="col" data-i18n="compare.th.file">HTML file</th>
+                <th scope="col" data-i18n="compare.th.transferred">Transferred</th>
+                <th scope="col" data-i18n="compare.th.res">Resources</th>
+                <th scope="col" data-i18n="compare.th.heap">Heap Snapshot</th>
+                <th scope="col" data-i18n="compare.th.first">First frame</th>
+                <th scope="col" data-i18n="compare.th.demo">Demo</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="cmp__ours">
+                <th class="cmp__engine" scope="row">ScopeBee <small>0.3.0</small></th>
+                <td class="cmp__best"><span class="cmp__value">766 KB</span><span class="cmp__bar" style="--w:51.5%"></span></td>
+                <td class="cmp__best"><span class="cmp__value">573 KB</span><span class="cmp__bar" style="--w:52.6%"></span></td>
+                <td class="cmp__best"><span class="cmp__value">766 KB</span><span class="cmp__bar" style="--w:20.6%"></span></td>
+                <td class="cmp__best"><span class="cmp__value">14.1 MB</span><span class="cmp__bar" style="--w:37.0%"></span></td>
+                <td class="cmp__best"><span class="cmp__value">138 ms</span><span class="cmp__bar" style="--w:35.0%"></span></td>
+                <td><a class="cmp__demo" href="games/playableflappybird/scopebee/" data-umami-event="demo-open" data-umami-event-project="playable-flappybird" data-umami-event-engine="scopebee" target="_blank" rel="noopener" data-i18n="compare.play">Play</a></td>
+              </tr>
+              <tr>
+                <th class="cmp__engine" scope="row">Defold <small>1.13.1</small></th>
+                <td><span class="cmp__value">1.22 MB</span><span class="cmp__bar" style="--w:84.0%"></span></td>
+                <td><span class="cmp__value">939 KB</span><span class="cmp__bar" style="--w:86.3%"></span></td>
+                <td><span class="cmp__value">1.22 MB</span><span class="cmp__bar" style="--w:33.7%"></span></td>
+                <td><span class="cmp__value">38.1 MB</span><span class="cmp__bar" style="--w:100%"></span></td>
+                <td><span class="cmp__value">395 ms</span><span class="cmp__bar" style="--w:100%"></span></td>
+                <td><a class="cmp__demo" href="games/playableflappybird/defold/" data-umami-event="demo-open" data-umami-event-project="playable-flappybird" data-umami-event-engine="defold" target="_blank" rel="noopener" data-i18n="compare.play">Play</a></td>
+              </tr>
+              <tr>
+                <th class="cmp__engine" scope="row">Cocos Creator <small>3.8.8</small></th>
+                <td><span class="cmp__value">1.45 MB</span><span class="cmp__bar" style="--w:100%"></span></td>
+                <td><span class="cmp__value">1.06 MB</span><span class="cmp__bar" style="--w:100%"></span></td>
+                <td><span class="cmp__value">3.63 MB</span><span class="cmp__bar" style="--w:100%"></span></td>
+                <td><span class="cmp__value">32.1 MB</span><span class="cmp__bar" style="--w:84.4%"></span></td>
+                <td><span class="cmp__value">385 ms</span><span class="cmp__bar" style="--w:97.5%"></span></td>
+                <td><a class="cmp__demo" href="games/playableflappybird/cocos/" data-umami-event="demo-open" data-umami-event-project="playable-flappybird" data-umami-event-engine="cocos" target="_blank" rel="noopener" data-i18n="compare.play">Play</a></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="compare__note" data-i18n="compare.note.playable">HTML file is the file on disk &mdash; what gets uploaded to the network, and what its size limit is measured against. Transferred is that file as this site serves it, gzip over the wire. Resources and Heap Snapshot are Chrome DevTools on the loaded page. First frame is the line each build prints when its first frame is drawn, on a local load so the download does not count towards it.</p>
+      </div>
+
+      <div class="compare__block" data-reveal style="--i:3">
+        <div class="compare__caption">
           <h3 id="cmp-physics" data-i18n="compare.physics">Physics stress test</h3>
           <span class="compare__platform" data-i18n="compare.platform.fps">HTML5 · 60 FPS</span>
         </div>

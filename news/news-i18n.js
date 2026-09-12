@@ -63,7 +63,7 @@ window.SCOPEBEE_I18N_EXTRA = {
     'a030.t.res': 'Resources',
     'a030.t.first': 'First frame',
     'a030.cap1': 'The same game as a single-file creative in three engines. Bar length is the share of the largest value in that column.',
-    'a030.note': 'HTML file is the file on disk \u2014 what gets uploaded, and what the network measures against its limit. Transferred is that file over the wire with gzip, the way this site is served. Resources and Heap Snapshot come from Chrome DevTools on the loaded page. First frame is the line each build prints when its first frame is drawn. Median of five cold loads, Mac mini M2, 16 GB, Chrome 153.',
+    'a030.note': 'HTML file is the file on disk \u2014 what gets uploaded, and what the network measures against its limit. Transferred is the same file as this site actually serves it, gzip over the wire. Resources and Heap Snapshot come from Chrome DevTools on the loaded page. First frame is the line each build prints when its first frame is drawn. Median of five cold loads served locally, so the download does not count towards it. Mac mini M2, 16 GB, Chrome 153.',
 
     'a030.h5': 'Try it',
     'a030.p10': 'All three creatives are behind the links in the table above, each the single file its network would receive. Open one with DevTools on the Network tab: one request, and the whole game behind it.',
@@ -165,7 +165,7 @@ window.SCOPEBEE_I18N_EXTRA = {
     'a030.t.res': 'Resources',
     'a030.t.first': 'Первый кадр',
     'a030.cap1': 'Одна и та же игра однофайловым креативом на трёх движках. Длина полосы \u2014 доля от наибольшего значения в столбце.',
-    'a030.note': 'HTML-файл \u2014 это файл на диске: то, что загружают на площадку, и то, с чем она сверяет свой лимит. Transferred \u2014 тот же файл по сети с gzip, так же, как отдаётся этот сайт. Resources и Heap Snapshot \u2014 из Chrome DevTools на загруженной странице. Первый кадр \u2014 строка, которую каждая сборка печатает при отрисовке первого кадра. Медиана пяти холодных загрузок, Mac mini M2, 16 ГБ, Chrome 153.',
+    'a030.note': 'HTML-файл \u2014 это файл на диске: то, что загружают на площадку, и то, с чем она сверяет свой лимит. Transferred \u2014 тот же файл, как его отдаёт этот сайт: gzip по сети. Resources и Heap Snapshot \u2014 из Chrome DevTools на загруженной странице. Первый кадр \u2014 строка, которую каждая сборка печатает при отрисовке первого кадра. Медиана пяти холодных загрузок с локальной отдачи, чтобы в неё не входило само скачивание. Mac mini M2, 16 ГБ, Chrome 153.',
 
     'a030.h5': 'Попробовать',
     'a030.p10': 'Все три креатива открываются по ссылкам в таблице выше \u2014 каждый тем самым единственным файлом, который получила бы площадка. Откройте любой с DevTools на вкладке Network: один запрос, и за ним вся игра.',
