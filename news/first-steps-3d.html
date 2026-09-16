@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" data-i18n-title="a3d.meta.title" data-i18n-desc="a3d.meta.desc">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>First steps in 3D</title>
+<meta name="description" content="Meshes, glTF models, skinning and the animator: the first 3D in a 2D engine.">
+<meta name="theme-color" content="#0b0b16">
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="First steps in 3D">
+<meta property="og:description" content="Meshes, glTF models, skinning and the animator: the first 3D in a 2D engine.">
+<meta property="og:image" content="../assets/news/first-3d-poster.jpg">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" href="../assets/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../styles.css">
+
+<script>document.documentElement.classList.add('js');</script>
+<script defer src="https://cloud.umami.is/script.js"
+        data-website-id="d878d1d4-c979-49f4-8593-c104f9459d83"
+        data-domains="scopebee.tech,www.scopebee.tech"
+        data-performance="true"></script>
+</head>
+<body>
+
+<a class="skip-link" href="#main" data-i18n="skip">Skip to content</a>
+
+<header class="topbar" id="topbar">
+  <div class="topbar__inner">
+    <a class="brand" href="../index.html#top">
+      <img class="brand__mark" src="../assets/logo.svg" alt="" width="36" height="36">
+      <span class="brand__name">ScopeBee</span>
+    </a>
+
+    <button class="burger" id="burger" aria-expanded="false" aria-controls="nav" aria-label="Menu" data-i18n-aria="a11y.menu">
+      <span></span><span></span><span></span>
+    </button>
+
+    <nav class="nav" id="nav">
+      <ul class="nav__list">
+        <li><a href="../index.html#news" data-i18n="nav.news">News</a></li>
+        <li><a href="../index.html#engine" data-i18n="nav.features">Features</a></li>
+        <li><a href="../index.html#compare" data-i18n="nav.compare">Comparison</a></li>
+        <li><a href="../index.html#roadmap" data-i18n="nav.roadmap">Roadmap</a></li>
+        <li><a href="../index.html#footer" data-i18n="nav.contact">Contact</a></li>
+      </ul>
+      <div class="lang" role="group" aria-label="Language" data-i18n-aria="a11y.lang">
+        <button type="button" class="lang__btn" data-lang="en">EN</button>
+        <span class="lang__sep" aria-hidden="true">/</span>
+        <button type="button" class="lang__btn" data-lang="ru">RU</button>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+  <article class="article">
+    <a class="article__back" href="../index.html#news">
+      <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M8.5 3 4.5 7l4 4"/>
+      </svg>
+      <span data-i18n="article.back">Back to the site</span>
+    </a>
+
+    <p class="article__when"><time datetime="2026-09-16" data-i18n="a3d.when">16 SEP 2026</time></p>
+    <h1 class="article__title" data-i18n="a3d.title">First steps in 3D</h1>
+    <p class="article__lead" data-i18n="a3d.lead">The engine stays 2D-first, but it can now draw a mesh, import a model and animate a skeleton. Here is what has appeared, in short.</p>
+
+    <div class="article__body">
+      <h2 data-i18n="a3d.h1">A second geometry path</h2>
+      <p data-i18n="a3d.p1">Meshes are drawn alongside sprites, not instead of them: their own vertex buffers, their own shader and their own pass with a depth buffer. The camera learned a perspective projection next to the orthographic one, and the scene view in the editor switched to an orbit camera with a ground grid, a ray picker and a transform gizmo working on real matrices.</p>
+      <p data-i18n="a3d.p2">Eight primitives come with it &mdash; cube, sphere, capsule, cylinder, plane, quad, plus a cone and a torus &mdash; so a scene can be put together before any model is imported. Lighting is deliberately minimal for now: unlit or a single directional light.</p>
+
+      <h2 data-i18n="a3d.h2">Models: GLB and glTF</h2>
+      <p data-i18n="a3d.p3">GLB/glTF is the format the engine reads natively. Everything else &mdash; FBX, OBJ, DAE, STL, PLY, ABC, USD, BLEND &mdash; is converted to GLB by Blender in headless CLI mode, and from there it goes through the same pipeline. One importer for every format, at the cost of one external dependency: without Blender those formats are not imported, and the editor says so instead of quietly doing nothing.</p>
+      <p data-i18n="a3d.p4">The import bakes a binary asset of its own. One model is one file: all of its meshes and the node hierarchy with their transforms, so wheels and doors keep their own pivots. Drag it into the hierarchy and it unfolds into objects. Geometry compression is a project-level switch &mdash; meshopt, whose decoder weighs 4.7 KB in the wasm.</p>
+
+      <h2 data-i18n="a3d.h3">Skeleton, skinning, animator</h2>
+      <p data-i18n="a3d.p5">A skinned character comes in from the same file: the skeleton and the clips ride inside the model, and a bone track is simply a third kind of track inside the animation clip the engine already had. That is the point of it &mdash; there is no separate 3D animation system.</p>
+      <p data-i18n="a3d.p6">So the animator is the one you already know from 2D. A graph of states, parameters of four types (float, int, bool, trigger), transitions with conditions on them &mdash; greater, less, equal, not equal, set or not set &mdash; exit time, and a crossfade duration per transition. The same controller asset, the same editor tab.</p>
+
+      <figure class="article__media">
+        <video src="../assets/news/first-3d.mp4" poster="../assets/news/first-3d-poster.jpg"
+               width="1066" height="570" controls playsinline preload="metadata"></video>
+        <figcaption class="article__caption" data-i18n="a3d.cap1">An imported Fox: walk and run played from the model&rsquo;s own clips, and the animator graph that switches between them</figcaption>
+      </figure>
+
+      <h2 data-i18n="a3d.h4">A 2D game pays nothing for it</h2>
+      <p data-i18n="a3d.p7">All of it is behind two build switches. Turning 3D meshes off drops the meshes, the models, the primitives, the skinning, the mesh pass and both 3D shaders out of the web build; skinning has a switch of its own for a project that only needs static props. A 2D game keeps the wasm it had.</p>
+    </div>
+  </article>
+</main>
+
+<script src="news-i18n.js"></script>
+<script src="../main.js"></script>
+</body>
+</html>

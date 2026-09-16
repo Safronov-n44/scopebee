@@ -68,6 +68,31 @@ window.SCOPEBEE_I18N_EXTRA = {
     'a030.h5': 'Try it',
     'a030.p10': 'All three creatives are behind the links in the table above, each the single file its network would receive. Open one with DevTools on the Network tab: one request, and the whole game behind it.',
 
+    /* --- first steps in 3D --------------------------------------------- */
+    'a3d.meta.title': 'First steps in 3D',
+    'a3d.meta.desc': 'Meshes, glTF models, skinning and the animator: the first 3D in a 2D engine.',
+    'a3d.when': '16 SEP 2026',
+    'a3d.title': 'First steps in 3D',
+    'a3d.card.title': 'First steps in 3D',
+    'a3d.card.text': 'Meshes and a perspective camera, models through GLB/glTF, a skeleton and the same animator as in 2D.',
+    'a3d.lead': 'The engine stays 2D-first, but it can now draw a mesh, import a model and animate a skeleton. Here is what has appeared, in short.',
+
+    'a3d.h1': 'A second geometry path',
+    'a3d.p1': 'Meshes are drawn alongside sprites, not instead of them: their own vertex buffers, their own shader and their own pass with a depth buffer. The camera learned a perspective projection next to the orthographic one, and the scene view in the editor switched to an orbit camera with a ground grid, a ray picker and a transform gizmo working on real matrices.',
+    'a3d.p2': 'Eight primitives come with it — cube, sphere, capsule, cylinder, plane, quad, plus a cone and a torus — so a scene can be put together before any model is imported. Lighting is deliberately minimal for now: unlit or a single directional light.',
+
+    'a3d.h2': 'Models: GLB and glTF',
+    'a3d.p3': 'GLB/glTF is the format the engine reads natively. Everything else — FBX, OBJ, DAE, STL, PLY, ABC, USD, BLEND — is converted to GLB by Blender in headless CLI mode, and from there it goes through the same pipeline. One importer for every format, at the cost of one external dependency: without Blender those formats are not imported, and the editor says so instead of quietly doing nothing.',
+    'a3d.p4': 'The import bakes a binary asset of its own. One model is one file: all of its meshes and the node hierarchy with their transforms, so wheels and doors keep their own pivots. Drag it into the hierarchy and it unfolds into objects. Geometry compression is a project-level switch — meshopt, whose decoder weighs 4.7 KB in the wasm.',
+
+    'a3d.h3': 'Skeleton, skinning, animator',
+    'a3d.p5': 'A skinned character comes in from the same file: the skeleton and the clips ride inside the model, and a bone track is simply a third kind of track inside the animation clip the engine already had. That is the point of it — there is no separate 3D animation system.',
+    'a3d.p6': 'So the animator is the one you already know from 2D. A graph of states, parameters of four types (float, int, bool, trigger), transitions with conditions on them — greater, less, equal, not equal, set or not set — exit time, and a crossfade duration per transition. The same controller asset, the same editor tab.',
+    'a3d.cap1': 'An imported Fox: walk and run played from the model’s own clips, and the animator graph that switches between them',
+
+    'a3d.h4': 'A 2D game pays nothing for it',
+    'a3d.p7': 'All of it is behind two build switches. Turning 3D meshes off drops the meshes, the models, the primitives, the skinning, the mesh pass and both 3D shaders out of the web build; skinning has a switch of its own for a project that only needs static props. A 2D game keeps the wasm it had.',
+
     /* --- sample game --------------------------------------------------- */
     'agame.meta.title': 'An idle game — UI, atlas baking and responsive layout',
     'agame.meta.desc': 'An idle game built with ScopeBee, showing the UI layer, atlas baking and responsive layout.',
@@ -169,6 +194,31 @@ window.SCOPEBEE_I18N_EXTRA = {
 
     'a030.h5': 'Попробовать',
     'a030.p10': 'Все три креатива открываются по ссылкам в таблице выше \u2014 каждый тем самым единственным файлом, который получила бы площадка. Откройте любой с DevTools на вкладке Network: один запрос, и за ним вся игра.',
+
+    /* --- первые шаги в 3D ----------------------------------------------- */
+    'a3d.meta.title': 'Первые шаги в 3D',
+    'a3d.meta.desc': 'Меши, модели glTF, скиннинг и аниматор: первое 3D в 2D-движке.',
+    'a3d.when': '16 СЕН 2026',
+    'a3d.title': 'Первые шаги в 3D',
+    'a3d.card.title': 'Первые шаги в 3D',
+    'a3d.card.text': 'Меши и перспективная камера, модели через GLB/glTF, скелет и тот же аниматор, что и в 2D.',
+    'a3d.lead': 'Движок остаётся 2D-first, но теперь умеет нарисовать меш, импортировать модель и анимировать скелет. Коротко о том, что появилось.',
+
+    'a3d.h1': 'Второй путь геометрии',
+    'a3d.p1': 'Меши рисуются рядом со спрайтами, а не вместо них: свои вершинные буферы, свой шейдер и свой проход с буфером глубины. Камера научилась перспективной проекции рядом с ортографической, а вид сцены в редакторе получил орбитальную камеру, сетку по земле, пикинг лучом и гизмо трансформа на настоящих матрицах.',
+    'a3d.p2': 'Вместе с этим появились восемь примитивов — куб, сфера, капсула, цилиндр, плоскость, quad, плюс конус и тор — чтобы собрать сцену можно было ещё до того, как импортирована первая модель. Освещение пока намеренно минимальное: unlit или один направленный свет.',
+
+    'a3d.h2': 'Модели: GLB и glTF',
+    'a3d.p3': 'GLB/glTF — формат, который движок читает сам. Всё остальное — FBX, OBJ, DAE, STL, PLY, ABC, USD, BLEND — переводит в GLB Blender, запущенный в фоновом режиме из командной строки, а дальше начинается тот же конвейер. Один импортёр на все форматы, ценой одной внешней зависимости: без Blender эти форматы не импортируются, и редактор об этом говорит, а не молчит.',
+    'a3d.p4': 'Импорт печёт собственный бинарный ассет. Одна модель — один файл: все её меши и иерархия узлов со своими трансформами, поэтому у колёс и дверей остаются свои пивоты. Перетащили в иерархию — модель развернулась в объекты. Сжатие геометрии включается на уровне проекта: meshopt, декодер которого весит в wasm 4.7 КБ.',
+
+    'a3d.h3': 'Скелет, скиннинг, аниматор',
+    'a3d.p5': 'Скиннутый персонаж приезжает из того же файла: скелет и клипы лежат внутри модели, а костная дорожка — просто третий вид трека внутри того же клипа анимации, который в движке уже был. В этом и смысл: отдельной системы 3D-анимации нет.',
+    'a3d.p6': 'Поэтому аниматор — тот же, что и в 2D. Граф состояний, параметры четырёх типов (float, int, bool, trigger), переходы с условиями на них — больше, меньше, равно, не равно, взведён или не взведён — exit time и длительность кроссфейда у каждого перехода. Тот же ассет контроллера, та же вкладка редактора.',
+    'a3d.cap1': 'Импортированный Fox: ходьба и бег из собственных клипов модели и граф аниматора, который между ними переключает',
+
+    'a3d.h4': '2D-игра за это не платит',
+    'a3d.p7': 'Всё это стоит за двумя галочками сборки. Выключение 3D-мешей уносит из веб-билда меши, модели, примитивы, скиннинг, меш-проход и оба 3D-шейдера; у скиннинга есть отдельная галочка — для проекта, которому нужна только статика. 2D-игра остаётся с тем же wasm, что и была.',
 
     /* --- пример игры --------------------------------------------------- */
     'agame.meta.title': 'Idle-игра — UI, запекание атласа и адаптивная вёрстка',
