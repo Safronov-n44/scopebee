@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en" data-i18n-title="archive.meta.title" data-i18n-desc="archive.meta.desc">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>News — ScopeBee</title>
+<meta name="description" content="Every ScopeBee post: releases, demos and engine measurements, by month.">
+<meta name="theme-color" content="#0b0b16">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="News — ScopeBee">
+<meta property="og:description" content="Every ScopeBee post: releases, demos and engine measurements, by month.">
+<meta property="og:image" content="../assets/editor.png">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" href="../assets/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../styles.css">
+
+<script>document.documentElement.classList.add('js');</script>
+<script defer src="https://cloud.umami.is/script.js"
+        data-website-id="d878d1d4-c979-49f4-8593-c104f9459d83"
+        data-domains="scopebee.tech,www.scopebee.tech"
+        data-performance="true"></script>
+</head>
+<body>
+
+<a class="skip-link" href="#main" data-i18n="skip">Skip to content</a>
+
+<header class="topbar" id="topbar">
+  <div class="topbar__inner">
+    <a class="brand" href="../index.html#top">
+      <img class="brand__mark" src="../assets/logo.svg" alt="" width="36" height="36">
+      <span class="brand__name">ScopeBee</span>
+    </a>
+
+    <button class="burger" id="burger" aria-expanded="false" aria-controls="nav" aria-label="Menu" data-i18n-aria="a11y.menu">
+      <span></span><span></span><span></span>
+    </button>
+
+    <nav class="nav" id="nav">
+      <ul class="nav__list">
+        <li><a href="../index.html#news" data-i18n="nav.news">News</a></li>
+        <li><a href="../index.html#engine" data-i18n="nav.features">Features</a></li>
+        <li><a href="../index.html#compare" data-i18n="nav.compare">Comparison</a></li>
+        <li><a href="../index.html#roadmap" data-i18n="nav.roadmap">Roadmap</a></li>
+        <li><a href="../index.html#footer" data-i18n="nav.contact">Contact</a></li>
+      </ul>
+      <div class="lang" role="group" aria-label="Language" data-i18n-aria="a11y.lang">
+        <button type="button" class="lang__btn" data-lang="en">EN</button>
+        <span class="lang__sep" aria-hidden="true">/</span>
+        <button type="button" class="lang__btn" data-lang="ru">RU</button>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+  <!-- Every post, newest first. The landing page keeps three cards; this page
+       keeps all of them, so an article that rotates off the landing stays
+       reachable. The month rail on the left is built by main.js from the
+       <time datetime> inside each card — the cards carry no separate date
+       attribute, so a date is authored in exactly the two places it already
+       lives. No id on this page may read "all" or "YYYY-MM": those are the
+       archive's own hash vocabulary. -->
+  <section class="archive">
+    <div class="archive__inner">
+      <header class="archive__head" data-reveal>
+        <a class="article__back" href="../index.html#news">
+          <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M8.5 3 4.5 7l4 4"/>
+          </svg>
+          <span data-i18n="article.back">Back to the site</span>
+        </a>
+
+        <h1 class="section-title" data-i18n="archive.title">News</h1>
+        <p class="archive__status" id="archive-status" role="status"></p>
+      </header>
+
+      <div class="archive__cols">
+        <nav class="archive__nav" id="archive-nav" aria-label="Archive by month" data-i18n-aria="archive.nav" data-reveal></nav>
+
+        <ul class="archive__list" id="archive-list" data-reveal>
+          <li>
+            <a class="news-card" href="first-steps-3d.html"
+               data-umami-event="news-open" data-umami-event-post="first-steps-3d">
+              <p class="news-card__when"><time datetime="2026-09-16" data-i18n="a3d.when">16 SEP 2026</time></p>
+              <h2 class="news-card__title" data-i18n="a3d.card.title">First steps in 3D</h2>
+              <p class="news-card__text" data-i18n="a3d.card.text">Meshes and a perspective camera, models through GLB/glTF, a skeleton and the same animator as in 2D.</p>
+            </a>
+          </li>
+
+          <li>
+            <a class="news-card" href="release-0-3-0.html"
+               data-umami-event="news-open" data-umami-event-post="release-0-3-0">
+              <p class="news-card__when"><time datetime="2026-09-11" data-i18n="a030.when">11 SEP 2026</time></p>
+              <h2 class="news-card__title" data-i18n="a030.card.title">ScopeBee 0.3.0</h2>
+              <p class="news-card__text" data-i18n="a030.card.text">A playable ad build: the whole game in a single HTML file, packed with Zstd.</p>
+            </a>
+          </li>
+
+          <li>
+            <a class="news-card" href="sample-game.html"
+               data-umami-event="news-open" data-umami-event-post="sample-game">
+              <p class="news-card__when"><time datetime="2026-09-08" data-i18n="agame.when">8 SEP 2026</time></p>
+              <h2 class="news-card__title" data-i18n="agame.card.title">A more complex sample game</h2>
+              <p class="news-card__text" data-i18n="agame.card.text">An idle game showing the UI layer, what atlas baking does to draw calls, and a layout that survives any screen.</p>
+            </a>
+          </li>
+
+          <li>
+            <a class="news-card" href="release-0-2-0.html"
+               data-umami-event="news-open" data-umami-event-post="release-0-2-0">
+              <p class="news-card__when"><time datetime="2026-08-31" data-i18n="a020.when">31 AUG 2026</time></p>
+              <h2 class="news-card__title" data-i18n="a020.card.title">ScopeBee 0.2.0</h2>
+              <p class="news-card__text" data-i18n="a020.card.text">Gizmos in the scene view, and a renderer that stops drawing what the camera cannot see.</p>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script src="news-i18n.js"></script>
+<script src="../main.js"></script>
+</body>
+</html>

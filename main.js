@@ -41,6 +41,7 @@
       'hero.stat.link': 'see how it was measured',
 
       'news.title': 'News',
+      'news.all': 'All news',
 
       'nav.news': 'News',
       'nav.features': 'Features',
@@ -171,6 +172,7 @@
       'hero.stat.link': 'как это измерялось',
 
       'news.title': 'Новости',
+      'news.all': 'Все новости',
 
       'nav.news': 'Новости',
       'nav.features': 'Возможности',
@@ -285,6 +287,164 @@
       if (!extra[lang]) return;
       Object.keys(extra[lang]).forEach(function (key) { I18N[lang][key] = extra[lang][key]; });
     });
+  }
+
+  /* News archive (news/index.html): the rail of months on the left.
+
+     Built from the cards already in the page — each one's <time datetime> is
+     the only date the rail reads, so a post is described once and adding one
+     to the archive is a card and nothing else.
+
+     This has to sit here, after the strings above are merged and before
+     applyLang runs below: the links it builds carry data-i18n, and applyLang
+     is called once and never watches the DOM, so anything built later would
+     stay English until someone switched language. */
+  var archiveNav = document.getElementById('archive-nav');
+  var archiveList = document.getElementById('archive-list');
+
+  if (archiveNav && archiveList) {
+    var MONTH_RE = /^\d{4}-(0[1-9]|1[0-2])$/;
+    var archiveStatus = document.getElementById('archive-status');
+    var posts = Array.prototype.slice.call(archiveList.children);
+    var counts = {};
+    var months = [];
+
+    posts.forEach(function (li) {
+      var time = li.querySelector('time[datetime]');
+      var month = time ? time.getAttribute('datetime').slice(0, 7) : '';
+      if (!MONTH_RE.test(month)) return; // no usable date: stays in the list, out of the rail
+      li.dataset.month = month;
+      if (!counts[month]) { counts[month] = 0; months.push(month); }
+      counts[month] += 1;
+    });
+
+    /* newest first by plain string compare — YYYY-MM sorts that way. Not by
+       DOM order: that is the editor's order, and one card in the wrong place
+       would tilt the whole rail. */
+    months.sort();
+    months.reverse();
+
+    var years = [];
+    months.forEach(function (month) {
+      var year = month.slice(0, 4);
+      if (years.indexOf(year) === -1) years.push(year);
+    });
+    /* with a single year the group heading already says it; printing it in
+       every link under it would only repeat the heading */
+    var yearInLink = years.length > 1;
+
+    function archiveLabel(key, year) {
+      var wrap = document.createElement('span');
+      wrap.className = 'archive__label';
+
+      /* the key goes on its own span: applyLang replaces a whole textContent,
+         so a key on the link itself would swallow the count with it */
+      var text = document.createElement('span');
+      text.dataset.i18n = key;
+      text.textContent = I18N.en[key] || key;
+      wrap.appendChild(text);
+
+      if (year) {
+        var stamp = document.createElement('span');
+        stamp.className = 'archive__link-year';
+        stamp.textContent = year;
+        wrap.appendChild(stamp);
+      }
+      return wrap;
+    }
+
+    function archiveItem(hash, key, year, count) {
+      var li = document.createElement('li');
+      var a = document.createElement('a');
+      a.className = 'archive__link';
+      /* never '#': an empty fragment means the top of the document, and
+         scroll-behavior is smooth, so the one item that should behave like
+         the rest would be the one that jumps */
+      a.href = '#' + hash;
+      a.appendChild(archiveLabel(key, year));
+
+      var badge = document.createElement('span');
+      badge.className = 'archive__count';
+      badge.textContent = String(count);
+      a.appendChild(badge);
+
+      li.appendChild(a);
+      return li;
+    }
+
+    /* role="list" because the global `ul { list-style: none }` drops list
+       semantics in Safari/VoiceOver, and this list is the navigation */
+    var rail = document.createElement('ul');
+    rail.setAttribute('role', 'list');
+    rail.appendChild(archiveItem('all', 'archive.all', '', posts.length));
+
+    years.forEach(function (year) {
+      var group = document.createElement('li');
+      group.className = 'archive__group';
+
+      var heading = document.createElement('p');
+      heading.className = 'archive__year';
+      heading.textContent = year;
+      group.appendChild(heading);
+
+      var inner = document.createElement('ul');
+      inner.setAttribute('role', 'list');
+      months.forEach(function (month) {
+        if (month.slice(0, 4) !== year) return;
+        inner.appendChild(archiveItem(
+          month, 'month.' + Number(month.slice(5, 7)), yearInLink ? year : '', counts[month]
+        ));
+      });
+
+      group.appendChild(inner);
+      rail.appendChild(group);
+    });
+
+    archiveNav.appendChild(rail);
+    var railLinks = rail.querySelectorAll('.archive__link');
+
+    function applyArchive(month) {
+      posts.forEach(function (li) {
+        /* a class, not [hidden]: the UA rule behind [hidden] loses to any
+           rule that sets display */
+        li.classList.toggle('is-filtered', Boolean(month) && li.dataset.month !== month);
+      });
+
+      var current = null;
+      railLinks.forEach(function (a) {
+        if (a.getAttribute('href') === '#' + (month || 'all')) {
+          a.setAttribute('aria-current', 'true');
+          current = a;
+        } else {
+          a.removeAttribute('aria-current'); // not "false" — that still reads as current
+        }
+      });
+
+      if (!archiveStatus) return;
+      archiveStatus.textContent = '';
+      /* a clone of the active label rather than a sentence assembled here: it
+         carries data-i18n, so the next language switch translates it for free,
+         and leaving the count out keeps Russian plurals out of it */
+      if (current) archiveStatus.appendChild(current.querySelector('.archive__label').cloneNode(true));
+    }
+
+    function archiveFromHash() {
+      var hash = location.hash.slice(1);
+      /* everything else — #all, the skip link's #main, an empty hash, a month
+         with no posts — means "all news", so the page can never go blank */
+      return MONTH_RE.test(hash) && counts[hash] ? hash : '';
+    }
+
+    /* the rail is made of real links, so the browser records history and Back
+       works on its own. pushState is deliberately not used: it throws on
+       file:// in some browsers and buys nothing here. No element on that page
+       may take id="all" or a YYYY-MM id, which is what keeps the hash from
+       scrolling anywhere.
+       If the list ever outgrows the screen, scroll it into view from the
+       hashchange handler only — never on load, or Back lands in the wrong
+       place. */
+    window.addEventListener('hashchange', function () { applyArchive(archiveFromHash()); });
+    applyArchive(archiveFromHash()); // directly, not via a synthetic event: before first paint
   }
 
   var STORAGE_KEY = 'scopebee.lang';

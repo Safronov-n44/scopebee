@@ -10,6 +10,28 @@ window.SCOPEBEE_I18N_EXTRA = {
     /* --- shared chrome ------------------------------------------------- */
     'article.back': 'Back to the site',
 
+    /* --- the archive page (index.html in this folder) ------------------ */
+    'archive.meta.title': 'News — ScopeBee',
+    'archive.meta.desc': 'Every ScopeBee post: releases, demos and engine measurements, by month.',
+    'archive.title': 'News',
+    'archive.nav': 'Archive by month',
+    'archive.all': 'All news',
+
+    /* Full month names, for the archive rail. Not the roadmap's AUG..DEC:
+       those are abbreviations and belong to the roadmap. */
+    'month.1': 'January',
+    'month.2': 'February',
+    'month.3': 'March',
+    'month.4': 'April',
+    'month.5': 'May',
+    'month.6': 'June',
+    'month.7': 'July',
+    'month.8': 'August',
+    'month.9': 'September',
+    'month.10': 'October',
+    'month.11': 'November',
+    'month.12': 'December',
+
     /* --- 0.2.0 --------------------------------------------------------- */
     'a020.meta.title': 'ScopeBee 0.2.0 — gizmos and frustum culling',
     'a020.meta.desc': 'ScopeBee 0.2.0 adds gizmos in the scene view and frustum culling in the renderer.',
@@ -136,6 +158,28 @@ window.SCOPEBEE_I18N_EXTRA = {
   ru: {
     /* --- общие элементы ------------------------------------------------ */
     'article.back': 'На главную',
+
+    /* --- страница архива (index.html в этой папке) ---------------------- */
+    'archive.meta.title': 'Новости — ScopeBee',
+    'archive.meta.desc': 'Все записи ScopeBee: релизы, демо и замеры движка, по месяцам.',
+    'archive.title': 'Новости',
+    'archive.nav': 'Архив по месяцам',
+    'archive.all': 'Все новости',
+
+    /* Полные названия месяцев для колонки архива. Не AUG..DEC из дорожной
+       карты: там сокращения, и они принадлежат ей. */
+    'month.1': 'Январь',
+    'month.2': 'Февраль',
+    'month.3': 'Март',
+    'month.4': 'Апрель',
+    'month.5': 'Май',
+    'month.6': 'Июнь',
+    'month.7': 'Июль',
+    'month.8': 'Август',
+    'month.9': 'Сентябрь',
+    'month.10': 'Октябрь',
+    'month.11': 'Ноябрь',
+    'month.12': 'Декабрь',
 
     /* --- 0.2.0 --------------------------------------------------------- */
     'a020.meta.title': 'ScopeBee 0.2.0 — гизмо и отсечение по фрустуму',

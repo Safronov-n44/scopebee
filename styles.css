@@ -512,6 +512,121 @@ a.news-card:hover {
   font-size: 1rem;
 }
 
+/* the way out of the three cards and into the full archive */
+.news-all { margin-top: 2rem; }
+
+.news-all__link {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  padding: .55rem 1.1rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  font-weight: 700;
+  color: var(--text);
+  transition: border-color .2s var(--ease-out), background-color .2s var(--ease-out);
+}
+.news-all__link:hover { border-color: rgba(255, 255, 255, .22); background: var(--surface); }
+.news-all__link svg { width: 14px; height: 14px; }
+
+/* ==========================================================================
+   News archive  (news/index.html)
+
+   The landing page shows three cards; this page shows every post, with a rail
+   of months beside it. One column is the floor: main.js builds the rail, so
+   with scripting off there is nothing to divide the page with and the posts
+   simply run down the page.
+   ========================================================================== */
+
+.archive__inner {
+  max-width: var(--maxw);
+  margin-inline: auto;
+  padding: calc(var(--topbar-h) + 3.5rem) var(--gutter) 5rem;
+}
+
+.archive__head { margin-bottom: 2.75rem; }
+
+/* echoes the date stamp on a card, one step quieter: it is a status line, not
+   a heading. Empty until main.js names the current filter. */
+.archive__status {
+  margin-top: .85rem;
+  min-height: 1.2em;
+  font-size: .8rem;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+
+.archive__cols { display: grid; gap: clamp(1.5rem, 3vw, 2.5rem); }
+/* the second column hangs off .js for the same reason every reveal rule does */
+.js .archive__cols {
+  grid-template-columns: 17rem minmax(0, 1fr); /* minmax(0,…) or a long title widens the track */
+  align-items: start;
+}
+
+.archive__nav ul { display: flex; flex-direction: column; gap: .25rem; }
+.archive__group { margin-top: 1.5rem; }
+
+.archive__year {
+  margin-bottom: .5rem;
+  padding-inline: .85rem;
+  font-size: .8rem;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+
+.archive__link {
+  display: flex;
+  justify-content: space-between;
+  gap: .75rem;
+  padding: .5rem .85rem;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  color: var(--text-muted);
+  transition: border-color .2s var(--ease-out), background-color .2s var(--ease-out), color .2s var(--ease-out);
+}
+
+.archive__link:hover {
+  border-color: var(--border);
+  background: var(--surface);
+  color: var(--text);
+}
+
+/* the current filter carries a border as well as a fill: in forced colours the
+   fill is replaced wholesale, and a signal made only of background disappears */
+.archive__link[aria-current] {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: #1a1005;
+  font-weight: 700;
+}
+
+.archive__label { display: flex; gap: .4rem; }
+
+.archive__count {
+  font-size: .8125rem;
+  font-variant-numeric: tabular-nums;
+  color: var(--text-faint);
+}
+.archive__link[aria-current] .archive__count { color: inherit; }
+
+/* only printed when the rail spans more than one year — with a single year
+   above every link it would just repeat the group heading */
+.archive__link-year { color: var(--text-faint); font-weight: 400; }
+.archive__link[aria-current] .archive__link-year { color: inherit; }
+
+.archive__list {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1rem, 2vw, 1.5rem);
+}
+/* filtering is a plain show/hide — no transition, nothing to wait for. The
+   class rather than [hidden] because any display rule would outrank it. */
+.archive__list > li.is-filtered { display: none; }
+
 /* ==========================================================================
    News article  (news/*.html)
 
@@ -1497,6 +1612,12 @@ body.has-lightbox { overflow: hidden; }
 @media (max-width: 900px) {
   :root { --topbar-h: 64px; }
 
+  /* the rail turns into a row of chips above the posts */
+  .js .archive__cols { grid-template-columns: minmax(0, 1fr); }
+  .archive__nav ul { flex-direction: row; flex-wrap: wrap; align-items: center; gap: .5rem; }
+  .archive__group { margin-top: 0; display: flex; align-items: center; flex-wrap: wrap; gap: .5rem; }
+  .archive__year { margin-bottom: 0; padding-inline: 0; }
+
   .hero__inner {
     grid-template-columns: 1fr;
     padding-bottom: 5rem;
@@ -1597,5 +1718,6 @@ body.has-lightbox { overflow: hidden; }
     border-color: Highlight;
   }
   .cmp__bar::before { background: Highlight; }
+  .archive__link[aria-current] { background: Highlight; color: HighlightText; border-color: Highlight; }
   .cmp__best .cmp__bar::before { background: Highlight; }
 }
