@@ -92,14 +92,14 @@
       <p data-i18n="acandy.p1">The original was a Flash game, and Flash stopped running in browsers at the end of 2020, taking thousands of games like it along. The remake is built in the ScopeBee editor, with the game code in Beef.</p>
 
       <h2 data-i18n="acandy.h2">What is inside</h2>
-      <p data-i18n="acandy.p2">A finished game leans on much of the engine at once:</p>
+      <p data-i18n="acandy.p2">What the game uses from the engine:</p>
       <ul>
-        <li data-i18n="acandy.f1">Sound effects.</li>
-        <li data-i18n="acandy.f2">Streamed music — the track plays as it arrives instead of being loaded whole before the game starts.</li>
-        <li data-i18n="acandy.f3">2D physics — rigid bodies, colliders and physics materials.</li>
-        <li data-i18n="acandy.f4">Tags — objects are marked by what they are: a glass plank carries the Glass tag.</li>
-        <li data-i18n="acandy.f5">Animated objects — state machines in the Animator; a glass plank has an Idle and a Break state.</li>
-        <li data-i18n="acandy.f6">The UI layer — the main menu, level select and settings.</li>
+        <li data-i18n="acandy.i.tags">Tags — collision handlers identify the other body by its tag, so one rule covers every object with that tag.</li>
+        <li data-i18n="acandy.i.mats">Physics materials — friction and bounce per body; density and gravity scale on Rigidbody2D, including negative gravity.</li>
+        <li data-i18n="acandy.i.blast">Physics queries and impulses — OverlapCircle finds the bodies around a point, AddForce pushes them.</li>
+        <li data-i18n="acandy.i.hinge">Joints — HingeJoint2D with angle limits.</li>
+        <li data-i18n="acandy.i.anim">Animator — state machines on the objects themselves, with the clip length read from the asset.</li>
+        <li data-i18n="acandy.i.sound">Audio — one-shot effects and streamed music.</li>
       </ul>
 
       <h2 data-i18n="acandy.h3">What it weighs</h2>
@@ -114,24 +114,24 @@
         </thead>
         <tbody>
           <tr>
-            <th scope="row" data-i18n="acandy.w.disk">Build size</th>
-            <td class="is-ours">2.66 MB</td>
+            <th scope="row" data-i18n="acandy.w.net">Transferred</th>
+            <td class="is-ours">2.7 MB</td>
           </tr>
           <tr>
-            <th scope="row" data-i18n="acandy.w.res">Unpacked</th>
-            <td class="is-ours">4.13 MB</td>
+            <th scope="row" data-i18n="acandy.w.res">Resources</th>
+            <td class="is-ours">2.8 MB</td>
           </tr>
           <tr>
             <th scope="row" data-i18n="acandy.w.first">First frame</th>
-            <td class="is-ours">338 ms</td>
+            <td class="is-ours">545 ms</td>
           </tr>
           <tr>
             <th scope="row" data-i18n="acandy.w.heap">Heap snapshot</th>
-            <td class="is-ours">16.9 MB</td>
+            <td class="is-ours">19.7 MB</td>
           </tr>
         </tbody>
       </table>
-      <p class="article__note" data-i18n="acandy.w.note">Build size is every file of the build on disk, shipped already packed with Brotli; Unpacked is the same files decompressed. First frame is the line the build prints when its first frame is drawn, median of three cold loads served locally, so the download does not count towards it. Heap snapshot is a Chrome heap snapshot on the idle main menu. Mac mini M2, 16 GB, Chrome 153.</p>
+      <p class="article__note" data-i18n="acandy.w.note">Transferred is what the browser downloads on a cold load; Resources is the size of everything the page loaded, as Chrome DevTools reports it on the Network tab. First frame is the line the build prints when its first frame is drawn. Heap snapshot is a Chrome DevTools heap snapshot on the idle main menu.</p>
 
       <h2 data-i18n="acandy.h4">Try it</h2>
       <p data-i18n="acandy.p4">The build runs in the browser: turn the sound on and play a few levels.</p>
