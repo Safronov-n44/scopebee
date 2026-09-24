@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en" data-i18n-title="acandy.meta.title" data-i18n-desc="acandy.meta.desc">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Candy Balance — a Flash game remade in ScopeBee</title>
+<meta name="description" content="A remake of a Flash game released more than 14 years ago: sound, streamed music, physics, tags and animated objects, and what the build weighs.">
+<meta name="theme-color" content="#0b0b16">
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="Candy Balance — a Flash game remade in ScopeBee">
+<meta property="og:description" content="A remake of a Flash game released more than 14 years ago: sound, streamed music, physics, tags and animated objects, and what the build weighs.">
+<meta property="og:image" content="../assets/news/candybalance-menu.webp">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" href="../assets/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../styles.css">
+
+<script>document.documentElement.classList.add('js');</script>
+<script defer src="https://cloud.umami.is/script.js"
+        data-website-id="d878d1d4-c979-49f4-8593-c104f9459d83"
+        data-domains="scopebee.tech,www.scopebee.tech"
+        data-performance="true"></script>
+</head>
+<body>
+
+<a class="skip-link" href="#main" data-i18n="skip">Skip to content</a>
+
+<header class="topbar" id="topbar">
+  <div class="topbar__inner">
+    <a class="brand" href="../index.html#top">
+      <img class="brand__mark" src="../assets/logo.svg" alt="" width="36" height="36">
+      <span class="brand__name">ScopeBee</span>
+    </a>
+
+    <button class="burger" id="burger" aria-expanded="false" aria-controls="nav" aria-label="Menu" data-i18n-aria="a11y.menu">
+      <span></span><span></span><span></span>
+    </button>
+
+    <nav class="nav" id="nav">
+      <ul class="nav__list">
+        <li><a href="../index.html#news" data-i18n="nav.news">News</a></li>
+        <li><a href="../index.html#engine" data-i18n="nav.features">Features</a></li>
+        <li><a href="../index.html#compare" data-i18n="nav.compare">Comparison</a></li>
+        <li><a href="../index.html#roadmap" data-i18n="nav.roadmap">Roadmap</a></li>
+        <li><a href="../index.html#footer" data-i18n="nav.contact">Contact</a></li>
+      </ul>
+      <div class="topbar__end">
+        <a class="docs-btn" href="../docs/index.html" data-i18n="nav.docs"
+           data-umami-event="docs-open">Docs</a>
+
+        <div class="lang" role="group" aria-label="Language" data-i18n-aria="a11y.lang">
+          <button type="button" class="lang__btn" data-lang="en">EN</button>
+          <span class="lang__sep" aria-hidden="true">/</span>
+          <button type="button" class="lang__btn" data-lang="ru">RU</button>
+        </div>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+  <article class="article">
+    <a class="article__back" href="../index.html#news">
+      <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M8.5 3 4.5 7l4 4"/>
+      </svg>
+      <span data-i18n="article.back">Back to the site</span>
+    </a>
+
+    <p class="article__when"><time datetime="2026-09-24" data-i18n="acandy.when">24 SEP 2026</time></p>
+    <h1 class="article__title" data-i18n="acandy.title">Candy Balance: a Flash game, remade</h1>
+    <p class="article__lead" data-i18n="acandy.lead">A remake of a game that came out on Flash more than 14 years ago. Flash is long gone from the browser; the game is back in it, rebuilt on ScopeBee.</p>
+
+    <p class="article__cta-row"><a class="article__cta" href="../games/candybalance/" target="_blank" rel="noopener"
+       data-umami-event="demo-open" data-umami-event-project="candybalance" data-umami-event-engine="scopebee"
+       data-i18n="acandy.play">Play it in the browser</a></p>
+
+    <div class="article__body">
+      <figure class="article__media">
+        <div class="article__shots" data-gallery>
+          <button type="button" class="shot" data-i18n-aria="a11y.zoom" aria-label="Open the image at full size">
+            <img src="../assets/news/candybalance-menu.webp" width="1280" height="633" loading="lazy" decoding="async"
+                 alt="The Candy Balance main menu" data-i18n-alt="acandy.alt1">
+          </button>
+        </div>
+      </figure>
+
+      <h2 data-i18n="acandy.h1">A remake, not a port</h2>
+      <p data-i18n="acandy.p1">The original was a Flash game, and Flash stopped running in browsers at the end of 2020, taking thousands of games like it along. The remake is built in the ScopeBee editor, with the game code in Beef.</p>
+
+      <h2 data-i18n="acandy.h2">What is inside</h2>
+      <p data-i18n="acandy.p2">A finished game leans on much of the engine at once:</p>
+      <ul>
+        <li data-i18n="acandy.f1">Sound effects.</li>
+        <li data-i18n="acandy.f2">Streamed music — the track plays as it arrives instead of being loaded whole before the game starts.</li>
+        <li data-i18n="acandy.f3">2D physics — rigid bodies, colliders and physics materials.</li>
+        <li data-i18n="acandy.f4">Tags — objects are marked by what they are: a glass plank carries the Glass tag.</li>
+        <li data-i18n="acandy.f5">Animated objects — state machines in the Animator; a glass plank has an Idle and a Break state.</li>
+        <li data-i18n="acandy.f6">The UI layer — the main menu, level select and settings.</li>
+      </ul>
+
+      <h2 data-i18n="acandy.h3">What it weighs</h2>
+      <p data-i18n="acandy.p3">A whole game with sound and music, measured the same way as every other figure on this site.</p>
+
+      <table class="article__table">
+        <thead>
+          <tr>
+            <td></td>
+            <th scope="col" class="is-ours">Candy Balance</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row" data-i18n="acandy.w.disk">Build size</th>
+            <td class="is-ours">2.66 MB</td>
+          </tr>
+          <tr>
+            <th scope="row" data-i18n="acandy.w.res">Unpacked</th>
+            <td class="is-ours">4.13 MB</td>
+          </tr>
+          <tr>
+            <th scope="row" data-i18n="acandy.w.first">First frame</th>
+            <td class="is-ours">338 ms</td>
+          </tr>
+          <tr>
+            <th scope="row" data-i18n="acandy.w.heap">Heap snapshot</th>
+            <td class="is-ours">16.9 MB</td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="article__note" data-i18n="acandy.w.note">Build size is every file of the build on disk, shipped already packed with Brotli; Unpacked is the same files decompressed. First frame is the line the build prints when its first frame is drawn, median of three cold loads served locally, so the download does not count towards it. Heap snapshot is a Chrome heap snapshot on the idle main menu. Mac mini M2, 16 GB, Chrome 153.</p>
+
+      <h2 data-i18n="acandy.h4">Try it</h2>
+      <p data-i18n="acandy.p4">The build runs in the browser: turn the sound on and play a few levels.</p>
+      <p class="article__cta-row"><a class="article__cta" href="../games/candybalance/" target="_blank" rel="noopener"
+       data-umami-event="demo-open" data-umami-event-project="candybalance" data-umami-event-engine="scopebee"
+       data-i18n="acandy.play">Play it in the browser</a></p>
+    </div>
+  </article>
+</main>
+
+<script src="news-i18n.js"></script>
+<script src="../main.js"></script>
+</body>
+</html>
