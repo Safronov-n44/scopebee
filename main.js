@@ -49,6 +49,7 @@
       'nav.roadmap': 'Roadmap',
       'nav.contact': 'Contact',
       'nav.docs': 'Docs',
+      'nav.showcase': 'Showcase',
 
       'editor.eyebrow': 'Tooling',
       'editor.title': 'Editor',
@@ -181,6 +182,7 @@
       'nav.roadmap': 'Дорожная карта',
       'nav.contact': 'Контакты',
       'nav.docs': 'Документация',
+      'nav.showcase': 'Витрина',
 
       'editor.eyebrow': 'Инструменты',
       'editor.title': 'Редактор',

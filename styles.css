@@ -1624,7 +1624,8 @@ body.has-lightbox { overflow: hidden; }
 
 /* Anchors clear BOTH bars here. The class sits on <html> in the markup of every
    docs page — the inline head script adds .js next to it without clobbering. */
-html.docs { scroll-padding-top: calc(var(--topbar-h) + var(--docsbar-h) + 16px); }
+html.docs,
+html.showcase { scroll-padding-top: calc(var(--topbar-h) + var(--docsbar-h) + 16px); }
 
 /* --------------------------------------------------------------------------
    Page shell
@@ -1946,6 +1947,81 @@ code, kbd, samp, pre { font-family: var(--mono); }
   .editor-map__zone b { width: 1.1rem; height: 1.1rem; right: 3px; bottom: 3px; font-size: .65rem; }
   .editor-map__zone--controls b { right: auto; bottom: auto; left: calc(100% + 3px); }
 }
+
+/* --------------------------------------------------------------------------
+   Showcase  (showcase/**)
+
+   Shares the docs' second bar (.docsbar) and its title and lead. The grid fills
+   as many 180px columns as the row holds: five on a desktop, two on a phone,
+   with no breakpoint to maintain. A tile is the icon, the name, a link to the
+   article about the game, then one line per place it can be played.
+   -------------------------------------------------------------------------- */
+
+.showcase__inner {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 2.75rem var(--gutter) 5rem;   /* the docsbar already paid --topbar-h */
+}
+
+.game-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 2rem 1.5rem;
+  margin: 2.5rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+/* two columns still fit a 360px phone; 180px would have left it one */
+@media (max-width: 520px) {
+  .game-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.75rem 1rem; }
+}
+
+.game-tile { min-width: 0; }
+.game-tile__icon {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1;
+  border-radius: 22%;
+  border: 1px solid var(--border);
+}
+.game-tile__title {
+  margin-top: .9rem;
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+.game-tile__about {
+  display: inline-block;
+  margin-top: .2rem;
+  font-size: .9rem;
+  color: var(--accent);
+}
+.game-tile__about:hover { text-decoration: underline; text-underline-offset: 3px; }
+
+.game-tile__where {
+  display: grid;
+  gap: .5rem;
+  margin: .85rem 0 0;
+  padding: .85rem 0 0;
+  border-top: 1px solid var(--border);
+  list-style: none;
+}
+.game-tile__place {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: .25rem .5rem;
+  font-size: .875rem;
+  color: var(--text);
+}
+.game-tile__place img { flex: none; width: 20px; height: 20px; border-radius: 5px; }
+/* the play mark matches the platform icons beside it: an app-icon tile with the
+   same 5px corner. Its gradient is the site's own, toned down so it sits level
+   with the Yandex Games mark instead of outshouting it. Colours are hard-coded
+   in the SVG for the same reason as in assets/ — the stops are not tokens. */
+.game-tile__play { flex: none; }
+a.game-tile__place:hover span { text-decoration: underline; text-underline-offset: 3px; }
+.game-tile__place--pending { color: var(--text-muted); }
+.game-tile__place--pending img { opacity: .6; }
 
 /* --------------------------------------------------------------------------
    API reference  (docs/api/**)

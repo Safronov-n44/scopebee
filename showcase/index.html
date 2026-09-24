@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en" class="showcase" data-i18n-title="showcase.meta.title" data-i18n-desc="showcase.meta.desc">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Games — ScopeBee showcase</title>
+<meta name="description" content="Games built with the ScopeBee engine, playable in the browser.">
+<meta name="theme-color" content="#0b0b16">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Games — ScopeBee showcase">
+<meta property="og:description" content="Games built with the ScopeBee engine, playable in the browser.">
+<meta property="og:image" content="../assets/editor.png">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" href="../assets/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../styles.css">
+
+<script>document.documentElement.classList.add('js');</script>
+<script defer src="https://cloud.umami.is/script.js"
+        data-website-id="d878d1d4-c979-49f4-8593-c104f9459d83"
+        data-domains="scopebee.tech,www.scopebee.tech"
+        data-performance="true"></script>
+</head>
+<body>
+
+<a class="skip-link" href="#main" data-i18n="skip">Skip to content</a>
+
+<header class="topbar" id="topbar">
+  <div class="topbar__inner">
+    <a class="brand" href="../index.html#top">
+      <img class="brand__mark" src="../assets/logo.svg" alt="" width="36" height="36">
+      <span class="brand__name">ScopeBee</span>
+    </a>
+
+    <button class="burger" id="burger" aria-expanded="false" aria-controls="nav" aria-label="Menu" data-i18n-aria="a11y.menu">
+      <span></span><span></span><span></span>
+    </button>
+
+    <nav class="nav" id="nav">
+      <ul class="nav__list">
+        <li><a href="../index.html#news" data-i18n="nav.news">News</a></li>
+        <li><a href="../index.html#engine" data-i18n="nav.features">Features</a></li>
+        <li><a href="../index.html#compare" data-i18n="nav.compare">Comparison</a></li>
+        <li><a href="../index.html#roadmap" data-i18n="nav.roadmap">Roadmap</a></li>
+        <li><a href="../index.html#footer" data-i18n="nav.contact">Contact</a></li>
+      </ul>
+
+      <div class="topbar__end">
+        <a class="docs-btn" href="index.html" data-i18n="nav.showcase"
+           data-umami-event="showcase-open" aria-current="true">Showcase</a>
+        <a class="docs-btn" href="../docs/index.html" data-i18n="nav.docs"
+           data-umami-event="docs-open">Docs</a>
+
+        <div class="lang" role="group" aria-label="Language" data-i18n-aria="a11y.lang">
+          <button type="button" class="lang__btn" data-lang="en">EN</button>
+          <span class="lang__sep" aria-hidden="true">/</span>
+          <button type="button" class="lang__btn" data-lang="ru">RU</button>
+        </div>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<!-- The same second bar as the docs: sticky under the top bar, opaque, the
+     active tab marked with aria-current in the markup. One tab for now. -->
+<div class="docsbar">
+  <nav class="docsbar__inner" aria-label="Showcase sections" data-i18n-aria="showcase.tabs.aria">
+    <a class="docsbar__tab" href="index.html" aria-current="page"
+       data-umami-event="showcase-tab" data-umami-event-tab="games" data-i18n="showcase.tab.games">Games</a>
+  </nav>
+</div>
+
+<main id="main">
+  <div class="showcase__inner">
+    <p class="section-eyebrow" data-i18n="showcase.eyebrow">Showcase</p>
+    <h1 class="docs__title" data-i18n="showcase.tab.games">Games</h1>
+    <p class="docs__lead" data-i18n="showcase.lead">Games built with ScopeBee. Every one of them runs in the browser, right here on the engine’s site.</p>
+
+    <!-- One tile per game, newest first. The grid fills as many 180px columns as
+         fit, so a new game is one more <li> and no layout change. -->
+    <ul class="game-grid">
+      <li class="game-tile">
+        <img class="game-tile__icon" src="../assets/showcase/candybalance-256.webp"
+             srcset="../assets/showcase/candybalance-256.webp 256w, ../assets/showcase/candybalance-512.webp 512w"
+             sizes="(max-width: 520px) 45vw, 240px" width="256" height="256"
+             alt="Candy Balance icon" data-i18n-alt="showcase.icon.alt">
+        <h2 class="game-tile__title">Candy Balance</h2>
+        <a class="game-tile__about" href="../news/candy-balance.html"
+           data-umami-event="news-open" data-umami-event-post="candy-balance" data-i18n="showcase.about">About the game</a>
+        <ul class="game-tile__where">
+          <li>
+            <a class="game-tile__place" href="../games/candybalance/" target="_blank" rel="noopener"
+               data-umami-event="demo-open" data-umami-event-project="candybalance" data-umami-event-engine="scopebee">
+              <svg class="game-tile__play" viewBox="0 0 20 20" width="20" height="20" aria-hidden="true">
+                <defs>
+                  <linearGradient id="play-tile" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0" stop-color="#b8603a"/>
+                    <stop offset=".5" stop-color="#a83d66"/>
+                    <stop offset="1" stop-color="#5a44b8"/>
+                  </linearGradient>
+                </defs>
+                <rect width="20" height="20" rx="5" fill="url(#play-tile)"/>
+                <path fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" d="M7 7.2h6a3 3 0 0 1 2.9 3.6l-.6 2.6a1.5 1.5 0 0 1-2.6.7L11.4 12.6H8.6l-1.3 1.5a1.5 1.5 0 0 1-2.6-.7l-.6-2.6A3 3 0 0 1 7 7.2z"/>
+                <path fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" d="M7.3 9.2v1.8M6.4 10.1h1.8"/>
+                <circle fill="#fff" cx="12.6" cy="9.7" r=".7"/>
+                <circle fill="#fff" cx="13.7" cy="11" r=".7"/>
+              </svg>
+              <span data-i18n="showcase.play">Play here</span>
+            </a>
+          </li>
+          <li class="game-tile__place game-tile__place--pending">
+            <img src="../assets/showcase/yandex-games.webp" alt="Yandex Games" width="20" height="20" data-i18n-alt="showcase.yandex">
+            <span data-i18n="showcase.pending">On moderation</span>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</main>
+
+<script src="showcase-i18n.js"></script>
+<script src="../main.js"></script>
+</body>
+</html>
