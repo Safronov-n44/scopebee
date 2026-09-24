@@ -48,6 +48,7 @@
       'nav.compare': 'Comparison',
       'nav.roadmap': 'Roadmap',
       'nav.contact': 'Contact',
+      'nav.docs': 'Docs',
 
       'editor.eyebrow': 'Tooling',
       'editor.title': 'Editor',
@@ -179,6 +180,7 @@
       'nav.compare': 'Сравнение',
       'nav.roadmap': 'Дорожная карта',
       'nav.contact': 'Контакты',
+      'nav.docs': 'Документация',
 
       'editor.eyebrow': 'Инструменты',
       'editor.title': 'Редактор',
@@ -658,38 +660,45 @@
   var burger = document.getElementById('burger');
   var nav = document.getElementById('nav');
 
-  function setMenu(open) {
-    nav.classList.toggle('is-open', open);
-    burger.setAttribute('aria-expanded', String(open));
+  if (burger && nav) {
+    var setMenu = function (open) {
+      nav.classList.toggle('is-open', open);
+      burger.setAttribute('aria-expanded', String(open));
+    };
+
+    var isMenuOpen = function () {
+      return burger.getAttribute('aria-expanded') === 'true';
+    };
+
+    burger.addEventListener('click', function () {
+      setMenu(!isMenuOpen());
+    });
+
+    // the way into the docs sits in this panel too, so it closes the menu like
+    // any other link — and then navigates away
+    nav.querySelectorAll('a').forEach(function (link) {
+      link.addEventListener('click', function () { setMenu(false); });
+    });
+
+    // tapping the page behind an open menu should dismiss it, not fall through
+    document.addEventListener('click', function (e) {
+      if (!isMenuOpen()) return;
+      if (nav.contains(e.target) || burger.contains(e.target)) return;
+      setMenu(false);
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key !== 'Escape' || !isMenuOpen()) return;
+      setMenu(false);
+      burger.focus(); // Escape must not strand the focus inside a hidden panel
+    });
+
+    /* The breakpoint lives in styles.css and nowhere else. The burger is only
+       displayed below it, so its computed display IS the media query — a second
+       copy of the number here would be one more thing to keep in step. */
+    window.addEventListener('resize', function () {
+      if (getComputedStyle(burger).display === 'none') setMenu(false);
+    });
   }
 
-  function isMenuOpen() {
-    return burger.getAttribute('aria-expanded') === 'true';
-  }
-
-  burger.addEventListener('click', function () {
-    setMenu(!isMenuOpen());
-  });
-
-  nav.querySelectorAll('a').forEach(function (link) {
-    link.addEventListener('click', function () { setMenu(false); });
-  });
-
-  // tapping the page behind an open menu should dismiss it, not fall through
-  document.addEventListener('click', function (e) {
-    if (!isMenuOpen()) return;
-    if (nav.contains(e.target) || burger.contains(e.target)) return;
-    setMenu(false);
-  });
-
-  document.addEventListener('keydown', function (e) {
-    if (e.key !== 'Escape' || !isMenuOpen()) return;
-    setMenu(false);
-    burger.focus(); // Escape must not strand the focus inside a hidden panel
-  });
-
-  // must match the nav breakpoint in styles.css, not the layout one
-  window.addEventListener('resize', function () {
-    if (window.innerWidth > 1150) setMenu(false);
-  });
 })();

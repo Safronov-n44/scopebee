@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en" class="docs" data-i18n-title="api.component.meta.title" data-i18n-desc="api.component.meta.desc">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Component — ScopeBee API</title>
+<meta name="description" content="Reference for ScopeBee.Component: the owner link, the enabled flag, component search, Instantiate and Destroy.">
+<meta name="theme-color" content="#0b0b16">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Component — ScopeBee API">
+<meta property="og:description" content="Reference for ScopeBee.Component: the owner link, the enabled flag, component search, Instantiate and Destroy.">
+<meta property="og:image" content="../../assets/editor.png">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" href="../../assets/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../../styles.css">
+
+<script>document.documentElement.classList.add('js');</script>
+<script defer src="https://cloud.umami.is/script.js"
+        data-website-id="d878d1d4-c979-49f4-8593-c104f9459d83"
+        data-domains="scopebee.tech,www.scopebee.tech"
+        data-performance="true"></script>
+</head>
+<body>
+
+<a class="skip-link" href="#main" data-i18n="skip">Skip to content</a>
+
+<header class="topbar" id="topbar">
+  <div class="topbar__inner">
+    <a class="brand" href="../../index.html#top">
+      <img class="brand__mark" src="../../assets/logo.svg" alt="" width="36" height="36">
+      <span class="brand__name">ScopeBee</span>
+    </a>
+
+    <button class="burger" id="burger" aria-expanded="false" aria-controls="nav" aria-label="Menu" data-i18n-aria="a11y.menu">
+      <span></span><span></span><span></span>
+    </button>
+
+    <nav class="nav" id="nav">
+      <ul class="nav__list">
+        <li><a href="../../index.html#news" data-i18n="nav.news">News</a></li>
+        <li><a href="../../index.html#engine" data-i18n="nav.features">Features</a></li>
+        <li><a href="../../index.html#compare" data-i18n="nav.compare">Comparison</a></li>
+        <li><a href="../../index.html#roadmap" data-i18n="nav.roadmap">Roadmap</a></li>
+        <li><a href="../../index.html#footer" data-i18n="nav.contact">Contact</a></li>
+      </ul>
+
+      <div class="topbar__end">
+        <a class="docs-btn" href="../index.html" data-i18n="nav.docs"
+           data-umami-event="docs-open" aria-current="true">Docs</a>
+
+        <div class="lang" role="group" aria-label="Language" data-i18n-aria="a11y.lang">
+          <button type="button" class="lang__btn" data-lang="en">EN</button>
+          <span class="lang__sep" aria-hidden="true">/</span>
+          <button type="button" class="lang__btn" data-lang="ru">RU</button>
+        </div>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<!-- Second-level chrome of the section. Sticky under the fixed top bar; the
+     active tab is an aria-current in the markup of each page, so the highlight
+     needs no JS and is right before the first paint. -->
+<div class="docsbar">
+  <nav class="docsbar__inner" aria-label="Documentation sections" data-i18n-aria="docs.tabs.aria">
+    <a class="docsbar__tab" href="../index.html"
+       data-umami-event="docs-tab" data-umami-event-tab="guide" data-i18n="docs.tab.guide">Documentation</a>
+    <a class="docsbar__tab" href="index.html" aria-current="page"
+       data-umami-event="docs-tab" data-umami-event-tab="api" data-i18n="docs.tab.api">Engine API</a>
+
+    <p class="docsbar__version"><span data-i18n="docs.version">version</span> <b>0.3.0</b></p>
+  </nav>
+</div>
+
+<main id="main">
+  <div class="docs__inner docs__inner--wide">
+    <div class="docs__cols docs__cols--api">
+
+      <aside class="docs__side">
+        <nav class="docs-nav" aria-label="Documentation pages" data-i18n-aria="docs.nav.aria">
+          <p class="docs-nav__group" data-i18n="docs.nav.api">API</p>
+          <ul>
+            <li><a class="docs-nav__link" href="component.html" aria-current="page">Component</a></li>
+          </ul>
+        </nav>
+      </aside>
+
+      <article class="docs__main">
+        <p class="section-eyebrow" data-i18n="docs.tab.api">Engine API</p>
+        <h1 class="docs__title"><code>Component</code></h1>
+        <p class="docs__lead" data-i18n="api.component.lead">The base class every component derives from.</p>
+
+        <dl class="api-meta">
+          <dt data-i18n="api.label.namespace">Namespace</dt>
+          <dd><code>ScopeBee</code></dd>
+          <dt data-i18n="api.label.declaration">Declaration</dt>
+          <dd><code>public abstract class Component</code></dd>
+          <dt data-i18n="api.label.derived">Derived from it</dt>
+          <dd><span data-i18n="api.component.derived">every engine component and, through CoBehaviour, every script</span></dd>
+        </dl>
+
+        <nav class="api-index api-index--chips" aria-label="Members of the class" data-i18n-aria="api.index.aria">
+          <p class="api-index__group" data-i18n="api.group.properties">Properties</p>
+          <ul>
+            <li><a href="#m-gameobject">gameObject</a></li>
+            <li><a href="#m-transform">transform</a></li>
+            <li><a href="#m-enabled">enabled</a></li>
+            <li><a href="#m-tag">tag</a></li>
+            <li><a href="#m-destroyed">destroyed</a></li>
+            <li><a href="#m-supportsenabled">SupportsEnabled</a></li>
+          </ul>
+          <p class="api-index__group" data-i18n="api.group.methods">Methods</p>
+          <ul>
+            <li><a href="#m-comparetag">CompareTag</a></li>
+            <li><a href="#m-getcomponent">GetComponent&lt;T&gt;</a></li>
+            <li><a href="#m-trygetcomponent">TryGetComponent&lt;T&gt;</a></li>
+            <li><a href="#m-getcomponentinchildren">GetComponentInChildren&lt;T&gt;</a></li>
+            <li><a href="#m-getcomponentsinchildren">GetComponentsInChildrenNonAlloc&lt;T&gt;</a></li>
+            <li><a href="#m-getcomponentinparent">GetComponentInParent&lt;T&gt;</a></li>
+            <li><a href="#m-gettypename">GetTypeName</a></li>
+          </ul>
+          <p class="api-index__group" data-i18n="api.group.statics">Static methods</p>
+          <ul>
+            <li><a href="#m-findobjectoftype">FindObjectOfType&lt;T&gt;</a></li>
+            <li><a href="#m-findobjectsoftype">FindObjectsOfTypeNonAlloc&lt;T&gt;</a></li>
+            <li><a href="#m-instantiate">Instantiate</a></li>
+            <li><a href="#m-destroy">Destroy</a></li>
+            <li><a href="#m-dontdestroyonload">DontDestroyOnLoad</a></li>
+            <li><a href="#m-isdestroyedreference">IsDestroyedReference</a></li>
+          </ul>
+          <p class="api-index__group" data-i18n="api.group.overridable">Overridable</p>
+          <ul>
+            <li><a href="#m-getlifecycleflags">GetLifecycleFlags</a></li>
+            <li><a href="#m-onvalidate">OnValidate</a></li>
+            <li><a href="#m-onenabledchanged">OnEnabledChanged</a></li>
+            <li><a href="#m-oninspectorgui">OnInspectorGUI</a></li>
+          </ul>
+          <p class="api-index__group" data-i18n="api.group.operators">Operators</p>
+          <ul>
+            <li><a href="#m-operatoreq">operator==</a></li>
+          </ul>
+        </nav>
+
+        <h2 class="api-group" id="g-properties"><span data-i18n="api.group.properties">Properties</span><span class="api-group__count">6</span></h2>
+
+        <section class="api-member" id="m-gameobject">
+          <h3 class="api-member__name"><code>gameObject</code></h3>
+          <p class="api-member__sig">public GameObject gameObject</p>
+
+          <div class="api-member__body">
+            <p class="api-member__desc" data-i18n="api.component.gameobject.desc">The object this component is attached to. Losing the owner is what makes a component dead: on destruction the field is nulled while the memory of the component itself stays valid, so a reference held in someone else’s field reads null instead of dangling.</p>
+
+            <details class="api-example">
+              <summary data-i18n="docs.example">Example</summary>
+              <pre class="code" role="region" tabindex="0" data-i18n-aria="docs.code.aria"><span class="tok-kw">if</span> (other.gameObject.CompareTag(<span class="tok-str">"Player"</span>))
+{
+    Destroy(gameObject);
+}</pre>
+            </details>
+          </div>
+        </section>
+
+        <section class="api-member" id="m-transform">
+          <h3 class="api-member__name"><code>transform</code></h3>
+          <p class="api-member__sig">public Transform transform { get; }</p>
+
+          <div class="api-member__body">
+            <p class="api-member__desc" data-i18n="api.component.transform.desc">The owner’s Transform. On a destroyed component it returns null rather than dereferencing a dead owner.</p>
+          </div>
+        </section>
+
+        <section class="api-member" id="m-enabled">
+          <h3 class="api-member__name"><code>enabled</code></h3>
+          <p class="api-member__sig">public bool enabled { get; set; }</p>
+
+          <div class="api-member__body">
+            <p class="api-member__desc" data-i18n="api.component.enabled.desc">Whether the engine ticks this component. Writing it dispatches OnEnable or OnDisable, marks the UI layout dirty and calls OnEnabledChanged before either hook, so a component can release what it holds in the right order.</p>
+
+            <p class="callout"><b data-i18n="docs.label.note">Note.</b> <span data-i18n="api.component.enabled.note1">The gate applies to every component, not only to scripts: a disabled AudioSource, Collider2D or ScrollRect stops ticking the same way. Setting the same value twice does nothing.</span></p>
+
+            <details class="api-example">
+              <summary data-i18n="docs.example">Example</summary>
+              <pre class="code" role="region" tabindex="0" data-i18n-aria="docs.code.aria"><span class="tok-cmt">// OnDisable fires here, inside the assignment.</span>
+GetComponent&lt;<span class="tok-type">SpriteRenderer</span>&gt;().enabled = <span class="tok-kw">false</span>;</pre>
+            </details>
+          </div>
+        </section>
+
+        <section class="api-member" id="m-tag">
+          <h3 class="api-member__name"><code>tag</code></h3>
+          <p class="api-member__sig">public String tag { get; set; }</p>
+
+          <div class="api-member__body">
+            <p class="api-member__desc" data-i18n="api.component.tag.desc">The owner’s tag. Reading it hands back the object’s own string; assigning copies into it. To compare, use CompareTag — it does not allocate.</p>
+          </div>
+        </section>
+
+        <section class="api-member" id="m-destroyed">
+          <h3 class="api-member__name"><code>destroyed</code></h3>
+          <p class="api-member__sig">public bool destroyed</p>
+
+          <div class="api-member__body">
+            <p class="api-member__desc" data-i18n="api.component.destroyed.desc">Set the moment Destroy is called, long before the component is actually removed. A marked component stops being ticked in that same frame, but stays attached to its object until the end of it.</p>
+          </div>
+        </section>
+
+        <section class="api-member" id="m-supportsenabled">
+          <h3 class="api-member__name"><code>SupportsEnabled</code></h3>
+          <p class="api-member__sig">public virtual bool SupportsEnabled { get; }</p>
+
+          <div class="api-member__body">
+            <p class="api-member__desc" data-i18n="api.component.supportsenabled.desc">Whether this component has anything to switch off. The inspector draws the checkbox in the component header by this flag: Transform, RectTransform and Grid have no logic to run, and a checkbox that does nothing is worse than no checkbox.</p>
+          </div>
+        </section>
+
+        <h2 class="api-group" id="g-methods"><span data-i18n="api.group.methods">Methods</span><span class="api-group__count">7</span></h2>
+
+        <section class="api-member" id="m-comparetag">
+          <h3 class="api-member__name"><code>CompareTag</code></h3>
+          <p class="api-member__sig">public bool CompareTag(StringView tag)</p>
+
+          <div class="api-member__body">
+            <p class="api-member__desc" data-i18n="api.component.comparetag.desc">Compares the owner’s tag without allocating a string.</p>
+
+            <p class="api-member__sub" data-i18n="api.label.params">Parameters</p>
+            <div class="api-params">
+              <span class="api-params__name">tag</span><span class="api-params__type">StringView</span><span class="api-params__desc" data-i18n="api.component.comparetag.p.tag">The tag to compare against.</span>
+            </div>
+
+            <p class="api-member__sub" data-i18n="api.label.returns">Returns</p>
+            <p class="api-returns"><span class="api-returns__type">bool</span><span class="api-returns__desc" data-i18n="api.component.comparetag.ret">true when the tags match.</span></p>
+          </div>
+        </section>
+
+        <section class="api-member" id="m-getcomponent">
+          <h3 class="api-member__name"><code>GetComponent&lt;T&gt;</code></h3>
+          <p class="api-member__sig">public T GetComponent&lt;T&gt;() where T : Component</p>
+
+          <div class="api-member__body">
+            <p class="api-member__desc" data-i18n="api.component.getcomponent.desc">Returns the component of type T on this object, or null if the object has none. Delegates to the owning GameObject.</p>
+
+            <p class="api-member__sub" data-i18n="api.label.typeparams">Type parameters</p>
+            <div class="api-params">
+              <span class="api-params__name">T</span><span class="api-params__type">: Component</span><span class="api-params__desc" data-i18n="api.component.getcomponent.p.t">The component type to look for.</span>
+            </div>
+
+            <p class="api-member__sub" data-i18n="api.label.returns">Returns</p>
+            <p class="api-returns"><span class="api-returns__type">T</span><span class="api-returns__desc" data-i18n="api.component.getcomponent.ret">the component, or null.</span></p>
+
+            <details class="api-example">
+              <summary data-i18n="docs.example">Example</summary>
+              <pre class="code" role="region" tabindex="0" data-i18n-aria="docs.code.aria"><span class="tok-kw">private void</span> Awake()
+{
+    _body = GetComponent&lt;<span class="tok-type">Rigidbody2D</span>&gt;();
+}</pre>
+            </details>
+          </div>
+        </section>
+
+        <section class="api-member" id="m-trygetcomponent">
+          <h3 class="api-member__name"><code>TryGetComponent&lt;T&gt;</code></h3>
+          <p class="api-member__sig">public Result&lt;T&gt; TryGetComponent&lt;T&gt;() where T : class</p>
+
+          <div class="api-member__body">
+            <p class="api-member__desc" data-i18n="api.component.trygetcomponent.desc">The same search in the Beef-canonical form: a Result instead of a null. The constraint is class rather than Component, so an interface implemented by a component works too.</p>
+
+            <p class="api-member__sub" data-i18n="api.label.returns">Returns</p>
+            <p class="api-returns"><span class="api-returns__type">Result&lt;T&gt;</span><span class="api-returns__desc" data-i18n="api.component.trygetcomponent.ret">Ok with the component, or Err when the object has none.</span></p>
+
+            <details class="api-example">
+              <summary data-i18n="docs.example">Example</summary>
+              <pre class="code" role="region" tabindex="0" data-i18n-aria="docs.code.aria"><span class="tok-kw">if</span> (TryGetComponent&lt;<span class="tok-type">Animator</span>&gt;() <span class="tok-kw">case</span> .Ok(<span class="tok-kw">let</span> animator))
+{
+    animator.Play(<span class="tok-str">"Idle"</span>);
+}</pre>
+            </details>
+          </div>
+        </section>
+
+        <section class="api-member" id="m-getcomponentinchildren">
+          <h3 class="api-member__name"><code>GetComponentInChildren&lt;T&gt;</code></h3>
+          <p class="api-member__sig">public T GetComponentInChildren&lt;T&gt;(bool includeInactive = false) where T : Component</p>
+
+          <div class="api-member__body">
+            <p class="api-member__desc" data-i18n="api.component.getcomponentinchildren.desc">Searches this object and then its children, depth first, and returns the first match.</p>
+
+            <p class="api-member__sub" data-i18n="api.label.params">Parameters</p>
+            <div class="api-params">
+              <span class="api-params__name">includeInactive</span><span class="api-params__type">bool</span><span class="api-params__desc" data-i18n="api.component.getcomponentinchildren.p.includeinactive">Whether inactive objects take part in the search. They do not by default.</span>
+            </div>
+
+            <p class="api-member__sub" data-i18n="api.label.returns">Returns</p>
+            <p class="api-returns"><span class="api-returns__type">T</span><span class="api-returns__desc" data-i18n="api.component.getcomponentinchildren.ret">the component, or null.</span></p>
+          </div>
+        </section>
+
+        <section class="api-member" id="m-getcomponentsinchildren">
+          <h3 class="api-member__name"><code>GetComponentsInChildrenNonAlloc&lt;T&gt;</code></h3>
+          <p class="api-member__sig">public int32 GetComponentsInChildrenNonAlloc&lt;T&gt;(T[] results, bool includeInactive = false) where T : Component</p>
+
+          <div class="api-member__body">
+            <p class="api-member__desc" data-i18n="api.component.getcomponentsinchildren.desc">Collects every component of type T in the subtree into a buffer you own. There is no allocating form: a per-frame search that allocates an array is a per-frame allocation.</p>
+
+            <p class="api-member__sub" data-i18n="api.label.params">Parameters</p>
+            <div class="api-params">
+              <span class="api-params__name">results</span><span class="api-params__type">T[]</span><span class="api-params__desc" data-i18n="api.component.getcomponentsinchildren.p.results">The buffer to fill. Nothing past its length is written.</span>
+              <span class="api-params__name">includeInactive</span><span class="api-params__type">bool</span><span class="api-params__desc" data-i18n="api.component.getcomponentsinchildren.p.includeinactive">Whether inactive objects take part in the search.</span>
+            </div>
+
+            <p class="api-member__sub" data-i18n="api.label.returns">Returns</p>
+            <p class="api-returns"><span class="api-returns__type">int32</span><span class="api-returns__desc" data-i18n="api.component.getcomponentsinchildren.ret">how many were written.</span></p>
+          </div>
+        </section>
+
+        <section class="api-member" id="m-getcomponentinparent">
+          <h3 class="api-member__name"><code>GetComponentInParent&lt;T&gt;</code></h3>
+          <p class="api-member__sig">public T GetComponentInParent&lt;T&gt;(bool includeInactive = false) where T : Component</p>
+
+          <div class="api-member__body">
+            <p class="api-member__desc" data-i18n="api.component.getcomponentinparent.desc">Searches this object and then walks up the parents, returning the first match.</p>
+
+            <p class="api-member__sub" data-i18n="api.label.returns">Returns</p>
+            <p class="api-returns"><span class="api-returns__type">T</span><span class="api-returns__desc" data-i18n="api.component.getcomponentinparent.ret">the component, or null.</span></p>
+          </div>
+        </section>
+
+        <section class="api-member" id="m-gettypename">
+          <h3 class="api-member__name"><code>GetTypeName</code></h3>
+          <p class="api-member__sig">public void GetTypeName(String outName)</p>
+
+          <div class="api-member__body">
+            <p class="api-member__desc" data-i18n="api.component.gettypename.desc">Writes the component’s type name into a string you supply.</p>
+          </div>
+        </section>
+
+        <h2 class="api-group" id="g-statics"><span data-i18n="api.group.statics">Static methods</span><span class="api-group__count">6</span></h2>
+
+        <section class="api-member" id="m-findobjectoftype">
+          <h3 class="api-member__name"><code>FindObjectOfType&lt;T&gt;</code></h3>
+          <p class="api-member__sig">public static T FindObjectOfType&lt;T&gt;(bool includeInactive = false) where T : Component</p>
+          <p class="api-member__sig">public static T FindFirstObjectByType&lt;T&gt;(bool includeInactive = false) where T : Component</p>
+          <p class="api-member__sig">public static T FindAnyObjectByType&lt;T&gt;(bool includeInactive = false) where T : Component</p>
+
+          <div class="api-member__body">
+            <p class="api-member__desc" data-i18n="api.component.findobjectoftype.desc">Finds one component of type T in the active scene, and then in the DontDestroyOnLoad scene. The two ByType names are aliases of the same search, there so converted code keeps compiling.</p>
+
+            <p class="api-member__sub" data-i18n="api.label.returns">Returns</p>
+            <p class="api-returns"><span class="api-returns__type">T</span><span class="api-returns__desc" data-i18n="api.component.findobjectoftype.ret">the first match, or null.</span></p>
+
+            <p class="callout callout--warn"><b data-i18n="docs.label.warn">Careful.</b> <span data-i18n="api.component.findobjectoftype.note1">The search walks the whole scene. It belongs in Awake or Start, not in Update.</span></p>
+          </div>
+        </section>
+
+        <section class="api-member" id="m-findobjectsoftype">
+          <h3 class="api-member__name"><code>FindObjectsOfTypeNonAlloc&lt;T&gt;</code></h3>
+          <p class="api-member__sig">public static int32 FindObjectsOfTypeNonAlloc&lt;T&gt;(T[] results, bool includeInactive = false) where T : Component</p>
+          <p class="api-member__sig">public static int32 FindObjectsByTypeNonAlloc&lt;T&gt;(T[] results, bool includeInactive = false) where T : Component</p>
+
+          <div class="api-member__body">
+            <p class="api-member__desc" data-i18n="api.component.findobjectsoftype.desc">Collects every component of type T from both scenes into your buffer and returns how many were written. An empty or null buffer returns zero without searching.</p>
+
+            <p class="api-member__sub" data-i18n="api.label.returns">Returns</p>
+            <p class="api-returns"><span class="api-returns__type">int32</span><span class="api-returns__desc" data-i18n="api.component.findobjectsoftype.ret">how many were written.</span></p>
+          </div>
+        </section>
+
+        <section class="api-member" id="m-instantiate">
+          <h3 class="api-member__name"><code>Instantiate</code></h3>
+          <p class="api-member__sig">public static GameObject Instantiate(GameObject original)</p>
+          <p class="api-member__sig">public static GameObject Instantiate(GameObject original, Vector3 position, Quaternion rotation)</p>
+          <p class="api-member__sig">public static GameObject Instantiate(GameObject original, Vector3 position, Quaternion rotation, Transform parent)</p>
+          <p class="api-member__sig">public static GameObject Instantiate(GameObject original, Transform parent)</p>
+          <p class="api-member__sig">public static T Instantiate&lt;T&gt;(T original) where T : Component</p>
+          <p class="api-member__sig">public static T Instantiate&lt;T&gt;(T original, Vector3 position, Quaternion rotation) where T : Component</p>
+          <p class="api-member__sig">public static T Instantiate&lt;T&gt;(T original, Vector3 position, Quaternion rotation, Transform parent) where T : Component</p>
+          <p class="api-member__sig">public static T Instantiate&lt;T&gt;(T original, Transform parent) where T : Component</p>
+
+          <div class="api-member__body">
+            <p class="api-member__desc" data-i18n="api.component.instantiate.desc">Clones an object with its whole hierarchy and puts the clone into the active scene, or under the parent you name. The generic forms take and return a component type: a prefab field is often typed by the script on it, and the clone’s own instance of that script is what you want back.</p>
+
+            <p class="api-member__sub" data-i18n="api.label.params">Parameters</p>
+            <div class="api-params">
+              <span class="api-params__name">original</span><span class="api-params__type">GameObject</span><span class="api-params__desc" data-i18n="api.component.instantiate.p.original">The object to clone. A null returns null and logs an error.</span>
+              <span class="api-params__name">position</span><span class="api-params__type">Vector3</span><span class="api-params__desc" data-i18n="api.component.instantiate.p.position">Local position of the clone.</span>
+              <span class="api-params__name">rotation</span><span class="api-params__type">Quaternion</span><span class="api-params__desc" data-i18n="api.component.instantiate.p.rotation">Local rotation of the clone.</span>
+              <span class="api-params__name">parent</span><span class="api-params__type">Transform</span><span class="api-params__desc" data-i18n="api.component.instantiate.p.parent">Parent for the clone. Without one the clone becomes a root object of the active scene.</span>
+            </div>
+
+            <p class="api-member__sub" data-i18n="api.label.returns">Returns</p>
+            <p class="api-returns"><span class="api-returns__type">GameObject</span><span class="api-returns__desc" data-i18n="api.component.instantiate.ret">the clone — or, in the generic forms, T on the clone.</span></p>
+
+            <p class="callout"><b data-i18n="docs.label.note">Note.</b> <span data-i18n="api.component.instantiate.note1">The transform is set before the clone’s Awake and OnEnable run, and OnPlayStart follows across the whole hierarchy. That order is the reason a cloned Rigidbody2D creates its physics body where the instance is, not where the prefab was.</span></p>
+
+            <details class="api-example">
+              <summary data-i18n="docs.example">Example</summary>
+              <pre class="code" role="region" tabindex="0" data-i18n-aria="docs.code.aria"><span class="tok-kw">private void</span> Shoot()
+{
+    <span class="tok-kw">let</span> bullet = Instantiate(_bulletPrefab, transform.position, .identity);
+    bullet.GetComponent&lt;<span class="tok-type">Rigidbody2D</span>&gt;().velocity = .(0, 12);
+}</pre>
+            </details>
+          </div>
+        </section>
+
+        <section class="api-member" id="m-destroy">
+          <h3 class="api-member__name"><code>Destroy</code></h3>
+          <p class="api-member__sig">public static void Destroy(GameObject obj)</p>
+          <p class="api-member__sig">public static void Destroy(GameObject obj, float delay)</p>
+          <p class="api-member__sig">public static void Destroy(Component comp)</p>
+          <p class="api-member__sig">public static void Destroy(Component comp, float delay)</p>
+
+          <div class="api-member__body">
+            <p class="api-member__desc" data-i18n="api.component.destroy.desc">Schedules destruction. Nothing is removed on the spot: the target is marked, stops being ticked immediately, and is taken out at the end of the frame, after LateUpdate, when the traversal stack is unwound and the physics step is done.</p>
+
+            <p class="api-member__sub" data-i18n="api.label.params">Parameters</p>
+            <div class="api-params">
+              <span class="api-params__name">delay</span><span class="api-params__type">float</span><span class="api-params__desc" data-i18n="api.component.destroy.p.delay">Seconds to wait before removal. Zero means the end of this frame.</span>
+            </div>
+
+            <p class="callout"><b data-i18n="docs.label.note">Note.</b> <span data-i18n="api.component.destroy.note1">The queue belongs to the scene that owns the target, not to the active one — a DontDestroyOnLoad object is destroyed by its own scene.</span></p>
+
+            <details class="api-example">
+              <summary data-i18n="docs.example">Example</summary>
+              <pre class="code" role="region" tabindex="0" data-i18n-aria="docs.code.aria"><span class="tok-cmt">// The explosion cleans itself up two seconds later.</span>
+Destroy(gameObject, 2f);</pre>
+            </details>
+          </div>
+        </section>
+
+        <section class="api-member" id="m-dontdestroyonload">
+          <h3 class="api-member__name"><code>DontDestroyOnLoad</code></h3>
+          <p class="api-member__sig">public static void DontDestroyOnLoad(GameObject target)</p>
+          <p class="api-member__sig">public static void DontDestroyOnLoad(Component target)</p>
+
+          <div class="api-member__body">
+            <p class="api-member__desc" data-i18n="api.component.dontdestroyonload.desc">Moves the object into the persistent scene, which survives a scene change and ticks alongside the active one. The Component form moves the owner, for converted code that passes this.</p>
+
+            <p class="callout"><b data-i18n="docs.label.note">Note.</b> <span data-i18n="api.component.dontdestroyonload.note1">The move itself is deferred to the end of the frame: it mutates the scene’s root list, and it is called from inside Awake, Start or Update, with that list being walked.</span></p>
+          </div>
+        </section>
+
+        <section class="api-member" id="m-isdestroyedreference">
+          <h3 class="api-member__name"><code>IsDestroyedReference</code></h3>
+          <p class="api-member__sig">public static bool IsDestroyedReference(Object obj)</p>
+
+          <div class="api-member__body">
+            <p class="api-member__desc" data-i18n="api.component.isdestroyedreference.desc">One check of “this reference points at a destroyed participant of the scene” for code that holds a field as Object and does not know its type — the serialiser and the automatic inspector. A GameObject and a component carry that mark differently, and neither caller needs to know how.</p>
+
+            <p class="api-member__sub" data-i18n="api.label.returns">Returns</p>
+            <p class="api-returns"><span class="api-returns__type">bool</span><span class="api-returns__desc" data-i18n="api.component.isdestroyedreference.ret">true for a destroyed GameObject or component, false for anything else.</span></p>
+          </div>
+        </section>
+
+        <h2 class="api-group" id="g-overridable"><span data-i18n="api.group.overridable">Overridable</span><span class="api-group__count">4</span></h2>
+
+        <section class="api-member" id="m-getlifecycleflags">
+          <h3 class="api-member__name"><code>GetLifecycleFlags</code></h3>
+          <p class="api-member__sig">public virtual LifecycleFlags GetLifecycleFlags()</p>
+
+          <div class="api-member__body">
+            <p class="api-member__desc" data-i18n="api.component.getlifecycleflags.desc">The set of callbacks this component implements. The engine tests it before every dispatch, so a callback nobody declared is never called and costs nothing.</p>
+
+            <p class="callout"><b data-i18n="docs.label.note">Note.</b> <span data-i18n="api.component.getlifecycleflags.note1">You do not write this method. The Lifecycle attribute generates it at compile time from the list of names a component declares — the same way for engine components and for scripts.</span></p>
+          </div>
+        </section>
+
+        <section class="api-member" id="m-onvalidate">
+          <h3 class="api-member__name"><code>OnValidate</code></h3>
+          <p class="api-member__sig">public virtual void OnValidate()</p>
+
+          <div class="api-member__body">
+            <p class="api-member__desc" data-i18n="api.component.onvalidate.desc">Called when the inspector has written a field. The inspector writes fields directly by offset, past any property setter, so this is the only way a component learns that it was edited.</p>
+          </div>
+        </section>
+
+        <section class="api-member" id="m-onenabledchanged">
+          <h3 class="api-member__name"><code>OnEnabledChanged</code></h3>
+          <p class="api-member__sig">protected virtual void OnEnabledChanged(bool value)</p>
+
+          <div class="api-member__body">
+            <p class="api-member__desc" data-i18n="api.component.onenabledchanged.desc">A hook for the side effects of switching enabled at runtime. It runs before OnEnable or OnDisable are dispatched, which is what keeps a cancelled Invoke ahead of OnDisable and a collider’s detach ahead of its own.</p>
+          </div>
+        </section>
+
+        <section class="api-member" id="m-oninspectorgui">
+          <h3 class="api-member__name"><code>OnInspectorGUI</code></h3>
+          <p class="api-member__sig">public virtual void OnInspectorGUI()</p>
+
+          <div class="api-member__body">
+            <p class="api-member__desc" data-i18n="api.component.oninspectorgui.desc">Draws the component in the inspector. The default draws every serialised field automatically and calls OnValidate when one changes. Editor only — the method does not exist in a web build.</p>
+          </div>
+        </section>
+
+        <h2 class="api-group" id="g-operators"><span data-i18n="api.group.operators">Operators</span><span class="api-group__count">1</span></h2>
+
+        <section class="api-member" id="m-operatoreq">
+          <h3 class="api-member__name"><code>operator==</code></h3>
+          <p class="api-member__sig">public static bool operator==(Component lhs, Component rhs)</p>
+
+          <div class="api-member__body">
+            <p class="api-member__desc" data-i18n="api.component.operatoreq.desc">Two components are equal when they are the same reference, or when both have lost their owner. Two different dead components are not equal — List.Remove and List.Contains go through this operator, and collapsing them would take out the wrong entry.</p>
+
+            <p class="callout callout--warn"><b data-i18n="docs.label.warn">Careful.</b> <span data-i18n="api.component.operatoreq.note1">Comparing against the null literal never reaches this operator: the compiler turns it into a pointer check, so a destroyed component still reads as alive there. What makes a stale reference safe is not the operator but the fact that the component keeps its memory until the scene unloads.</span></p>
+          </div>
+        </section>
+      </article>
+      <nav class="docs__toc" aria-label="On this page" data-i18n-aria="docs.toc">
+        <p class="docs__toc-title" data-i18n="docs.toc">On this page</p>
+        <ul>
+          <li><a href="#g-properties" data-i18n="api.group.properties">Properties</a></li>
+          <li><a href="#g-methods" data-i18n="api.group.methods">Methods</a></li>
+          <li><a href="#g-statics" data-i18n="api.group.statics">Static methods</a></li>
+          <li><a href="#g-overridable" data-i18n="api.group.overridable">Overridable</a></li>
+          <li><a href="#g-operators" data-i18n="api.group.operators">Operators</a></li>
+        </ul>
+      </nav>
+
+    </div>
+  </div>
+</main>
+
+<script src="../docs-i18n.js"></script>
+<script src="../../main.js"></script>
+</body>
+</html>

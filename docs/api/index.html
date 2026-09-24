@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en" class="docs" data-i18n-title="api.index.meta.title" data-i18n-desc="api.index.meta.desc">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Engine API — ScopeBee documentation</title>
+<meta name="description" content="Class reference for the ScopeBee engine.">
+<meta name="theme-color" content="#0b0b16">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Engine API — ScopeBee documentation">
+<meta property="og:description" content="Class reference for the ScopeBee engine.">
+<meta property="og:image" content="../../assets/editor.png">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" href="../../assets/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../../styles.css">
+
+<script>document.documentElement.classList.add('js');</script>
+<script defer src="https://cloud.umami.is/script.js"
+        data-website-id="d878d1d4-c979-49f4-8593-c104f9459d83"
+        data-domains="scopebee.tech,www.scopebee.tech"
+        data-performance="true"></script>
+</head>
+<body>
+
+<a class="skip-link" href="#main" data-i18n="skip">Skip to content</a>
+
+<header class="topbar" id="topbar">
+  <div class="topbar__inner">
+    <a class="brand" href="../../index.html#top">
+      <img class="brand__mark" src="../../assets/logo.svg" alt="" width="36" height="36">
+      <span class="brand__name">ScopeBee</span>
+    </a>
+
+    <button class="burger" id="burger" aria-expanded="false" aria-controls="nav" aria-label="Menu" data-i18n-aria="a11y.menu">
+      <span></span><span></span><span></span>
+    </button>
+
+    <nav class="nav" id="nav">
+      <ul class="nav__list">
+        <li><a href="../../index.html#news" data-i18n="nav.news">News</a></li>
+        <li><a href="../../index.html#engine" data-i18n="nav.features">Features</a></li>
+        <li><a href="../../index.html#compare" data-i18n="nav.compare">Comparison</a></li>
+        <li><a href="../../index.html#roadmap" data-i18n="nav.roadmap">Roadmap</a></li>
+        <li><a href="../../index.html#footer" data-i18n="nav.contact">Contact</a></li>
+      </ul>
+
+      <div class="topbar__end">
+        <a class="docs-btn" href="../index.html" data-i18n="nav.docs"
+           data-umami-event="docs-open" aria-current="true">Docs</a>
+
+        <div class="lang" role="group" aria-label="Language" data-i18n-aria="a11y.lang">
+          <button type="button" class="lang__btn" data-lang="en">EN</button>
+          <span class="lang__sep" aria-hidden="true">/</span>
+          <button type="button" class="lang__btn" data-lang="ru">RU</button>
+        </div>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<!-- Second-level chrome of the section. Sticky under the fixed top bar; the
+     active tab is an aria-current in the markup of each page, so the highlight
+     needs no JS and is right before the first paint. -->
+<div class="docsbar">
+  <nav class="docsbar__inner" aria-label="Documentation sections" data-i18n-aria="docs.tabs.aria">
+    <a class="docsbar__tab" href="../index.html"
+       data-umami-event="docs-tab" data-umami-event-tab="guide" data-i18n="docs.tab.guide">Documentation</a>
+    <a class="docsbar__tab" href="index.html" aria-current="page"
+       data-umami-event="docs-tab" data-umami-event-tab="api" data-i18n="docs.tab.api">Engine API</a>
+
+    <p class="docsbar__version"><span data-i18n="docs.version">version</span> <b>0.3.0</b></p>
+  </nav>
+</div>
+
+<main id="main">
+  <div class="docs__inner">
+    <div class="docs__cols docs__cols--api">
+
+      <aside class="docs__side">
+        <nav class="docs-nav" aria-label="Documentation pages" data-i18n-aria="docs.nav.aria">
+          <p class="docs-nav__group" data-i18n="docs.nav.api">API</p>
+          <ul>
+            <li><a class="docs-nav__link" href="component.html">Component</a></li>
+          </ul>
+        </nav>
+      </aside>
+
+      <article class="docs__main">
+        <p class="section-eyebrow" data-i18n="docs.tab.api">Engine API</p>
+        <h1 class="docs__title" data-i18n="api.index.title">Engine API</h1>
+        <p class="docs__lead" data-i18n="api.index.lead">The reference is written from the engine source and grows with it.</p>
+
+        <nav class="api-index" aria-label="Members of the class" data-i18n-aria="api.index.aria">
+          <p class="api-index__group" data-i18n="api.index.group.scene">Scene</p>
+          <ul>
+            <li><a href="component.html"><code>Component</code></a>
+                <span class="api-index__brief" data-i18n="api.index.component.brief">The base class every component derives from.</span></li>
+          </ul>
+        </nav>
+
+        <div class="article__body">
+          <p data-i18n="api.index.soon">GameObject, Transform and the scene classes follow.</p>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</main>
+
+<script src="../docs-i18n.js"></script>
+<script src="../../main.js"></script>
+</body>
+</html>

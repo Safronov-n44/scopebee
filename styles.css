@@ -42,6 +42,13 @@
   --topbar-h:      72px;
   --section-pad:   clamp(4rem, 9vh, 6.5rem);
   --radius:        18px;
+  /* second-level bar of the docs section; anchors there clear both bars */
+  --docsbar-h:     52px;
+
+  /* code. A system stack and nothing else: the site runs from file:// and
+     ships no font files. */
+  --mono:          ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+  --code-bg:       rgba(255, 255, 255, .045);
 
   /* motion */
   --ease-out:      cubic-bezier(.2, .7, .2, 1);
@@ -135,8 +142,12 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .brand__mark { width: 36px; height: 36px; }
 .brand__name { font-size: 1.125rem; }
 
+/* flex:1, а не margin-left:auto — растянутый .nav разводит своих детей сам:
+   список встаёт к логотипу, .topbar__end к краю. Группа остаётся ВНУТРИ .nav,
+   потому что .nav и есть выпадающая панель ниже брейкпоинта: всё вынесенное
+   наружу пришлось бы на мобильном либо потерять, либо продублировать. */
 .nav {
-  margin-left: auto;
+  flex: 1;
   display: flex;
   align-items: center;
   gap: 2rem;
@@ -169,6 +180,27 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 }
 .nav__list a:hover { color: var(--text); }
 .nav__list a:hover::after { transform: scaleX(1); }
+
+/* Всё, что относится к сайту целиком, а не к текущей странице: путь в
+   документацию и выбор языка. Якоря на секции лендинга остались слева. */
+.topbar__end {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* Ссылка, а не кнопка: в герое уже есть акцентная кнопка, и вторая такая в
+   шапке спорила бы с ней. Вес отличает её от якорей, цвет — нет. */
+.docs-btn {
+  font-size: .875rem;
+  font-weight: 700;
+  white-space: nowrap;  /* «Документация» не должна разложить шапку на две строки */
+  color: var(--text-muted);
+  transition: color .2s var(--ease-out);
+}
+.docs-btn:hover { color: var(--text); }
+.docs-btn[aria-current] { color: var(--accent); }
 
 .lang {
   display: inline-flex;
@@ -1516,6 +1548,582 @@ body.has-lightbox { overflow: hidden; }
 }
 
 /* ==========================================================================
+   Documentation  (docs/**)
+
+   Two bars stack here: the fixed .topbar and .docsbar under it. The second one
+   is opaque rather than a second blurred layer — two backdrop-filter surfaces
+   overlapping seam visibly where the upper one samples the lower.
+   ========================================================================== */
+
+.docsbar {
+  position: sticky;
+  top: var(--topbar-h);
+  z-index: 90;                    /* under .topbar's 100: the mobile panel covers it */
+  margin-top: var(--topbar-h);    /* the fixed bar occupies no flow */
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+}
+
+.docsbar__inner {
+  max-width: var(--maxw);
+  height: var(--docsbar-h);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+  display: flex;
+  align-items: center;
+  gap: 1.75rem;
+  overflow-x: auto;               /* a third tab must never widen the page */
+  scrollbar-width: none;
+}
+.docsbar__inner::-webkit-scrollbar { display: none; }
+
+.docsbar__tab {
+  position: relative;
+  padding-block: .35rem;
+  font-size: .95rem;
+  font-weight: 600;
+  white-space: nowrap;
+  color: var(--text-muted);
+  transition: color .2s var(--ease-out);
+}
+.docsbar__tab::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -2px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--accent-grad);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .25s var(--ease-out);
+}
+.docsbar__tab:hover { color: var(--text); }
+.docsbar__tab:hover::after,
+.docsbar__tab[aria-current]::after { transform: scaleX(1); }
+.docsbar__tab[aria-current] { color: var(--text); }
+
+/* The docs are written against a version of the engine, so the bar says which
+   one. One channel for now; the slot is here for when there are two. */
+.docsbar__version {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: .45rem;
+  padding: .3rem .7rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  font-size: .78rem;
+  font-weight: 700;
+  letter-spacing: .04em;
+  white-space: nowrap;
+  color: var(--text-faint);
+}
+.docsbar__version b { color: var(--text); }
+
+/* Anchors clear BOTH bars here. The class sits on <html> in the markup of every
+   docs page — the inline head script adds .js next to it without clobbering. */
+html.docs { scroll-padding-top: calc(var(--topbar-h) + var(--docsbar-h) + 16px); }
+
+/* --------------------------------------------------------------------------
+   Page shell
+   -------------------------------------------------------------------------- */
+
+.docs__inner {
+  max-width: var(--maxw);
+  margin-inline: auto;
+  padding: 2.75rem var(--gutter) 5rem;   /* the docsbar already paid --topbar-h */
+}
+/* Three columns need more room than the landing grid: at --maxw the reading
+   column would drop under 600px, and a signature does not fold gracefully. */
+.docs__inner--wide { max-width: 1360px; }
+
+/* Unlike .archive__cols this is NOT gated on .js: the rail is written by hand
+   in the markup, so both columns are correct with scripting off. */
+.docs__cols {
+  display: grid;
+  gap: clamp(1.5rem, 3vw, 2.5rem);
+  grid-template-columns: 15rem minmax(0, 1fr);  /* minmax(0,…) or a wide <pre> blows the track out */
+  align-items: start;
+}
+
+.docs__side {
+  position: sticky;
+  top: calc(var(--topbar-h) + var(--docsbar-h) + 1.5rem);
+  max-height: calc(100vh - var(--topbar-h) - var(--docsbar-h) - 3rem);
+  max-height: calc(100dvh - var(--topbar-h) - var(--docsbar-h) - 3rem);
+  overflow-y: auto;
+}
+
+.docs__main { min-width: 0; }   /* same reason as minmax(0,…) on the track */
+
+.docs-nav ul { display: flex; flex-direction: column; gap: .25rem; }
+
+.docs-nav__group {
+  margin-bottom: .5rem;
+  padding-inline: .85rem;
+  font-size: .8rem;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+
+.docs-nav__link {
+  display: block;
+  padding: .5rem .85rem;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  color: var(--text-muted);
+  font-size: .95rem;
+  transition: border-color .2s var(--ease-out), background-color .2s var(--ease-out), color .2s var(--ease-out);
+}
+.docs-nav__link:hover {
+  border-color: var(--border);
+  background: var(--surface);
+  color: var(--text);
+}
+/* border as well as fill, for the same reason as .archive__link[aria-current] */
+.docs-nav__link[aria-current] {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: #1a1005;
+  font-weight: 700;
+}
+
+/* On this page. Only earns its place on the class reference, and only where
+   there is room for a third column without squeezing the measure. */
+.docs__toc { display: none; }
+
+.docs__toc-title {
+  font-size: .8rem;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+.docs__toc ul {
+  margin-top: .75rem;
+  display: grid;
+  gap: .45rem;
+  font-size: .875rem;
+}
+.docs__toc a {
+  display: block;
+  padding-left: .7rem;
+  border-left: 2px solid var(--border);
+  color: var(--text-muted);
+  transition: color .2s var(--ease-out), border-color .2s var(--ease-out);
+}
+.docs__toc a:hover { color: var(--text); border-left-color: var(--accent); }
+
+@media (min-width: 1400px) {
+  .docs__cols--api { grid-template-columns: 15rem minmax(0, 1fr) 13rem; }
+  .docs__cols--api .docs__toc {
+    display: block;
+    position: sticky;
+    top: calc(var(--topbar-h) + var(--docsbar-h) + 1.5rem);
+  }
+}
+
+.docs__title {
+  font-size: clamp(1.9rem, 4vw, 2.6rem);
+  font-weight: 800;
+}
+.docs__title code { font-family: var(--mono); font-size: .9em; }
+
+.docs__lead {
+  margin-top: 1rem;
+  color: var(--text-muted);
+  font-size: clamp(1.05rem, 1.6vw, 1.2rem);
+  line-height: 1.5;
+}
+
+/* --------------------------------------------------------------------------
+   Code
+
+   Nothing on the site used monospace before this section, so the whole layer
+   is new. System stack only: the site runs from file:// and ships no fonts.
+   -------------------------------------------------------------------------- */
+
+code, kbd, samp, pre { font-family: var(--mono); }
+
+/* em, not rem: inline code follows whatever it sits inside, so `enabled` in a
+   heading and in a paragraph both read as code at that size */
+:not(pre) > code {
+  padding: .1em .35em;
+  border-radius: 6px;
+  font-size: .9375em;
+  background: var(--code-bg);
+  border: 1px solid rgba(255, 255, 255, .09);
+  color: var(--text);
+}
+
+.code {
+  margin: 0;
+  padding: 1rem 1.15rem;
+  border-radius: var(--radius);
+  background: var(--code-bg);
+  border: 1px solid var(--border);
+  font-size: .875rem;
+  line-height: 1.6;
+  tab-size: 4;
+  overflow-x: auto;
+  white-space: pre;
+}
+/* focusable for the same reason .table-scroll is: an overlay scrollbar gives no
+   hint that the block moves, and a keyboard has no other way to reach the rest */
+.code:focus-visible { outline-offset: -2px; }
+
+/* Highlighting is hand-placed spans in the markup — there is no highlighter in
+   main.js, and there must not be: applyLang replaces a node's whole textContent,
+   so a listing carries no data-i18n and its comments stay English in both
+   languages. Muted palette: keywords and types only. */
+.tok-kw   { color: var(--accent-3-hi); }
+.tok-type { color: var(--accent); }
+.tok-cmt  { color: var(--text-faint); font-style: italic; }
+
+/* Two listings of the same thing, C# on the left and Beef on the right, so a
+   line can be compared with the line beside it. The columns stack below 900px,
+   where each would be too narrow for a line of code; C# stays first either way. */
+.code-pair {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: .75rem;
+}
+.code-pair__col { min-width: 0; }
+.article__body .code-pair__lang {
+  margin-bottom: .4rem;
+  font-family: var(--mono);
+  font-size: .75rem;
+  font-weight: 600;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+.code-pair .code { font-size: .8125rem; height: calc(100% - 1.6rem); }
+@media (max-width: 900px) {
+  .code-pair { grid-template-columns: minmax(0, 1fr); }
+  .code-pair .code { height: auto; }
+}
+
+/* --------------------------------------------------------------------------
+   Callouts and diagrams
+   -------------------------------------------------------------------------- */
+
+.callout {
+  margin-top: 1.25rem;
+  padding: .9rem 1.1rem;
+  border-left: 2px solid var(--accent);
+  border-radius: 0 12px 12px 0;
+  background: var(--surface);
+  color: var(--text-muted);
+  font-size: .95rem;
+}
+.callout b { color: var(--text); }
+.callout--warn { border-left-color: #f0b35a; }
+.callout--ok { border-left-color: var(--ok); }
+
+.diagram {
+  margin-top: 1.25rem;
+  padding: 1rem 1.15rem;
+  border-radius: var(--radius);
+  background: var(--code-bg);
+  border: 1px solid var(--border);
+  font-family: var(--mono);
+  font-size: .8125rem;
+  line-height: 1.55;
+  white-space: pre;
+  overflow-x: auto;
+  color: var(--text-muted);
+}
+
+/* --------------------------------------------------------------------------
+   Editor map  (docs/index.html)
+
+   A screenshot with its panels outlined. Each zone is placed in percent of the
+   image (2000x1103), so the outlines follow it at any width; the list under it
+   repeats the colour next to each name. The four colours are the page's own
+   signal colours, one per panel, set once on the modifier and read by both.
+   The badge sits bottom-right: top-left is where every panel keeps its tabs.
+   -------------------------------------------------------------------------- */
+
+.editor-map,
+.editor-zones__item { --zone: var(--accent); }
+.editor-map { position: relative; margin: 1.25rem 0 0; }
+.editor-map .shot { width: 100%; border-radius: 10px; }
+.editor-map img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+}
+
+.editor-map__zone {
+  position: absolute;
+  border: 2px solid var(--zone);
+  border-radius: 6px;
+  background: color-mix(in srgb, var(--zone) 5%, transparent);
+  pointer-events: none;
+}
+.editor-map__zone b {
+  position: absolute;
+  right: 6px;
+  bottom: 6px;
+  display: grid;
+  place-items: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+  background: var(--zone);
+  color: var(--bg);
+  font-size: .8rem;
+  font-weight: 700;
+}
+
+.editor-map__zone--hierarchy { left: .4%;  top: 4.6%;  width: 18.3%; height: 95%;   }
+.editor-map__zone--scene     { left: 19.1%; top: 4.6%;  width: 66.5%; height: 72%;   }
+.editor-map__zone--project   { left: 19.1%; top: 77.2%; width: 66.5%; height: 22.4%; }
+.editor-map__zone--inspector { left: 86.1%; top: 4.6%;  width: 13.6%; height: 95%;   }
+/* the Game panel shares the Scene panel's slot, it is the next tab over */
+.editor-map__zone--game      { left: 19.1%; top: 4.6%;  width: 66.5%; height: 72%;   }
+/* Animator and Animation are tabs of the Scene and Project panels, so they take those slots */
+.editor-map__zone--animator  { left: 19.1%; top: 4.6%;  width: 66.5%; height: 72%;   }
+.editor-map__zone--animation { left: 19.1%; top: 77.2%; width: 66.5%; height: 22.4%; }
+.editor-map__zone--controls  { left: 48.2%; top: 1.8%;  width: 3.85%; height: 2.3%;  }
+/* too small to hold its badge, so the badge sits just to the right of it */
+.editor-map__zone--controls b { right: auto; bottom: auto; left: calc(100% + 6px); top: 50%; transform: translateY(-50%); }
+
+.editor-map__zone--hierarchy, .editor-zones__item--hierarchy { --zone: var(--accent); }
+.editor-map__zone--scene,     .editor-zones__item--scene     { --zone: var(--accent-2); }
+.editor-map__zone--project,   .editor-zones__item--project   { --zone: var(--ok); }
+.editor-map__zone--inspector, .editor-zones__item--inspector { --zone: var(--accent-3-hi); }
+.editor-map__zone--game,     .editor-zones__item--game     { --zone: var(--accent); }
+.editor-map__zone--controls, .editor-zones__item--controls { --zone: var(--accent-2); }
+.editor-map__zone--animator,  .editor-zones__item--animator  { --zone: var(--accent); }
+.editor-map__zone--animation, .editor-zones__item--animation { --zone: var(--accent-2); }
+.editor-map__zone--game { background: none; }
+
+.editor-zones {
+  display: grid;
+  gap: 1rem;
+  margin-top: 1.5rem;
+  padding: 0;
+  list-style: none;
+  counter-reset: zone;
+}
+.article__body .editor-zones__item {
+  position: relative;
+  margin: 0;
+  padding: .9rem 1.1rem .9rem 3.25rem;
+  border-left: 2px solid var(--zone);
+  border-radius: 0 12px 12px 0;
+  background: var(--surface);
+  counter-increment: zone;
+}
+.article__body .editor-zones__item::before {
+  content: counter(zone);
+  position: absolute;
+  top: .95rem;
+  left: 1.1rem;
+  display: grid;
+  place-items: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+  background: var(--zone);
+  color: var(--bg);
+  font-size: .8rem;
+  font-weight: 700;
+}
+.article__body .editor-zones__item h3 { margin: 0; font-size: 1.05rem; }
+.article__body .editor-zones__item p  { margin: .35rem 0 0; color: var(--text-muted); }
+
+/* at phone width the badges would cover a third of a narrow panel */
+@media (max-width: 640px) {
+  .editor-map__zone b { width: 1.1rem; height: 1.1rem; right: 3px; bottom: 3px; font-size: .65rem; }
+  .editor-map__zone--controls b { right: auto; bottom: auto; left: calc(100% + 3px); }
+}
+
+/* --------------------------------------------------------------------------
+   API reference  (docs/api/**)
+   -------------------------------------------------------------------------- */
+
+.api-meta {
+  margin-top: 1.75rem;
+  display: grid;
+  grid-template-columns: max-content minmax(0, 1fr);
+  gap: .45rem 1.25rem;
+  font-size: .9375rem;
+}
+.api-meta dt {
+  padding-top: .15em;
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+.api-meta dd { margin: 0; color: var(--text-muted); }
+
+.api-index {
+  margin-top: 2.25rem;
+  padding: 1.15rem 1.35rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+.api-index__group {
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+.api-index__group + ul { margin-top: .6rem; }
+.api-index ul + .api-index__group { margin-top: 1.25rem; }
+.api-index li { display: flex; flex-wrap: wrap; gap: .1rem .75rem; font-size: .9375rem; }
+.api-index li + li { margin-top: .35rem; }
+.api-index a { color: var(--accent); }
+.api-index a:hover { text-decoration: underline; }
+.api-index__brief { color: var(--text-faint); }
+
+/* On a class page the index carries names and nothing else — two dozen of them
+   down a column is a screen of scrolling before the reference starts, so they
+   run as a wrapping row instead. The name is the link, with no <code> inside:
+   the chip is already the box that inline code would have drawn. */
+.api-index--chips ul { display: flex; flex-wrap: wrap; gap: .4rem; }
+.api-index--chips li { display: block; }
+.api-index--chips li + li { margin-top: 0; }
+.api-index--chips a {
+  display: inline-block;
+  padding: .25rem .65rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  font-family: var(--mono);
+  font-size: .8125rem;
+  color: var(--text-muted);
+  transition: border-color .2s var(--ease-out), color .2s var(--ease-out);
+}
+.api-index--chips a:hover { border-color: var(--accent); color: var(--text); text-decoration: none; }
+
+.api-group {
+  margin-top: 2.75rem;
+  margin-bottom: .9rem;
+  display: flex;
+  align-items: baseline;
+  gap: .6rem;
+  font-size: .8rem;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+.api-group__count { font-weight: 400; letter-spacing: 0; }
+
+/* A member reads top to bottom: name, rule, declaration, rule, everything else.
+   The rules run the full width of the card, so the padding lives on the rows
+   themselves — on a shared head it would clip the line short of both edges. */
+.api-member {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  overflow: hidden;
+}
+.api-member + .api-member { margin-top: 1rem; }
+
+.api-member__name {
+  padding: .85rem 1.25rem;
+  font-family: var(--mono);
+  font-size: 1.0625rem;
+  font-weight: 700;
+}
+
+.api-member__sig {
+  padding: .7rem 1.25rem;
+  border-top: 1px solid var(--border);
+  font-family: var(--mono);
+  font-size: .875rem;
+  line-height: 1.7;
+  color: var(--text-muted);
+  overflow-x: auto;
+}
+/* overloads are one declaration in several forms, not several sections: no rule
+   between them, and no doubled padding either — they read as consecutive lines */
+.api-member__sig + .api-member__sig { border-top: 0; padding-top: 0; }
+/* the declaration is already quiet; colouring it would fight the name above it */
+.api-member__sig .tok-kw,
+.api-member__sig .tok-type { color: inherit; }
+
+.api-member__body {
+  padding: 1.25rem;
+  border-top: 1px solid var(--border);
+}
+
+.api-member__desc { color: var(--text-muted); font-size: 1.0625rem; }
+.api-member__desc + .api-member__desc { margin-top: .8rem; }
+
+.api-member__sub {
+  margin-top: 1.35rem;
+  margin-bottom: .55rem;
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+
+.api-params {
+  display: grid;
+  grid-template-columns: max-content max-content minmax(0, 1fr);
+  gap: .5rem 1.1rem;
+  align-items: baseline;
+  font-size: .9375rem;
+}
+.api-params__name { font-family: var(--mono); }
+.api-params__type { font-family: var(--mono); color: var(--accent); }
+.api-params__desc { color: var(--text-muted); }
+
+.api-returns { display: flex; align-items: baseline; gap: .75rem; font-size: .9375rem; }
+.api-returns__type { font-family: var(--mono); color: var(--accent); }
+.api-returns__desc { color: var(--text-muted); }
+
+/* A plain <details>: no JS, no stored state, works from file://. */
+.api-example {
+  margin-top: 1.4rem;
+  border-top: 1px solid rgba(255, 255, 255, .07);
+}
+.api-example > summary {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  padding-top: 1rem;
+  list-style: none;
+  cursor: pointer;
+  font-size: .8rem;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  transition: color .2s var(--ease-out);
+}
+.api-example > summary::-webkit-details-marker { display: none; }
+.api-example > summary::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-right: 1.6px solid currentColor;
+  border-bottom: 1.6px solid currentColor;
+  transform: rotate(-45deg);
+  transition: transform .2s var(--ease-out);
+}
+.api-example[open] > summary::before { transform: rotate(45deg); }
+.api-example > summary:hover { color: var(--text); }
+.api-example .code { margin-top: .9rem; }
+
+/* ==========================================================================
    Scroll reveal
    ========================================================================== */
 
@@ -1607,6 +2215,14 @@ body.has-lightbox { overflow: hidden; }
   }
   .nav__list a { display: block; padding-block: .5rem; }
   .nav__list a::after { bottom: .35rem; }
+
+  /* в панели это не правый угол, а последняя строка */
+  .topbar__end {
+    margin-left: 0;
+    width: 100%;
+    gap: 1.25rem;
+  }
+  .docs-btn { font-size: 1.1rem; font-weight: 600; }
 }
 
 @media (max-width: 900px) {
@@ -1617,6 +2233,18 @@ body.has-lightbox { overflow: hidden; }
   .archive__nav ul { flex-direction: row; flex-wrap: wrap; align-items: center; gap: .5rem; }
   .archive__group { margin-top: 0; display: flex; align-items: center; flex-wrap: wrap; gap: .5rem; }
   .archive__year { margin-bottom: 0; padding-inline: 0; }
+
+  /* the docs rail does the same, and stops sticking: a chip row that followed
+     the scroll would eat the top of every screen */
+  .docs__cols { grid-template-columns: minmax(0, 1fr); }
+  .docs__side { position: static; max-height: none; overflow: visible; }
+  .docs-nav ul { flex-direction: row; flex-wrap: wrap; align-items: center; gap: .5rem; }
+  .docs-nav__group { margin-bottom: .5rem; padding-inline: 0; }
+
+  /* name, type and description stack; three columns of max-content here would
+     leave the description a few characters wide */
+  .api-params { grid-template-columns: minmax(0, 1fr); gap: .15rem; }
+  .api-params__desc { margin-bottom: .65rem; }
 
   .hero__inner {
     grid-template-columns: 1fr;
@@ -1719,5 +2347,12 @@ body.has-lightbox { overflow: hidden; }
   }
   .cmp__bar::before { background: Highlight; }
   .archive__link[aria-current] { background: Highlight; color: HighlightText; border-color: Highlight; }
+  .docs-nav__link[aria-current] { background: Highlight; color: HighlightText; border-color: Highlight; }
+  /* the tab's only signal is a gradient rule, and a gradient is replaced wholesale */
+  .docsbar__tab[aria-current]::after { background: Highlight; }
   .cmp__best .cmp__bar::before { background: Highlight; }
+  /* the outlines and badges carry the mapping; keep them visible, drop the tint */
+  .editor-map__zone { border-color: Highlight; background: none; }
+  .editor-map__zone b,
+  .article__body .editor-zones__item::before { background: Highlight; color: HighlightText; }
 }

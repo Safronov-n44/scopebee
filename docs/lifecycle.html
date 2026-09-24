@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en" class="docs" data-i18n-title="docs.lifecycle.meta.title" data-i18n-desc="docs.lifecycle.meta.desc">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lifecycle — ScopeBee documentation</title>
+<meta name="description" content="The exact order of a ScopeBee frame: physics, Update, LateUpdate, deferred destruction, and every callback in between.">
+<meta name="theme-color" content="#0b0b16">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Lifecycle — ScopeBee documentation">
+<meta property="og:description" content="The exact order of a ScopeBee frame: physics, Update, LateUpdate, deferred destruction, and every callback in between.">
+<meta property="og:image" content="../assets/editor.png">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" href="../assets/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../styles.css">
+
+<script>document.documentElement.classList.add('js');</script>
+<script defer src="https://cloud.umami.is/script.js"
+        data-website-id="d878d1d4-c979-49f4-8593-c104f9459d83"
+        data-domains="scopebee.tech,www.scopebee.tech"
+        data-performance="true"></script>
+</head>
+<body>
+
+<a class="skip-link" href="#main" data-i18n="skip">Skip to content</a>
+
+<header class="topbar" id="topbar">
+  <div class="topbar__inner">
+    <a class="brand" href="../index.html#top">
+      <img class="brand__mark" src="../assets/logo.svg" alt="" width="36" height="36">
+      <span class="brand__name">ScopeBee</span>
+    </a>
+
+    <button class="burger" id="burger" aria-expanded="false" aria-controls="nav" aria-label="Menu" data-i18n-aria="a11y.menu">
+      <span></span><span></span><span></span>
+    </button>
+
+    <nav class="nav" id="nav">
+      <ul class="nav__list">
+        <li><a href="../index.html#news" data-i18n="nav.news">News</a></li>
+        <li><a href="../index.html#engine" data-i18n="nav.features">Features</a></li>
+        <li><a href="../index.html#compare" data-i18n="nav.compare">Comparison</a></li>
+        <li><a href="../index.html#roadmap" data-i18n="nav.roadmap">Roadmap</a></li>
+        <li><a href="../index.html#footer" data-i18n="nav.contact">Contact</a></li>
+      </ul>
+
+      <div class="topbar__end">
+        <a class="docs-btn" href="index.html" data-i18n="nav.docs"
+           data-umami-event="docs-open" aria-current="true">Docs</a>
+
+        <div class="lang" role="group" aria-label="Language" data-i18n-aria="a11y.lang">
+          <button type="button" class="lang__btn" data-lang="en">EN</button>
+          <span class="lang__sep" aria-hidden="true">/</span>
+          <button type="button" class="lang__btn" data-lang="ru">RU</button>
+        </div>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<!-- Second-level chrome of the section. Sticky under the fixed top bar; the
+     active tab is an aria-current in the markup of each page, so the highlight
+     needs no JS and is right before the first paint. -->
+<div class="docsbar">
+  <nav class="docsbar__inner" aria-label="Documentation sections" data-i18n-aria="docs.tabs.aria">
+    <a class="docsbar__tab" href="index.html" aria-current="page"
+       data-umami-event="docs-tab" data-umami-event-tab="guide" data-i18n="docs.tab.guide">Documentation</a>
+    <!-- Engine API is hidden until the reference is ready; the pages under api/
+         stay in place, only the way in is gone. Uncomment to bring the tab back.
+    <a class="docsbar__tab" href="api/index.html"
+       data-umami-event="docs-tab" data-umami-event-tab="api" data-i18n="docs.tab.api">Engine API</a>
+    -->
+
+    <p class="docsbar__version"><span data-i18n="docs.version">version</span> <b>0.3.0</b></p>
+  </nav>
+</div>
+
+<main id="main">
+  <div class="docs__inner">
+    <div class="docs__cols">
+
+      <aside class="docs__side">
+        <nav class="docs-nav" aria-label="Documentation pages" data-i18n-aria="docs.nav.aria">
+          <p class="docs-nav__group" data-i18n="docs.nav.guide">Guide</p>
+          <ul>
+            <li><a class="docs-nav__link" href="index.html" data-i18n="docs.overview.title">Overview</a></li>
+            <li><a class="docs-nav__link" href="beef.html" data-i18n="docs.beef.title">The Beef language</a></li>
+            <li><a class="docs-nav__link" href="lifecycle.html" aria-current="page" data-i18n="docs.lifecycle.title">Lifecycle</a></li>
+          </ul>
+        </nav>
+      </aside>
+
+      <article class="docs__main">
+        <p class="section-eyebrow" data-i18n="docs.tab.guide">Documentation</p>
+        <h1 class="docs__title" data-i18n="docs.lifecycle.title">Lifecycle</h1>
+        <p class="docs__lead" data-i18n="docs.lifecycle.lead">Everything the engine calls on your components, in the order it calls it.</p>
+
+        <div class="article__body">
+          <h2 data-i18n="docs.lifecycle.h1">One frame</h2>
+          <p data-i18n="docs.lifecycle.p1">A frame is a fixed sequence. Physics runs first and drives FixedUpdate from its own accumulator, so a fixed step can happen zero, one or several times in a frame. Then the scene is walked twice &mdash; Update over every object, then LateUpdate over every object &mdash; and only after that do the deferred queues drain.</p>
+
+          <div class="diagram">Time.Update
+PhysicsManager2D.Update   &#9472;&#9472;&#9658; FixedUpdate      0..n times, from the accumulator
+UpdateAll                 &#9472;&#9472;&#9658; Start (lazy) &#9472;&#9472;&#9658; Update
+LateUpdateAll             &#9472;&#9472;&#9658; LateUpdate
+ProcessPendingPersist           moves into the DontDestroyOnLoad scene
+ProcessPendingDestroy     &#9472;&#9472;&#9658; OnDisable &#9472;&#9472;&#9658; OnDestroy
+TweenManager.Update
+AudioManager.Update
+ProcessPendingLoad              a scene change requested during the frame</div>
+
+          <p class="callout"><b data-i18n="docs.label.note">Note.</b> <span data-i18n="docs.lifecycle.note1">The DontDestroyOnLoad scene ticks alongside the active one, phase by phase.</span></p>
+
+          <h2 data-i18n="docs.lifecycle.h2">How the scene is walked</h2>
+          <p data-i18n="docs.lifecycle.p2">Inside a scene the order is: an object&rsquo;s own components in the order they were added, then its children, depth first.</p>
+          <p data-i18n="docs.lifecycle.p3">The enabled gate applies to every component, not only to scripts.</p>
+
+          <h2 data-i18n="docs.lifecycle.h3">Coming into the scene</h2>
+          <ul>
+            <li><code>OnInit</code> &mdash; <span data-i18n="docs.lifecycle.li1">runs the moment the component is attached.</span></li>
+            <li><code>Awake</code> &mdash; <span data-i18n="docs.lifecycle.li2">is where a component finds what it needs on its own object.</span></li>
+            <li><code>OnEnable</code> &mdash; <span data-i18n="docs.lifecycle.li3">runs when the component becomes enabled.</span></li>
+            <li><code>Start</code> &mdash; <span data-i18n="docs.lifecycle.li4">is lazy.</span></li>
+            <li><code>OnPlayStart</code> &mdash; <span data-i18n="docs.lifecycle.li5">creates the runtime resources that only exist while the game is playing.</span></li>
+          </ul>
+
+          <p class="callout callout--ok"><b data-i18n="docs.label.ok">Guaranteed.</b> <span data-i18n="docs.lifecycle.note2">Awake is dispatched exactly once per component, and OnDisable only ever reaches a component that received OnEnable.</span></p>
+
+          <h2 data-i18n="docs.lifecycle.h4">Leaving it</h2>
+          <p data-i18n="docs.lifecycle.p4">Destroy does not delete anything on the spot.</p>
+          <p data-i18n="docs.lifecycle.p5">On removal the component gets OnDisable and then OnDestroy, and only then loses its owner.</p>
+          <p class="callout callout--warn"><b data-i18n="docs.label.warn">Careful.</b> <span data-i18n="docs.lifecycle.warn1">Because destruction is deferred, an object destroyed early in a frame is still attached for the rest of it.</span></p>
+
+          <h2 data-i18n="docs.lifecycle.h5">Every callback</h2>
+          <ul>
+            <li><code>Update</code> &mdash; <span data-i18n="docs.lifecycle.cb.update">once per frame, for every enabled component.</span></li>
+            <li><code>FixedUpdate</code> &mdash; <span data-i18n="docs.lifecycle.cb.fixed">from the physics accumulator.</span></li>
+            <li><code>LateUpdate</code> &mdash; <span data-i18n="docs.lifecycle.cb.late">after every object has had its Update.</span></li>
+            <li><code>OnBecameVisible</code>, <code>OnBecameInvisible</code> &mdash; <span data-i18n="docs.lifecycle.cb.vis">when the game camera starts or stops seeing the object.</span></li>
+            <li><code>OnCollisionEnter2D</code>, <code>OnCollisionExit2D</code>, <code>OnTriggerEnter2D</code>, <code>OnTriggerExit2D</code> &mdash; <span data-i18n="docs.lifecycle.cb.coll">from the contact events of the physics world.</span></li>
+            <li><code>OnDrawGizmos</code>, <code>OnDrawGizmosSelected</code> &mdash; <span data-i18n="docs.lifecycle.cb.gizmos">draw into the scene view of the editor.</span></li>
+          </ul>
+
+          <h2 data-i18n="docs.lifecycle.h6">Declaring them</h2>
+          <p data-i18n="docs.lifecycle.p6">A script lists the callbacks it implements in the Lifecycle attribute.</p>
+
+          <pre class="code" role="region" tabindex="0" data-i18n-aria="docs.code.aria">[Lifecycle(&quot;OnEnable&quot;, &quot;FixedUpdate&quot;, &quot;OnCollisionEnter2D&quot;)]
+<span class="tok-kw">public class</span> <span class="tok-type">Bird</span> : <span class="tok-type">CoBehaviour</span>
+{
+    <span class="tok-kw">private bool</span> _alive;
+
+    <span class="tok-kw">private void</span> OnEnable()
+    {
+        _alive = <span class="tok-kw">true</span>;
+    }
+
+    <span class="tok-kw">private void</span> FixedUpdate()
+    {
+        <span class="tok-cmt">// Runs on the physics clock, not the frame clock.</span>
+    }
+
+    <span class="tok-kw">private void</span> OnCollisionEnter2D(<span class="tok-type">Collision2D</span> collision)
+    {
+        _alive = <span class="tok-kw">false</span>;
+    }
+}</pre>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</main>
+
+<script src="docs-i18n.js"></script>
+<script src="../main.js"></script>
+</body>
+</html>

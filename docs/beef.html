@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en" class="docs" data-i18n-title="docs.beef.meta.title" data-i18n-desc="docs.beef.meta.desc">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Beef language — ScopeBee documentation</title>
+<meta name="description" content="Beef, the language ScopeBee games are written in: who made it, what it is, how close it is to C# and where it differs.">
+<meta name="theme-color" content="#0b0b16">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="The Beef language — ScopeBee documentation">
+<meta property="og:description" content="Beef, the language ScopeBee games are written in: who made it, what it is, how close it is to C# and where it differs.">
+<meta property="og:image" content="../assets/editor.png">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" href="../assets/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../styles.css">
+
+<script>document.documentElement.classList.add('js');</script>
+<script defer src="https://cloud.umami.is/script.js"
+        data-website-id="d878d1d4-c979-49f4-8593-c104f9459d83"
+        data-domains="scopebee.tech,www.scopebee.tech"
+        data-performance="true"></script>
+</head>
+<body>
+
+<a class="skip-link" href="#main" data-i18n="skip">Skip to content</a>
+
+<header class="topbar" id="topbar">
+  <div class="topbar__inner">
+    <a class="brand" href="../index.html#top">
+      <img class="brand__mark" src="../assets/logo.svg" alt="" width="36" height="36">
+      <span class="brand__name">ScopeBee</span>
+    </a>
+
+    <button class="burger" id="burger" aria-expanded="false" aria-controls="nav" aria-label="Menu" data-i18n-aria="a11y.menu">
+      <span></span><span></span><span></span>
+    </button>
+
+    <nav class="nav" id="nav">
+      <ul class="nav__list">
+        <li><a href="../index.html#news" data-i18n="nav.news">News</a></li>
+        <li><a href="../index.html#engine" data-i18n="nav.features">Features</a></li>
+        <li><a href="../index.html#compare" data-i18n="nav.compare">Comparison</a></li>
+        <li><a href="../index.html#roadmap" data-i18n="nav.roadmap">Roadmap</a></li>
+        <li><a href="../index.html#footer" data-i18n="nav.contact">Contact</a></li>
+      </ul>
+
+      <div class="topbar__end">
+        <a class="docs-btn" href="index.html" data-i18n="nav.docs"
+           data-umami-event="docs-open" aria-current="true">Docs</a>
+
+        <div class="lang" role="group" aria-label="Language" data-i18n-aria="a11y.lang">
+          <button type="button" class="lang__btn" data-lang="en">EN</button>
+          <span class="lang__sep" aria-hidden="true">/</span>
+          <button type="button" class="lang__btn" data-lang="ru">RU</button>
+        </div>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<!-- Second-level chrome of the section. Sticky under the fixed top bar; the
+     active tab is an aria-current in the markup of each page, so the highlight
+     needs no JS and is right before the first paint. -->
+<div class="docsbar">
+  <nav class="docsbar__inner" aria-label="Documentation sections" data-i18n-aria="docs.tabs.aria">
+    <a class="docsbar__tab" href="index.html" aria-current="page"
+       data-umami-event="docs-tab" data-umami-event-tab="guide" data-i18n="docs.tab.guide">Documentation</a>
+    <!-- Engine API is hidden until the reference is ready; the pages under api/
+         stay in place, only the way in is gone. Uncomment to bring the tab back.
+    <a class="docsbar__tab" href="api/index.html"
+       data-umami-event="docs-tab" data-umami-event-tab="api" data-i18n="docs.tab.api">Engine API</a>
+    -->
+
+    <p class="docsbar__version"><span data-i18n="docs.version">version</span> <b>0.3.0</b></p>
+  </nav>
+</div>
+
+<main id="main">
+  <div class="docs__inner">
+    <div class="docs__cols">
+
+      <aside class="docs__side">
+        <nav class="docs-nav" aria-label="Documentation pages" data-i18n-aria="docs.nav.aria">
+          <p class="docs-nav__group" data-i18n="docs.nav.guide">Guide</p>
+          <ul>
+            <li><a class="docs-nav__link" href="index.html" data-i18n="docs.overview.title">Overview</a></li>
+            <li><a class="docs-nav__link" href="beef.html" aria-current="page" data-i18n="docs.beef.title">The Beef language</a></li>
+            <!-- Lifecycle is kept but out of the guide for now; uncomment to list it again.
+            <li><a class="docs-nav__link" href="lifecycle.html" data-i18n="docs.lifecycle.title">Lifecycle</a></li>
+            -->
+          </ul>
+        </nav>
+      </aside>
+
+      <article class="docs__main">
+        <p class="section-eyebrow" data-i18n="docs.tab.guide">Documentation</p>
+        <h1 class="docs__title" data-i18n="docs.beef.title">The Beef language</h1>
+        <p class="docs__lead" data-i18n="docs.beef.lead">ScopeBee games are written in Beef: a compiled language with the syntax of C# and the control of C++.</p>
+
+        <div class="article__body">
+          <h2 data-i18n="docs.beef.author.h">Made by a game developer</h2>
+          <p data-i18n="docs.beef.author.p1">Beef was started by Brian Fiete, a co-founder of PopCap Games — the studio behind Bejeweled, Zuma, Peggle and Plants vs. Zombies — who worked there until 2011. He has worked on Beef more or less full time since September 2014; the first public release came out in January 2020.</p>
+          <p data-i18n="docs.beef.author.p2">The language was built for the work he knew: its stated goal is a fluid development experience for high-performance real-time applications such as games, low-level enough to write an engine in and comfortable enough to write the game on top of it.</p>
+
+          <h2 data-i18n="docs.beef.facts.h">The language in brief</h2>
+          <ul>
+            <li data-i18n="docs.beef.facts.1">Statically and strongly typed.</li>
+            <li data-i18n="docs.beef.facts.2">Compiled ahead of time to native code: no virtual machine, no JIT, a minimal runtime.</li>
+            <li data-i18n="docs.beef.facts.3">Manual memory management: no garbage collector and no reference counting. Objects are created with new and released with delete, or placed on the stack with scope and released at the end of it.</li>
+            <li data-i18n="docs.beef.facts.4">First-class custom allocators.</li>
+            <li data-i18n="docs.beef.facts.5">Debug builds catch memory leaks in real time and guard against use-after-free and double deletion; release builds can turn those checks off.</li>
+            <li data-i18n="docs.beef.facts.6">No exceptions: errors are returned as Result values.</li>
+            <li data-i18n="docs.beef.facts.7">Value types and reference types, generics, interfaces, opt-in reflection and code executed at compile time.</li>
+            <li data-i18n="docs.beef.facts.8">Direct interop with C and C++ libraries.</li>
+            <li data-i18n="docs.beef.facts.9">Open source, MIT licence.</li>
+          </ul>
+
+          <h2 data-i18n="docs.beef.syntax.h">It reads like C#</h2>
+          <p data-i18n="docs.beef.syntax.p1">The most important thing to know about Beef: its syntax and many of its semantics come straight from C#. Classes, structs, interfaces, properties, generics, namespaces, attributes — they are written the same way, and code often carries over line for line.</p>
+          <p data-i18n="docs.beef.syntax.p2">For a developer who knows Unity that means no new language to learn from scratch. What changes is not how the code looks but who owns the memory — the comparison below shows both sides.</p>
+
+          <h2 data-i18n="docs.beef.perf.h">Performance and platforms</h2>
+          <p data-i18n="docs.beef.perf.p1">Beef compiles to machine code through LLVM, the same backend behind Clang and Rust. It gets the whole of the LLVM optimizer, including link-time optimization, and a frame never stalls on garbage collection because there is none.</p>
+          <p data-i18n="docs.beef.perf.p2">Optimization can be set per type or per method, so hot code runs at full speed while the rest of the game stays easy to debug.</p>
+          <p data-i18n="docs.beef.perf.p3">LLVM is also what makes Beef cross-platform: it builds natively for Windows, Linux and macOS, and can target any architecture LLVM generates code for — iOS and Android among them. That is how ScopeBee takes the same Beef code to WebAssembly and into the browser.</p>
+
+          <h2 data-i18n="docs.beef.cmp.h">C# and Beef side by side</h2>
+          <h3 data-i18n="docs.beef.same.h">What is the same</h3>
+          <p data-i18n="docs.beef.same.p1">A class with a property, fields, methods, inheritance and an override. The two listings are character for character the same.</p>
+          <div class="code-pair">
+            <div class="code-pair__col">
+              <p class="code-pair__lang">C#</p>
+              <pre class="code" role="region" tabindex="0" aria-label="C#"><span class="tok-kw">public class</span> <span class="tok-type">Player</span> : <span class="tok-type">Unit</span>, <span class="tok-type">IDamageable</span>
+{
+    <span class="tok-kw">public int</span> Health { <span class="tok-kw">get</span>; <span class="tok-kw">set</span>; } = 100;
+    <span class="tok-kw">private float</span> _speed = 4.5f;
+
+    <span class="tok-kw">public void</span> TakeDamage(<span class="tok-kw">int</span> amount)
+    {
+        Health -= amount;
+        <span class="tok-kw">if</span> (Health &lt;= 0)
+            Die();
+    }
+
+    <span class="tok-kw">protected override void</span> Die()
+    {
+        <span class="tok-kw">base</span>.Die();
+        _speed = 0;
+    }
+}</pre>
+            </div>
+            <div class="code-pair__col">
+              <p class="code-pair__lang">Beef</p>
+              <pre class="code" role="region" tabindex="0" aria-label="Beef"><span class="tok-kw">public class</span> <span class="tok-type">Player</span> : <span class="tok-type">Unit</span>, <span class="tok-type">IDamageable</span>
+{
+    <span class="tok-kw">public int</span> Health { <span class="tok-kw">get</span>; <span class="tok-kw">set</span>; } = 100;
+    <span class="tok-kw">private float</span> _speed = 4.5f;
+
+    <span class="tok-kw">public void</span> TakeDamage(<span class="tok-kw">int</span> amount)
+    {
+        Health -= amount;
+        <span class="tok-kw">if</span> (Health &lt;= 0)
+            Die();
+    }
+
+    <span class="tok-kw">protected override void</span> Die()
+    {
+        <span class="tok-kw">base</span>.Die();
+        _speed = 0;
+    }
+}</pre>
+            </div>
+          </div>
+          <p data-i18n="docs.beef.same.p2">Interfaces, structs and enums are declared the same way too.</p>
+          <div class="code-pair">
+            <div class="code-pair__col">
+              <p class="code-pair__lang">C#</p>
+              <pre class="code" role="region" tabindex="0" aria-label="C#"><span class="tok-kw">public interface</span> <span class="tok-type">IDamageable</span>
+{
+    <span class="tok-kw">void</span> TakeDamage(<span class="tok-kw">int</span> amount);
+}
+
+<span class="tok-kw">public struct</span> <span class="tok-type">Hit</span>
+{
+    <span class="tok-kw">public</span> <span class="tok-type">Vector2</span> Point;
+    <span class="tok-kw">public int</span> Damage;
+}
+
+<span class="tok-kw">public enum</span> <span class="tok-type">State</span> { Idle, Run, Jump }</pre>
+            </div>
+            <div class="code-pair__col">
+              <p class="code-pair__lang">Beef</p>
+              <pre class="code" role="region" tabindex="0" aria-label="Beef"><span class="tok-kw">public interface</span> <span class="tok-type">IDamageable</span>
+{
+    <span class="tok-kw">void</span> TakeDamage(<span class="tok-kw">int</span> amount);
+}
+
+<span class="tok-kw">public struct</span> <span class="tok-type">Hit</span>
+{
+    <span class="tok-kw">public</span> <span class="tok-type">Vector2</span> Point;
+    <span class="tok-kw">public int</span> Damage;
+}
+
+<span class="tok-kw">public enum</span> <span class="tok-type">State</span> { Idle, Run, Jump }</pre>
+            </div>
+          </div>
+          <p data-i18n="docs.beef.same.p3">So are generics and their constraints.</p>
+          <div class="code-pair">
+            <div class="code-pair__col">
+              <p class="code-pair__lang">C#</p>
+              <pre class="code" role="region" tabindex="0" aria-label="C#"><span class="tok-kw">public class</span> <span class="tok-type">Pool</span>&lt;<span class="tok-type">T</span>&gt; <span class="tok-kw">where</span> <span class="tok-type">T</span> : <span class="tok-type">Unit</span>
+{
+    <span class="tok-kw">private</span> <span class="tok-type">List</span>&lt;<span class="tok-type">T</span>&gt; _free;
+    <span class="tok-kw">private</span> <span class="tok-type">List</span>&lt;<span class="tok-type">T</span>&gt; _used;
+}</pre>
+            </div>
+            <div class="code-pair__col">
+              <p class="code-pair__lang">Beef</p>
+              <pre class="code" role="region" tabindex="0" aria-label="Beef"><span class="tok-kw">public class</span> <span class="tok-type">Pool</span>&lt;<span class="tok-type">T</span>&gt; <span class="tok-kw">where</span> <span class="tok-type">T</span> : <span class="tok-type">Unit</span>
+{
+    <span class="tok-kw">private</span> <span class="tok-type">List</span>&lt;<span class="tok-type">T</span>&gt; _free;
+    <span class="tok-kw">private</span> <span class="tok-type">List</span>&lt;<span class="tok-type">T</span>&gt; _used;
+}</pre>
+            </div>
+          </div>
+          <p data-i18n="docs.beef.same.p4">Expressions, operators, loops and the standard maths.</p>
+          <div class="code-pair">
+            <div class="code-pair__col">
+              <p class="code-pair__lang">C#</p>
+              <pre class="code" role="region" tabindex="0" aria-label="C#"><span class="tok-kw">int</span> score = combo &gt; 1 ? points * combo : points;
+
+<span class="tok-kw">while</span> (lives &gt; 0 &amp;&amp; !gameOver)
+{
+    lives--;
+    score += bonus;
+}
+
+<span class="tok-kw">for</span> (<span class="tok-kw">int</span> i = 0; i &lt; count; i++)
+    Spawn(i);
+
+<span class="tok-kw">float</span> speed = <span class="tok-type">Math</span>.Min(_speed * 2, maxSpeed);</pre>
+            </div>
+            <div class="code-pair__col">
+              <p class="code-pair__lang">Beef</p>
+              <pre class="code" role="region" tabindex="0" aria-label="Beef"><span class="tok-kw">int</span> score = combo &gt; 1 ? points * combo : points;
+
+<span class="tok-kw">while</span> (lives &gt; 0 &amp;&amp; !gameOver)
+{
+    lives--;
+    score += bonus;
+}
+
+<span class="tok-kw">for</span> (<span class="tok-kw">int</span> i = 0; i &lt; count; i++)
+    Spawn(i);
+
+<span class="tok-kw">float</span> speed = <span class="tok-type">Math</span>.Min(_speed * 2, maxSpeed);</pre>
+            </div>
+          </div>
+          <p data-i18n="docs.beef.same.p5">Casts with as, and the null-conditional and null-coalescing operators.</p>
+          <div class="code-pair">
+            <div class="code-pair__col">
+              <p class="code-pair__lang">C#</p>
+              <pre class="code" role="region" tabindex="0" aria-label="C#"><span class="tok-type">Enemy</span> enemy = target <span class="tok-kw">as</span> <span class="tok-type">Enemy</span>;
+enemy?.TakeDamage(10);
+<span class="tok-type">Unit</span> focus = enemy ?? player;</pre>
+            </div>
+            <div class="code-pair__col">
+              <p class="code-pair__lang">Beef</p>
+              <pre class="code" role="region" tabindex="0" aria-label="Beef"><span class="tok-type">Enemy</span> enemy = target <span class="tok-kw">as</span> <span class="tok-type">Enemy</span>;
+enemy?.TakeDamage(10);
+<span class="tok-type">Unit</span> focus = enemy ?? player;</pre>
+            </div>
+          </div>
+          <p data-i18n="docs.beef.same.p6">out and ref parameters, written at the call site as well.</p>
+          <div class="code-pair">
+            <div class="code-pair__col">
+              <p class="code-pair__lang">C#</p>
+              <pre class="code" role="region" tabindex="0" aria-label="C#"><span class="tok-kw">bool</span> TryGetHit(<span class="tok-kw">out</span> <span class="tok-type">Hit</span> hit) { ... }
+<span class="tok-kw">void</span> Apply(<span class="tok-kw">ref</span> <span class="tok-type">Hit</span> hit) { ... }
+
+<span class="tok-type">Hit</span> hit;
+<span class="tok-kw">if</span> (TryGetHit(<span class="tok-kw">out</span> hit))
+    Apply(<span class="tok-kw">ref</span> hit);</pre>
+            </div>
+            <div class="code-pair__col">
+              <p class="code-pair__lang">Beef</p>
+              <pre class="code" role="region" tabindex="0" aria-label="Beef"><span class="tok-kw">bool</span> TryGetHit(<span class="tok-kw">out</span> <span class="tok-type">Hit</span> hit) { ... }
+<span class="tok-kw">void</span> Apply(<span class="tok-kw">ref</span> <span class="tok-type">Hit</span> hit) { ... }
+
+<span class="tok-type">Hit</span> hit;
+<span class="tok-kw">if</span> (TryGetHit(<span class="tok-kw">out</span> hit))
+    Apply(<span class="tok-kw">ref</span> hit);</pre>
+            </div>
+          </div>
+          <p data-i18n="docs.beef.same.p7">Namespaces, using, constants and static members.</p>
+          <div class="code-pair">
+            <div class="code-pair__col">
+              <p class="code-pair__lang">C#</p>
+              <pre class="code" role="region" tabindex="0" aria-label="C#"><span class="tok-kw">using</span> System;
+
+<span class="tok-kw">namespace</span> Game
+{
+    <span class="tok-kw">public static class</span> <span class="tok-type">Rules</span>
+    {
+        <span class="tok-kw">public const int</span> MaxLives = 3;
+        <span class="tok-kw">public static float</span> Gravity = 9.81f;
+    }
+}</pre>
+            </div>
+            <div class="code-pair__col">
+              <p class="code-pair__lang">Beef</p>
+              <pre class="code" role="region" tabindex="0" aria-label="Beef"><span class="tok-kw">using</span> System;
+
+<span class="tok-kw">namespace</span> Game
+{
+    <span class="tok-kw">public static class</span> <span class="tok-type">Rules</span>
+    {
+        <span class="tok-kw">public const int</span> MaxLives = 3;
+        <span class="tok-kw">public static float</span> Gravity = 9.81f;
+    }
+}</pre>
+            </div>
+          </div>
+
+          <h3 data-i18n="docs.beef.diff.h">Where they differ</h3>
+          <p data-i18n="docs.beef.diff.mem">Memory. Nothing is collected: scope frees at the end of the block, new is paired with delete, and defer runs it on the way out.</p>
+          <div class="code-pair">
+            <div class="code-pair__col">
+              <p class="code-pair__lang">C#</p>
+              <pre class="code" role="region" tabindex="0" aria-label="C#"><span class="tok-kw">var</span> list = <span class="tok-kw">new</span> <span class="tok-type">List</span>&lt;<span class="tok-type">Enemy</span>&gt;();
+<span class="tok-kw">var</span> boss = <span class="tok-kw">new</span> <span class="tok-type">Boss</span>();</pre>
+            </div>
+            <div class="code-pair__col">
+              <p class="code-pair__lang">Beef</p>
+              <pre class="code" role="region" tabindex="0" aria-label="Beef"><span class="tok-kw">let</span> list = <span class="tok-kw">scope</span> <span class="tok-type">List</span>&lt;<span class="tok-type">Enemy</span>&gt;();
+<span class="tok-kw">let</span> boss = <span class="tok-kw">new</span> <span class="tok-type">Boss</span>();
+<span class="tok-kw">defer</span> <span class="tok-kw">delete</span> boss;</pre>
+            </div>
+          </div>
+          <p data-i18n="docs.beef.diff.ctor">Constructors and destructors are called this and ~this.</p>
+          <div class="code-pair">
+            <div class="code-pair__col">
+              <p class="code-pair__lang">C#</p>
+              <pre class="code" role="region" tabindex="0" aria-label="C#"><span class="tok-kw">public</span> Level(<span class="tok-kw">int</span> number) { }
+~Level() { }</pre>
+            </div>
+            <div class="code-pair__col">
+              <p class="code-pair__lang">Beef</p>
+              <pre class="code" role="region" tabindex="0" aria-label="Beef"><span class="tok-kw">public this</span>(<span class="tok-kw">int</span> number) { }
+<span class="tok-kw">public</span> ~<span class="tok-kw">this</span>() { }</pre>
+            </div>
+          </div>
+          <p data-i18n="docs.beef.diff.loop">foreach is spelled for … in.</p>
+          <div class="code-pair">
+            <div class="code-pair__col">
+              <p class="code-pair__lang">C#</p>
+              <pre class="code" role="region" tabindex="0" aria-label="C#"><span class="tok-kw">foreach</span> (<span class="tok-kw">var</span> e <span class="tok-kw">in</span> enemies)
+    e.Update();</pre>
+            </div>
+            <div class="code-pair__col">
+              <p class="code-pair__lang">Beef</p>
+              <pre class="code" role="region" tabindex="0" aria-label="Beef"><span class="tok-kw">for</span> (<span class="tok-kw">let</span> e <span class="tok-kw">in</span> enemies)
+    e.Update();</pre>
+            </div>
+          </div>
+          <p data-i18n="docs.beef.diff.switch">A case needs no break: it never falls through unless you write fallthrough.</p>
+          <div class="code-pair">
+            <div class="code-pair__col">
+              <p class="code-pair__lang">C#</p>
+              <pre class="code" role="region" tabindex="0" aria-label="C#"><span class="tok-kw">case</span> <span class="tok-type">State</span>.Idle:
+    Rest();
+    <span class="tok-kw">break</span>;</pre>
+            </div>
+            <div class="code-pair__col">
+              <p class="code-pair__lang">Beef</p>
+              <pre class="code" role="region" tabindex="0" aria-label="Beef"><span class="tok-kw">case</span> .Idle:
+    Rest();</pre>
+            </div>
+          </div>
+          <p data-i18n="docs.beef.diff.err">No exceptions: a method that can fail returns a Result, and the caller matches on it.</p>
+          <div class="code-pair">
+            <div class="code-pair__col">
+              <p class="code-pair__lang">C#</p>
+              <pre class="code" role="region" tabindex="0" aria-label="C#"><span class="tok-kw">try</span> { Load(path); }
+<span class="tok-kw">catch</span> (<span class="tok-type">IOException</span> e) { Log(e); }</pre>
+            </div>
+            <div class="code-pair__col">
+              <p class="code-pair__lang">Beef</p>
+              <pre class="code" role="region" tabindex="0" aria-label="Beef"><span class="tok-kw">if</span> (Load(path) <span class="tok-kw">case</span> .Err(<span class="tok-kw">let</span> e))
+    Log(e);</pre>
+            </div>
+          </div>
+          <p data-i18n="docs.beef.diff.str">A String is a mutable buffer the caller owns, and formatting uses {} placeholders.</p>
+          <div class="code-pair">
+            <div class="code-pair__col">
+              <p class="code-pair__lang">C#</p>
+              <pre class="code" role="region" tabindex="0" aria-label="C#"><span class="tok-kw">string</span> hud = $"HP: {hp}";</pre>
+            </div>
+            <div class="code-pair__col">
+              <p class="code-pair__lang">Beef</p>
+              <pre class="code" role="region" tabindex="0" aria-label="Beef"><span class="tok-kw">let</span> hud = <span class="tok-kw">scope</span> <span class="tok-type">String</span>();
+hud.AppendF("HP: {}", hp);</pre>
+            </div>
+          </div>
+
+          <h2 data-i18n="docs.beef.limits.h">Known limitations</h2>
+          <h3 data-i18n="docs.beef.limits.async.h">No async/await or coroutines</h3>
+          <p data-i18n="docs.beef.limits.async.p">Beef has neither async/await nor coroutines. Asked whether there are plans for them, the language's official FAQ answers:</p>
+          <p class="callout"><span data-i18n="docs.beef.limits.async.quote">“These will be considered for a future version of BeefLang.”</span> <a href="https://www.beeflang.org/docs/faq/" target="_blank" rel="noopener" data-i18n="docs.beef.limits.async.link">Beef FAQ</a></p>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</main>
+
+<script src="docs-i18n.js"></script>
+<script src="../main.js"></script>
+</body>
+</html>

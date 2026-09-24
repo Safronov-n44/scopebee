@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en" class="docs" data-i18n-title="docs.overview.meta.title" data-i18n-desc="docs.overview.meta.desc">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Overview — ScopeBee documentation</title>
+<meta name="description" content="The ScopeBee editor and its four panels: the hierarchy, the scene, the project and the inspector.">
+<meta name="theme-color" content="#0b0b16">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Overview — ScopeBee documentation">
+<meta property="og:description" content="The ScopeBee editor and its four panels: the hierarchy, the scene, the project and the inspector.">
+<meta property="og:image" content="../assets/editor.png">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" href="../assets/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../styles.css">
+
+<script>document.documentElement.classList.add('js');</script>
+<script defer src="https://cloud.umami.is/script.js"
+        data-website-id="d878d1d4-c979-49f4-8593-c104f9459d83"
+        data-domains="scopebee.tech,www.scopebee.tech"
+        data-performance="true"></script>
+</head>
+<body>
+
+<a class="skip-link" href="#main" data-i18n="skip">Skip to content</a>
+
+<header class="topbar" id="topbar">
+  <div class="topbar__inner">
+    <a class="brand" href="../index.html#top">
+      <img class="brand__mark" src="../assets/logo.svg" alt="" width="36" height="36">
+      <span class="brand__name">ScopeBee</span>
+    </a>
+
+    <button class="burger" id="burger" aria-expanded="false" aria-controls="nav" aria-label="Menu" data-i18n-aria="a11y.menu">
+      <span></span><span></span><span></span>
+    </button>
+
+    <nav class="nav" id="nav">
+      <ul class="nav__list">
+        <li><a href="../index.html#news" data-i18n="nav.news">News</a></li>
+        <li><a href="../index.html#engine" data-i18n="nav.features">Features</a></li>
+        <li><a href="../index.html#compare" data-i18n="nav.compare">Comparison</a></li>
+        <li><a href="../index.html#roadmap" data-i18n="nav.roadmap">Roadmap</a></li>
+        <li><a href="../index.html#footer" data-i18n="nav.contact">Contact</a></li>
+      </ul>
+
+      <div class="topbar__end">
+        <a class="docs-btn" href="index.html" data-i18n="nav.docs"
+           data-umami-event="docs-open" aria-current="true">Docs</a>
+
+        <div class="lang" role="group" aria-label="Language" data-i18n-aria="a11y.lang">
+          <button type="button" class="lang__btn" data-lang="en">EN</button>
+          <span class="lang__sep" aria-hidden="true">/</span>
+          <button type="button" class="lang__btn" data-lang="ru">RU</button>
+        </div>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<!-- Second-level chrome of the section. Sticky under the fixed top bar; the
+     active tab is an aria-current in the markup of each page, so the highlight
+     needs no JS and is right before the first paint. -->
+<div class="docsbar">
+  <nav class="docsbar__inner" aria-label="Documentation sections" data-i18n-aria="docs.tabs.aria">
+    <a class="docsbar__tab" href="index.html" aria-current="page"
+       data-umami-event="docs-tab" data-umami-event-tab="guide" data-i18n="docs.tab.guide">Documentation</a>
+    <!-- Engine API is hidden until the reference is ready; the pages under api/
+         stay in place, only the way in is gone. Uncomment to bring the tab back.
+    <a class="docsbar__tab" href="api/index.html"
+       data-umami-event="docs-tab" data-umami-event-tab="api" data-i18n="docs.tab.api">Engine API</a>
+    -->
+
+    <p class="docsbar__version"><span data-i18n="docs.version">version</span> <b>0.3.0</b></p>
+  </nav>
+</div>
+
+<main id="main">
+  <div class="docs__inner">
+    <div class="docs__cols">
+
+      <aside class="docs__side">
+        <nav class="docs-nav" aria-label="Documentation pages" data-i18n-aria="docs.nav.aria">
+          <p class="docs-nav__group" data-i18n="docs.nav.guide">Guide</p>
+          <ul>
+            <li><a class="docs-nav__link" href="index.html" aria-current="page" data-i18n="docs.overview.title">Overview</a></li>
+            <li><a class="docs-nav__link" href="beef.html" data-i18n="docs.beef.title">The Beef language</a></li>
+            <!-- Lifecycle is kept but out of the guide for now; uncomment to list it again.
+            <li><a class="docs-nav__link" href="lifecycle.html" data-i18n="docs.lifecycle.title">Lifecycle</a></li>
+            -->
+          </ul>
+        </nav>
+      </aside>
+
+      <article class="docs__main">
+        <p class="section-eyebrow" data-i18n="docs.tab.guide">Documentation</p>
+        <h1 class="docs__title" data-i18n="docs.overview.title">Overview</h1>
+        <p class="docs__lead" data-i18n="docs.overview.lead">ScopeBee is a 2D-first engine that builds for the browser.</p>
+
+        <div class="article__body">
+          <h2 data-i18n="docs.overview.editor.h">The editor</h2>
+
+          <!-- The zones are positioned in percent of the screenshot, so they
+               follow the image at any width. Numbers need no translation; the
+               names and descriptions live in the list below. The lightbox opens
+               the bare screenshot, without the outlines, to read it at full size. -->
+          <figure class="editor-map" data-gallery>
+            <button type="button" class="shot" data-i18n-aria="a11y.zoom" aria-label="Open the image at full size">
+              <img src="../assets/docs/editor-overview.webp" width="2000" height="1103"
+                   alt="The ScopeBee editor with a scene open" data-i18n-alt="docs.overview.editor.alt">
+            </button>
+            <span class="editor-map__zone editor-map__zone--hierarchy" aria-hidden="true"><b>1</b></span>
+            <span class="editor-map__zone editor-map__zone--scene" aria-hidden="true"><b>2</b></span>
+            <span class="editor-map__zone editor-map__zone--project" aria-hidden="true"><b>3</b></span>
+            <span class="editor-map__zone editor-map__zone--inspector" aria-hidden="true"><b>4</b></span>
+          </figure>
+
+          <ol class="editor-zones">
+            <li class="editor-zones__item editor-zones__item--hierarchy">
+              <h3 data-i18n="docs.overview.hierarchy.h">Hierarchy</h3>
+              <p data-i18n="docs.overview.hierarchy.p">The tree of objects in the open scene. Objects nest inside one another, and the one you select here is the one the Inspector shows. The plus button at the top adds a new object.</p>
+            </li>
+            <li class="editor-zones__item editor-zones__item--scene">
+              <h3 data-i18n="docs.overview.scene.h">Scene</h3>
+              <p data-i18n="docs.overview.scene.p">The scene view, where objects are placed and moved. The toolbar holds the tools for moving, rotating and scaling them; the Game tab next to it shows the scene through the camera.</p>
+            </li>
+            <li class="editor-zones__item editor-zones__item--project">
+              <h3 data-i18n="docs.overview.project.h">Project</h3>
+              <p data-i18n="docs.overview.project.p">Every asset of the project: folders on the left, the contents of the open folder on the right. Scenes, prefabs, sprites, sounds and scripts all live here. The Console, Audio Mixer and Animation share this panel as tabs.</p>
+            </li>
+            <li class="editor-zones__item editor-zones__item--inspector">
+              <h3 data-i18n="docs.overview.inspector.h">Inspector</h3>
+              <p data-i18n="docs.overview.inspector.p">The selected object and its components. Name, tag and layer come first, then the Transform and every component with its fields; Add Component puts a new one on the object.</p>
+            </li>
+          </ol>
+
+          <h2 data-i18n="docs.overview.game.h">Play in the editor</h2>
+
+          <figure class="editor-map" data-gallery>
+            <button type="button" class="shot" data-i18n-aria="a11y.zoom" aria-label="Open the image at full size">
+              <img src="../assets/docs/editor-game.webp" width="2000" height="1103"
+                   alt="The Game panel of the ScopeBee editor running the game" data-i18n-alt="docs.overview.game.alt">
+            </button>
+            <span class="editor-map__zone editor-map__zone--game" aria-hidden="true"><b>1</b></span>
+            <span class="editor-map__zone editor-map__zone--controls" aria-hidden="true"><b>2</b></span>
+          </figure>
+
+          <ol class="editor-zones">
+            <li class="editor-zones__item editor-zones__item--game">
+              <h3 data-i18n="docs.overview.game.panel.h">Game</h3>
+              <p data-i18n="docs.overview.game.panel.p">The Game panel runs the game right inside the editor, and it plays there just as it does on the target platform.</p>
+            </li>
+            <li class="editor-zones__item editor-zones__item--controls">
+              <h3 data-i18n="docs.overview.controls.h">Play controls</h3>
+              <p data-i18n="docs.overview.controls.p">Play starts the game, pause stops it on the current frame, and the step button advances it by one.</p>
+            </li>
+          </ol>
+
+          <h2 data-i18n="docs.overview.anim.h">Animation</h2>
+
+          <figure class="editor-map" data-gallery>
+            <button type="button" class="shot" data-i18n-aria="a11y.zoom" aria-label="Open the image at full size">
+              <img src="../assets/docs/editor-animation.webp" width="2000" height="1103"
+                   alt="The Animator and Animation panels of the ScopeBee editor" data-i18n-alt="docs.overview.anim.alt">
+            </button>
+            <span class="editor-map__zone editor-map__zone--animator" aria-hidden="true"><b>1</b></span>
+            <span class="editor-map__zone editor-map__zone--animation" aria-hidden="true"><b>2</b></span>
+          </figure>
+
+          <ol class="editor-zones">
+            <li class="editor-zones__item editor-zones__item--animator">
+              <h3 data-i18n="docs.overview.animator.h">Animator</h3>
+              <p data-i18n="docs.overview.animator.p">The state machine behind an object's animations. Each state plays a clip, the arrows between states are transitions, and the parameters on the left — Float, Int, Bool and Trigger — are what the transitions check. Select a state or a transition to edit it under Properties.</p>
+            </li>
+            <li class="editor-zones__item editor-zones__item--animation">
+              <h3 data-i18n="docs.overview.animation.h">Animation</h3>
+              <p data-i18n="docs.overview.animation.p">The timeline of a single clip. Add Property picks what the clip changes — a sprite, a position, a colour — and Add Key sets its value on the current frame. The clip's frame rate is set here too, and Play and Preview run it in the editor without starting the game.</p>
+            </li>
+          </ol>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</main>
+
+<script src="docs-i18n.js"></script>
+<script src="../main.js"></script>
+</body>
+</html>
