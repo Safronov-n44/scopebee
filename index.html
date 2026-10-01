@@ -11,7 +11,7 @@
      domain yet and every major scraper resolves it against the page URL. -->
 <meta property="og:type" content="website">
 <meta property="og:title" content="ScopeBee — Web-first, lightweight and performant game engine">
-<meta property="og:description" content="A 2D game engine that ships the smallest binary and the fastest frame. Coming soon.">
+<meta property="og:description" content="A 2D-first game engine that ships the smallest binary and the fastest frame. Coming soon.">
 <meta property="og:image" content="assets/editor.png">
 <meta property="og:image:width" content="1500">
 <meta property="og:image:height" content="812">
@@ -141,7 +141,16 @@
 
       <ul class="news__list">
         <li>
-          <a class="news-card" href="news/candy-balance.html" data-reveal style="--i:0"
+          <a class="news-card" href="news/release-0-4-0.html" data-reveal style="--i:0"
+             data-umami-event="news-open" data-umami-event-post="release-0-4-0">
+            <p class="news-card__when"><time datetime="2026-10-01" data-i18n="a040.when">1 OCT 2026</time></p>
+            <h3 class="news-card__title" data-i18n="a040.card.title">ScopeBee 0.4.0</h3>
+            <p class="news-card__text" data-i18n="a040.card.text">Light and shadows, thousands of objects in two draw calls, and scenes baked to binary for the build.</p>
+          </a>
+        </li>
+
+        <li>
+          <a class="news-card" href="news/candy-balance.html" data-reveal style="--i:1"
              data-umami-event="news-open" data-umami-event-post="candy-balance">
             <p class="news-card__when"><time datetime="2026-09-24" data-i18n="acandy.when">24 SEP 2026</time></p>
             <h3 class="news-card__title" data-i18n="acandy.card.title">Candy Balance: a Flash game, remade</h3>
@@ -150,20 +159,11 @@
         </li>
 
         <li>
-          <a class="news-card" href="news/first-steps-3d.html" data-reveal style="--i:1"
+          <a class="news-card" href="news/first-steps-3d.html" data-reveal style="--i:2"
              data-umami-event="news-open" data-umami-event-post="first-steps-3d">
             <p class="news-card__when"><time datetime="2026-09-16" data-i18n="a3d.when">16 SEP 2026</time></p>
             <h3 class="news-card__title" data-i18n="a3d.card.title">First steps in 3D</h3>
             <p class="news-card__text" data-i18n="a3d.card.text">Meshes and a perspective camera, models through GLB/glTF, a skeleton and the same animator as in 2D.</p>
-          </a>
-        </li>
-
-        <li>
-          <a class="news-card" href="news/release-0-3-0.html" data-reveal style="--i:2"
-             data-umami-event="news-open" data-umami-event-post="release-0-3-0">
-            <p class="news-card__when"><time datetime="2026-09-11" data-i18n="a030.when">11 SEP 2026</time></p>
-            <h3 class="news-card__title" data-i18n="a030.card.title">ScopeBee 0.3.0</h3>
-            <p class="news-card__text" data-i18n="a030.card.text">A playable ad build: the whole game in a single HTML file, packed with Zstd.</p>
           </a>
         </li>
       </ul>
@@ -510,13 +510,15 @@
           </div>
         </li>
 
-        <li class="milestone milestone--now" data-reveal style="--i:1">
+        <li class="milestone milestone--done" data-reveal style="--i:1">
           <div class="milestone__when"><span class="milestone__mon" data-i18n="roadmap.m2">SEP</span><span class="milestone__year">2026</span></div>
-          <div class="milestone__rail" aria-hidden="true"><span class="milestone__node"></span></div>
+          <div class="milestone__rail" aria-hidden="true">
+<span class="milestone__node"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 6.4 4.7 9 10 3.2"/></svg></span>
+          </div>
           <div class="milestone__body">
             <h3 class="milestone__title">
               <span data-i18n="roadmap.2.title">Binary assets &amp; 3D</span>
-              <span class="milestone__pill" data-i18n="roadmap.now">In progress</span>
+              <span class="milestone__pill" data-i18n="roadmap.done">Done</span>
             </h3>
             <p class="milestone__text" data-i18n="roadmap.2.text">A compact binary data format, and the first dimension past flat: models loaded straight from glb and drawn in the scene.</p>
             <ul class="tags">
@@ -527,11 +529,14 @@
           </div>
         </li>
 
-        <li class="milestone" data-reveal style="--i:2">
+        <li class="milestone milestone--now" data-reveal style="--i:2">
           <div class="milestone__when"><span class="milestone__mon" data-i18n="roadmap.m3">OCT</span><span class="milestone__year">2026</span></div>
           <div class="milestone__rail" aria-hidden="true"><span class="milestone__node"></span></div>
           <div class="milestone__body">
-            <h3 class="milestone__title" data-i18n="roadmap.3.title">Particles, materials and 3D physics</h3>
+            <h3 class="milestone__title">
+              <span data-i18n="roadmap.3.title">Particles, materials and 3D physics</span>
+              <span class="milestone__pill" data-i18n="roadmap.now">In progress</span>
+            </h3>
             <p class="milestone__text" data-i18n="roadmap.3.text">An effects system of its own, tunable materials and blend modes, and bodies that collide in three dimensions.</p>
             <ul class="tags">
               <li data-i18n="roadmap.3.tag1">Particle system</li>

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en" data-i18n-title="a040.meta.title" data-i18n-desc="a040.meta.desc">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ScopeBee 0.4.0 — lighting, instancing and binary scenes</title>
+<meta name="description" content="ScopeBee 0.4.0: light and shadows, thousands of objects in two draw calls, and scenes stored line by line and baked to binary for the build.">
+<meta name="theme-color" content="#0b0b16">
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="ScopeBee 0.4.0 — lighting, instancing and binary scenes">
+<meta property="og:description" content="ScopeBee 0.4.0: light and shadows, thousands of objects in two draw calls, and scenes stored line by line and baked to binary for the build.">
+<meta property="og:image" content="../assets/news/lighting-poster.jpg">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" href="../assets/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../styles.css">
+
+<script>document.documentElement.classList.add('js');</script>
+<script defer src="https://cloud.umami.is/script.js"
+        data-website-id="d878d1d4-c979-49f4-8593-c104f9459d83"
+        data-domains="scopebee.tech,www.scopebee.tech"
+        data-performance="true"></script>
+</head>
+<body>
+
+<a class="skip-link" href="#main" data-i18n="skip">Skip to content</a>
+
+<header class="topbar" id="topbar">
+  <div class="topbar__inner">
+    <a class="brand" href="../index.html#top">
+      <img class="brand__mark" src="../assets/logo.svg" alt="" width="36" height="36">
+      <span class="brand__name">ScopeBee</span>
+    </a>
+
+    <button class="burger" id="burger" aria-expanded="false" aria-controls="nav" aria-label="Menu" data-i18n-aria="a11y.menu">
+      <span></span><span></span><span></span>
+    </button>
+
+    <nav class="nav" id="nav">
+      <ul class="nav__list">
+        <li><a href="../index.html#news" data-i18n="nav.news">News</a></li>
+        <li><a href="../index.html#engine" data-i18n="nav.features">Features</a></li>
+        <li><a href="../index.html#compare" data-i18n="nav.compare">Comparison</a></li>
+        <li><a href="../index.html#roadmap" data-i18n="nav.roadmap">Roadmap</a></li>
+        <li><a href="../index.html#footer" data-i18n="nav.contact">Contact</a></li>
+      </ul>
+      <div class="topbar__end">
+        <a class="docs-btn" href="../showcase/index.html" data-i18n="nav.showcase"
+           data-umami-event="showcase-open">Showcase</a>
+        <a class="docs-btn" href="../docs/index.html" data-i18n="nav.docs"
+           data-umami-event="docs-open">Docs</a>
+
+        <div class="lang" role="group" aria-label="Language" data-i18n-aria="a11y.lang">
+          <button type="button" class="lang__btn" data-lang="en">EN</button>
+          <span class="lang__sep" aria-hidden="true">/</span>
+          <button type="button" class="lang__btn" data-lang="ru">RU</button>
+        </div>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+  <article class="article">
+    <a class="article__back" href="../index.html#news">
+      <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M8.5 3 4.5 7l4 4"/>
+      </svg>
+      <span data-i18n="article.back">Back to the site</span>
+    </a>
+
+    <p class="article__when"><time datetime="2026-10-01" data-i18n="a040.when">1 OCT 2026</time></p>
+    <h1 class="article__title" data-i18n="a040.title">ScopeBee 0.4.0</h1>
+    <p class="article__lead" data-i18n="a040.lead">The release is about 3D and about how scenes are stored: light and shadows, thousands of objects in two draw calls, a scene format a diff can read, and a binary one for the build.</p>
+
+    <div class="article__body">
+      <h2 data-i18n="a040.h2">Light and shadows</h2>
+      <p data-i18n="a040.p3">A scene now has a Light component: up to four directional lights, each with its own colour and intensity. Ambient light is set in a Lighting window of its own, either one flat colour or three &mdash; sky, horizon and ground &mdash; blended along the surface normal. Lighting is computed in linear space, with tonemapping to choose from (none, PBR Neutral or ACES) and an intensity for environment reflections.</p>
+      <p data-i18n="a040.p4">The main light casts a shadow map, hard or soft, with a strength and two biases to keep the surface free of acne. Edges are smoothed with MSAA.</p>
+
+      <figure class="article__media">
+        <video src="../assets/news/lighting.mp4" poster="../assets/news/lighting-poster.jpg"
+               width="1280" height="868" controls playsinline preload="metadata"></video>
+        <figcaption class="article__caption">
+          <span data-i18n="a040.cap1">A meadow of imported models under a directional light with soft shadows, and an animated fox walking through it</span>
+          <span class="article__credit"><span data-i18n="a040.credit1a">Scenery: </span><a href="https://kenney.nl/assets/nature-kit" target="_blank" rel="noopener" data-i18n="a040.credit1b">Nature Kit by Kenney</a><span data-i18n="a040.credit1c">. Fox: </span><a href="https://github.com/KhronosGroup/glTF-Sample-Assets/tree/main/Models/Fox" target="_blank" rel="noopener" data-i18n="a040.credit1d">Khronos glTF Sample Assets</a></span>
+        </figcaption>
+      </figure>
+
+      <h2 data-i18n="a040.h3">Instancing</h2>
+      <p data-i18n="a040.p5">On the web a draw call is the first thing to run out, and a thousand identical objects drawn one by one are a thousand of them. Graphics.DrawMeshInstanced draws one mesh with one material in many places at once: the matrices go into a single buffer and the GPU gets one call for all of them. An overload takes a colour per instance as well.</p>
+      <p data-i18n="a040.p6">In the clip below there is not a single MeshRenderer in the scene. A field of 64 &times; 48 columns, whose heights and colours are recomputed every frame, and 120 ducks circling above it &mdash; 3,192 objects with lighting and shadows &mdash; take two draw calls, as the counter in the corner shows: one for the columns, one for the ducks. Instancing is a module of its own in the build settings, so a project that does not use it does not carry it.</p>
+
+      <figure class="article__media">
+        <video src="../assets/news/instancing.mp4" poster="../assets/news/instancing-poster.jpg"
+               width="1280" height="868" controls playsinline preload="metadata"></video>
+        <figcaption class="article__caption">
+          <span data-i18n="a040.cap2">3,072 columns and 120 ducks in two DrawMeshInstanced calls: Drawcalls: 2 in the corner</span>
+          <span class="article__credit"><span data-i18n="a040.credit2a">Duck: </span><a href="https://github.com/KhronosGroup/glTF-Sample-Assets/tree/main/Models/Duck" target="_blank" rel="noopener" data-i18n="a040.credit2b">Khronos glTF Sample Assets</a></span>
+        </figcaption>
+      </figure>
+
+      <h2 data-i18n="a040.h4">Scenes a diff can read</h2>
+      <p data-i18n="a040.p7">Scenes and prefabs used to be saved as one line of minified JSON. Git saw every save as the whole file changing, and object ids were handed out afresh on each save, so inserting one object renumbered every object after it. Now a file is still JSON, but every field sits on a line of its own:</p>
+
+      <pre class="code" role="region" tabindex="0" aria-label="Scene">[
+{"fileID":2000001,
+ "type":<span class="tok-type">"GameObject"</span>,
+ "Name":"Sun",
+ "Components":[{"fileID":2000002},{"fileID":2000003}],
+ "transform":{"fileID":2000002}},
+{"fileID":2000003,
+ "type":<span class="tok-type">"Light"</span>,
+ "_type":1,
+ "_color":{"r":1.0,"g":0.92,"b":0.8,"a":1.0},
+ "_intensity":1.2,
+ "_shadows":2,
+ "_enabled":true}
+]</pre>
+
+      <p data-i18n="a040.p8">Changing a field is one line in the diff, a new object is only its own lines, and two people editing different fields of one component merge without a conflict. An id now lives on the object and stays with it from save to save; new ones are random 64-bit numbers, so two branches that each added an object cannot hand out the same id. Floats are written as floats &mdash; 0.92 rather than 0.9200000166893005. Old single-line files open as they are, and Resave All Scenes and Prefabs rewrites a project in one go.</p>
+
+      <h2 data-i18n="a040.h5">The build reads binary</h2>
+      <p data-i18n="a040.p9">Text is for the editor and for git; the game does not need it. When a build is made, every scene and prefab is baked into a binary file next to its source, and that is what the game loads. Field names are matched against the type once per shape of object instead of once per field of every object, values are read in sequence, and Instantiate creates a prefab straight from the binary without a round trip through a JSON document. One file serves every platform: integers are stored without a fixed width, so the same file reads on wasm and on desktop.</p>
+      <p data-i18n="a040.p10">This is a win in load time and memory, not in traffic: compressed, the binary and the JSON weigh about the same. The editor still keeps and edits the text.</p>
+
+      <h2 data-i18n="a040.h6">Also in this release</h2>
+      <ul>
+        <li data-i18n="a040.li1">A mesh from code, two ways: vertices, triangles and RecalculateNormals, or SetData, which uploads at once and keeps no CPU copy.</li>
+        <li data-i18n="a040.li2">Sprites and tiles in the world read the depth of meshes: a mesh hides a sprite behind it, while sprites keep their order among themselves.</li>
+        <li data-i18n="a040.li3">On import each mesh keeps only the vertices it uses: exporters often share one buffer between many parts, and every part used to carry a copy of all of it.</li>
+        <li data-i18n="a040.li4">The Unity project converter brings over MeshFilter and MeshRenderer along with the models.</li>
+      </ul>
+    </div>
+  </article>
+</main>
+
+<script src="news-i18n.js"></script>
+<script src="../main.js"></script>
+</body>
+</html>

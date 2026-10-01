@@ -955,6 +955,15 @@ body.has-lightbox { overflow: hidden; }
   font-size: .875rem;
   text-align: center;
 }
+/* Where the assets in a clip came from: its own smaller line under the caption,
+   so the credit never reads as part of what the clip shows. */
+.article__credit { display: block; margin-top: .3rem; font-size: .8125rem; }
+.article__caption a {
+  color: var(--text-muted);
+  border-bottom: 1px solid rgba(255, 255, 255, .25);
+  transition: border-color .2s var(--ease-out);
+}
+.article__caption a:hover { border-bottom-color: var(--accent); }
 
 /* no aspect-ratio here on purpose: a clip is whatever shape it was recorded in,
    and the width/height attributes hold the box before it loads. The 16/9 on
