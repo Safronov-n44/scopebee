@@ -24,8 +24,12 @@
      without touching the gradient, which is where --accent-3 earns its value. */
   --accent-3-hi:   #9683ff;
 
-  /* the one non-accent signal on the page: a shipped milestone */
+  /* non-accent signals: a shipped milestone, and the worst result in a ranking.
+     --worst is held dark on purpose — at full red it outshouted the leader's gradient;
+     its text twin is lighter only so the label still clears AA on --bg. */
   --ok:            #4ade80;
+  --worst:         #9e3640;
+  --worst-text:    #d06a72;
 
   /* section separator: sits a touch above --border because one of these lands
      on the hero's gradient, where the page's own tint is already light */
@@ -721,12 +725,12 @@ a.news-card:hover {
 
 .article__body p { color: var(--text-muted); font-size: 1.0625rem; }
 /* links inside running text: the CTA is a button, these must not look like one */
-.article__body p a:not(.article__cta) {
+.article__body p a:not(.article__cta):not(.cmp__demo) {
   color: var(--text);
   border-bottom: 1px solid rgba(255, 255, 255, .3);
   transition: border-color .2s var(--ease-out);
 }
-.article__body p a:not(.article__cta):hover { border-bottom-color: var(--accent); }
+.article__body p a:not(.article__cta):not(.cmp__demo):hover { border-bottom-color: var(--accent); }
 .article__body strong { color: var(--text); font-weight: 600; }
 
 .article__body ul {
@@ -1203,10 +1207,17 @@ body.has-lightbox { overflow: hidden; }
    inside .article__media--wide, which is wider than the text column it follows. */
 .cmp--playable { min-width: 1000px; }
 .cmp--playable td { width: 14%; }
+/* Flappy Bird has four value columns: between the playable table and the rest. */
+.cmp--flappy { min-width: 900px; }
+.cmp--flappy td { width: 18%; }
 /* Five columns leave every cell narrower, so the value gives the bar back the
    width it needs — the same trade the narrow-screen rules make below. */
 .cmp--playable .cmp__value { width: 4.6em; font-size: .9rem; }
 .cmp--playable .cmp__bar { width: calc(100% - 5.2em); }
+/* Flappy Bird has two-decimal megabytes ("28.55 MB"), which wrap at 4.6em. */
+.cmp--flappy .cmp__value { width: 5.3em; font-size: .9rem; white-space: nowrap; }
+.cmp--flappy .cmp__bar { width: calc(100% - 5.9em); }
+
 .cmp td:last-child { width: auto; }
 
 .cmp__engine {
@@ -1267,6 +1278,58 @@ body.has-lightbox { overflow: hidden; }
 .cmp__best .cmp__value { color: var(--accent); }
 .cmp__best .cmp__bar::before { background: var(--accent-grad); }
 
+/* Flappy Bird is ranked per metric rather than laid out per engine: a row is one
+   metric, its cell lists all seven engines best first. A bar then gets the whole
+   cell instead of a fifth of a row, and only the first and the last place are
+   coloured — a tie for first still lights one bar, the order sets which. */
+.cmp--rank { min-width: 0; }
+.cmp--rank td { width: auto; padding-block: .75rem; }
+/* .cmp--rank in front: .cmp th would otherwise win on vertical-align and padding */
+.cmp--rank .cmp__metric {
+  width: 11rem;
+  vertical-align: top;
+  padding-top: 1rem;
+  font-size: .75rem;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+.cmp__rank {
+  display: grid;
+  grid-template-columns: 8.5rem 1fr 4.6rem;
+  align-items: center;
+  gap: .3rem .9rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+/* subgrid, not display: contents — contents strips the list-item role from <li> */
+.cmp__rank li { display: grid; grid-column: 1 / -1; grid-template-columns: subgrid; align-items: center; }
+.cmp__name { font-size: .875rem; font-weight: 600; white-space: nowrap; }
+.cmp__name--ours { color: var(--accent); }
+.cmp__rank .cmp__bar { width: auto; height: 10px; }
+.cmp__rank .cmp__value { width: auto; font-size: .875rem; text-align: right; }
+.cmp__worst .cmp__name,
+.cmp__worst .cmp__value { color: var(--worst-text); }
+.cmp__worst .cmp__bar::before { background: var(--worst); }
+/* inside an article the body's list rule would add a bullet and an indent to every engine */
+.article__body .cmp__rank li { padding-left: 0; }
+.article__body .cmp__rank li::before { content: none; }
+/* and its paragraph rule would enlarge the demo links' line past the table's own type */
+.article__body .cmp__demos { color: var(--text-faint); font-size: .875rem; }
+
+/* the demo links leave the table with the per-engine rows */
+.cmp__demos {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: .4rem 1.1rem;
+  margin-top: .9rem;
+  color: var(--text-faint);
+  font-size: .875rem;
+}
+
 .cmp__demo {
   position: relative;
   display: inline-flex;
@@ -1304,6 +1367,19 @@ body.has-lightbox { overflow: hidden; }
   color: var(--text-faint);
   font-size: .875rem;
 }
+/* a second note under the same table reads as its continuation */
+.compare__note + .compare__note { margin-top: .5rem; }
+/* Flappy Bird's method lives in its article; the block keeps only the way there */
+.compare__more {
+  color: var(--accent);
+  font-weight: 600;
+}
+.compare__more::after {
+  content: " →";
+  display: inline-block;
+  transition: translate .2s var(--ease-out);
+}
+.compare__more:hover::after { translate: 3px 0; }
 
 /* ==========================================================================
    Roadmap
@@ -2374,10 +2450,23 @@ a.game-tile__place:hover span { text-decoration: underline; text-underline-offse
   /* five value columns cannot shrink as far — below this the value and its bar
      stop fitting on one line and every row doubles in height */
   .cmp--playable { min-width: 860px; }
+  .cmp--flappy { min-width: 800px; }
+  .cmp--rank { min-width: 0; }
   .cmp th,
   .cmp td { padding: .5rem .65rem; }
   .cmp__value { width: 4.6em; font-size: .9rem; }
   .cmp__bar { width: calc(100% - 5.2em); }
+  .cmp--flappy .cmp__value { width: 5.3em; }
+  .cmp--flappy .cmp__bar { width: calc(100% - 5.9em); }
+  /* the metric goes above its ranking, so the bars keep the full width */
+  .cmp--rank thead { display: none; }
+  .cmp--rank tr,
+  .cmp--rank th,
+  .cmp--rank td { display: block; width: auto; }
+  .cmp--rank .cmp__metric { padding: .8rem .65rem 0; border-bottom: 0; }
+  .cmp__rank { grid-template-columns: 6.6rem 1fr 4.2rem; gap: .3rem .6rem; }
+  .cmp__name,
+  .cmp__rank .cmp__value { font-size: .8125rem; }
 }
 
 /* ==========================================================================
@@ -2436,6 +2525,7 @@ a.game-tile__place:hover span { text-decoration: underline; text-underline-offse
   /* the tab's only signal is a gradient rule, and a gradient is replaced wholesale */
   .docsbar__tab[aria-current]::after { background: Highlight; }
   .cmp__best .cmp__bar::before { background: Highlight; }
+  .cmp__worst .cmp__bar::before { background: Mark; }
   /* the outlines and badges carry the mapping; keep them visible, drop the tint */
   .editor-map__zone { border-color: Highlight; background: none; }
   .editor-map__zone b,

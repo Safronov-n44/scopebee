@@ -71,10 +71,6 @@ var CUSTOM_PARAMETERS = {
         var is_iOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
         var buttonHeight = 0;
         
-        buttonHeight = 42;
-        
-        
-        buttonHeight = 42;
         
         // Hack for iOS when exit from Fullscreen mode
         if (is_iOS) {
@@ -228,9 +224,9 @@ var FileLoader = {
 var EngineLoader = {
     arc_sha1: "",
     wasm_sha1: "",
-    wasm_size: 2369043,
+    wasm_size: 1886589,
     wasmjs_sha1: "",
-    wasmjs_size: 269897,
+    wasmjs_size: 268073,
     wasm_pthread_sha1: "",
     wasm_pthread_size: 2000000,
     wasmjs_pthread_sha1: "",

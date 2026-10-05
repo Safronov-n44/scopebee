@@ -95,6 +95,37 @@
       'a030.h5': 'Try it',
       'a030.p10': 'All three creatives are behind the links in the table above, each the single file its network would receive. Open one with DevTools on the Network tab: one request, and the whole game behind it.',
 
+      /* --- updated engine comparison (engine-comparison.html) --- */
+      'acmp.meta.title': 'Updated engine comparison — ScopeBee',
+      'acmp.meta.desc': 'Flappy Bird on seven engines: ScopeBee, Cocos Creator, Defold, Unity, Phaser, Pixi and PlayCanvas, measured on one bench — how it was measured and what the numbers mean.',
+      'acmp.when': '5 OCT 2026',
+      'acmp.title': 'Updated engine comparison',
+      'acmp.card.title': 'Updated engine comparison',
+      'acmp.card.text': 'Flappy Bird on seven engines: Phaser, Pixi and PlayCanvas join, and every build is measured again on one bench.',
+      'acmp.lead': 'Flappy Bird now runs on seven engines instead of four: Phaser, Pixi and PlayCanvas have joined ScopeBee, Cocos Creator, Defold and Unity. Every build was rebuilt and measured again on one bench, and the builds on the site are exactly the ones that were measured.',
+
+      'acmp.h1': 'How it was measured',
+      'acmp.p1': 'Each build is made only with its own engine’s tools. The images are the same and at their original size, the game logic repeats the Unity original, and the physics is Box2D everywhere: built into the engine for ScopeBee, Defold, Unity and Cocos, and Planck.js — a JavaScript port of Box2D — for the three frameworks, which have no Box2D of their own.',
+      'acmp.p2': 'Load times were measured on a local server that serves everything in brotli: a ready-made .br file where the build has one, brotli at quality 11 where it does not, compressed in advance so that compressing takes no time during the load. The point was to keep the speed of the internet connection out of the results: over a real network the download time changes from run to run and would bury the difference between the engines.',
+
+      'acmp.h2': 'Results',
+      'acmp.m1': 'Transferred — what the browser downloads, compressed.',
+      'acmp.m2': 'Resources — the same files after decompression.',
+      'acmp.m3': 'First frame — the time from opening the page to the first frame the engine draws, download included.',
+      'acmp.m4': 'Heap Snapshot — the memory the page holds, as Chrome DevTools shows it under Memory → Heap snapshot; Web Workers are not part of it.',
+
+      'acmp.h3': 'Why Phaser and Pixi download less',
+      'acmp.p6': 'Because they carry less. Pixi is only a rendering library: it draws sprites and leaves everything else to you. Phaser is only a 2D engine.',
+      'acmp.h7': 'Playable builds',
+      'acmp.p12': 'A playable ad is the same game as one HTML file with the engine, the assets and the script inside it. Only the engines that can produce one are compared here, and none of the builds was optimised further: ScopeBee, Cocos Creator and Defold come out of their own playable modes, Pixi and PlayCanvas are the same web projects as above, packed into a single file. Unity has no such mode.',
+      'acmp.m5': 'HTML file — the file on disk: what goes to the ad network and what its size limit is checked against.',
+      'acmp.p13': 'The other rows mean the same as in the table above. Each figure is one cold load read off Chrome DevTools; Transferred is what actually came over the network — for Pixi and PlayCanvas the DevTools total also counts the data URIs these pages read from themselves through fetch(), which never touch the network.',
+
+
+
+      'acmp.h6': 'A note',
+      'acmp.li4': 'The site serves these builds differently from the test server, so a stopwatch here will not match the table: the difference is the network, not the engine.',
+
       /* --- 0.4.0 --------------------------------------------------------- */
       'a040.meta.title': 'ScopeBee 0.4.0 — lighting, instancing and binary scenes',
       'a040.meta.desc': 'ScopeBee 0.4.0: light and shadows, thousands of objects in two draw calls, and scenes stored line by line and baked to binary for the build.',
@@ -307,6 +338,37 @@
 
       'a030.h5': 'Попробовать',
       'a030.p10': 'Все три креатива открываются по ссылкам в таблице выше \u2014 каждый тем самым единственным файлом, который получила бы площадка. Откройте любой с DevTools на вкладке Network: один запрос, и за ним вся игра.',
+
+      /* --- обновлённое сравнение движков (engine-comparison.html) --- */
+      'acmp.meta.title': 'Обновлённое сравнение движков — ScopeBee',
+      'acmp.meta.desc': 'Flappy Bird на семи движках: ScopeBee, Cocos Creator, Defold, Unity, Phaser, Pixi и PlayCanvas на одном стенде — как мерили и что значат цифры.',
+      'acmp.when': '5 ОКТ 2026',
+      'acmp.title': 'Обновлённое сравнение движков',
+      'acmp.card.title': 'Обновлённое сравнение движков',
+      'acmp.card.text': 'Flappy Bird на семи движках: добавились Phaser, Pixi и PlayCanvas, а все билды заново измерены на одном стенде.',
+      'acmp.lead': 'Flappy Bird теперь работает не на четырёх движках, а на семи: к ScopeBee, Cocos Creator, Defold и Unity добавились Phaser, Pixi и PlayCanvas. Каждый билд пересобран и заново измерен на одном стенде, и на сайте лежат ровно те билды, что измерялись.',
+
+      'acmp.h1': 'Как мерили',
+      'acmp.p1': 'Каждый билд собран только средствами своего движка. Картинки одни и те же и исходного размера, игровая логика повторяет Unity-оригинал, а физика везде — Box2D: встроенная в движок у ScopeBee, Defold, Unity и Cocos и Planck.js — JavaScript-порт Box2D — у трёх фреймворков, где своего Box2D нет.',
+      'acmp.p2': 'Время запуска мерилось на локальном сервере, который отдаёт всё в brotli: готовый .br-файл, если он есть в билде, и brotli с качеством 11, если нет, — сжатый заранее, чтобы само сжатие не отнимало времени при загрузке. Смысл в том, чтобы скорость интернета не влияла на результат: по реальной сети время скачивания меняется от прогона к прогону и похоронило бы разницу между движками.',
+
+      'acmp.h2': 'Результаты',
+      'acmp.m1': '«По сети» — сколько браузер скачивает, в сжатом виде.',
+      'acmp.m2': 'Resources — те же файлы после распаковки.',
+      'acmp.m3': 'Первый кадр — время от открытия страницы до первого кадра, который нарисовал движок, вместе со скачиванием.',
+      'acmp.m4': 'Heap Snapshot — память страницы, как её показывает Chrome DevTools в Memory → Heap snapshot; Web Worker в неё не входят.',
+
+      'acmp.h3': 'Почему Phaser и Pixi скачиваются меньше',
+      'acmp.p6': 'Потому что они меньше везут. Pixi — только библиотека отрисовки: она рисует спрайты, а всё остальное оставляет вам. Phaser — лишь 2D-движок.',
+      'acmp.h7': 'Playable-билды',
+      'acmp.p12': 'Playable-реклама — это та же игра одним HTML-файлом, внутри которого движок, ассеты и скрипт. Здесь сравниваются только движки, которые умеют собирать такой файл, и ни один билд дополнительно не оптимизировался: ScopeBee, Cocos Creator и Defold собраны своими штатными playable-режимами, Pixi и PlayCanvas — те же веб-проекты, что выше, упакованные в один файл. У Unity такого режима нет.',
+      'acmp.m5': 'HTML-файл — файл на диске: то, что загружают в рекламную сеть и с чем она сверяет свой лимит размера.',
+      'acmp.p13': 'Остальные строки значат то же, что в таблице выше. Каждая цифра — один холодный заход, снятый в Chrome DevTools; Transferred — то, что действительно пришло по сети: у Pixi и PlayCanvas итог DevTools добавляет к нему ещё и data URI, которые страница читает из самой себя через fetch(), — по сети они не идут.',
+
+
+
+      'acmp.h6': 'Примечание',
+      'acmp.li4': 'Сайт отдаёт эти билды не так, как тестовый сервер, поэтому секундомер здесь с таблицей не совпадёт: разница — это сеть, а не движок.',
 
       /* --- 0.4.0 --------------------------------------------------------- */
       'a040.meta.title': 'ScopeBee 0.4.0 — освещение, инстансинг и бинарные сцены',
