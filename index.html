@@ -24,8 +24,9 @@
      hangs off .js, so with JS blocked the page renders fully instead of blank. -->
 <script>document.documentElement.classList.add('js');</script>
 <!-- Umami analytics. Cookieless, so no consent banner. data-domains keeps
-     localhost and file:// out of the numbers, which is also why no call site
-     needs to guard on the script being there. -->
+     localhost and file:// out of the numbers, which is also why the
+     data-umami-event attributes need no guard on the script being there.
+     The one call site, the visit-duration beat in main.js, does guard. -->
 <script defer src="https://cloud.umami.is/script.js"
         data-website-id="d878d1d4-c979-49f4-8593-c104f9459d83"
         data-domains="scopebee.tech,www.scopebee.tech"

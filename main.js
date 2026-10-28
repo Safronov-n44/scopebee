@@ -703,4 +703,50 @@
     });
   }
 
+  /* ---------------------------------------------------------------------
+     Visit duration
+     Umami measures a visit as the time between its first and last event, so
+     a one-page visit always reads 0s. This sends an "engaged" event at each
+     mark below, counted in time the tab was actually visible — a background
+     tab does not stretch the duration, and a crawler that leaves within
+     seconds never sends one. The marks thin out so a long read costs a dozen
+     events, and stop at 30 minutes.
+     This is the only umami call site, so unlike the data-umami-event
+     attributes it guards: a blocked or not yet loaded tracker leaves
+     window.umami missing. data-domains still keeps file:// and localhost out.
+     --------------------------------------------------------------------- */
+
+  var BEATS = [15, 30, 60, 90, 120, 180, 240, 300, 420, 600, 900, 1200, 1800]; // seconds
+  var beat = 0;
+  var visibleMs = 0;
+  var shownAt = Date.now();
+  var beatTimer = null;
+
+  var scheduleBeat = function () {
+    clearTimeout(beatTimer);
+    if (document.hidden || beat >= BEATS.length) return;
+    beatTimer = setTimeout(function () {
+      var now = Date.now();
+      visibleMs += now - shownAt;
+      shownAt = now;
+      if (window.umami && typeof window.umami.track === 'function') {
+        window.umami.track('engaged', { seconds: BEATS[beat] });
+      }
+      beat++;
+      scheduleBeat();
+    }, BEATS[beat] * 1000 - visibleMs);
+  };
+
+  document.addEventListener('visibilitychange', function () {
+    if (document.hidden) {
+      visibleMs += Date.now() - shownAt;
+      clearTimeout(beatTimer);
+    } else {
+      shownAt = Date.now();
+      scheduleBeat();
+    }
+  });
+
+  scheduleBeat();
+
 })();
