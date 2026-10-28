@@ -48,6 +48,24 @@
     };
     var DECODER = "sb_brotli.js";
 
+    // Прогресс скачивания для экрана загрузки страницы: Module.sbProgress(0..1), если шелл
+    // его задал (Samples/<П>/web/shell.html). Знаменатель — суммарный размер файлов билда в
+    // двух видах: build_web.sh подставляет его вместо строки-маркера ниже. Какой брать,
+    // решает режим (needDecode): распаковал браузер — в потоке сырые байты, иначе — .br.
+    // Без маркера (ручная копия загрузчика) прогресс просто не сообщается.
+    var SIZES = { raw: 42547646, br: 20567902 };
+    var received = 0;
+    function reportProgress() {
+        var report = Module["sbProgress"];
+        if (typeof report !== "function" || SIZES === null || needDecode === null) {
+            return;
+        }
+        var total = needDecode ? SIZES.br : SIZES.raw;
+        if (total > 0) {
+            report(Math.min(1, received / total));
+        }
+    }
+
     function log(text) {
         console.log("[INIT] " + text + " | " + performance.now().toFixed(2) + " ms");
     }
@@ -85,8 +103,9 @@
     }
 
     // Скачивает файл КАК ЕСТЬ: решение о распаковке принимается позже, когда известен
-    // режим всего билда. С onPeek — читает поток и отдаёт первые 4 байта, как только они
-    // пришли (нужно только wasm: по его магии и решается режим).
+    // режим всего билда. Поток читается всегда — пришедшие байты идут в прогресс. С onPeek
+    // ещё и отдаёт первые 4 байта, как только они пришли (нужно только wasm: по его магии и
+    // решается режим).
     function fetchRaw(name, onPeek) {
         return fetch(name).then(function (response) {
             if (!response.ok) {
@@ -96,11 +115,13 @@
             function done(buffer) {
                 return { name: name, buffer: buffer, bytes: new Uint8Array(buffer), encoding: encoding };
             }
-            if (!onPeek || !response.body || typeof response.body.getReader !== "function") {
+            if (!response.body || typeof response.body.getReader !== "function") {
                 return response.arrayBuffer().then(function (buffer) {
                     if (onPeek) {
                         onPeek(new Uint8Array(buffer, 0, Math.min(4, buffer.byteLength)));
                     }
+                    received += buffer.byteLength;
+                    reportProgress();
                     return done(buffer);
                 });
             }
@@ -122,7 +143,7 @@
             function pump() {
                 return reader.read().then(function (result) {
                     if (result.done) {
-                        if (!peeked) {
+                        if (onPeek && !peeked) {
                             peeked = true;
                             peek();
                         }
@@ -136,10 +157,12 @@
                     }
                     chunks.push(result.value);
                     total += result.value.length;
-                    if (!peeked && total >= 4) {
+                    if (onPeek && !peeked && total >= 4) {
                         peeked = true;
                         peek();
                     }
+                    received += result.value.length;
+                    reportProgress();
                     return pump();
                 });
             }
@@ -191,6 +214,7 @@
         if (needDecode) {
             ensureDecoder();
         }
+        reportProgress();   // байты, пришедшие до решения о режиме
     }
 
     log("sb_loader: downloading " + [FILES.wasm, FILES.data, FILES.js, FILES.basis].filter(Boolean).join(", "));
