@@ -1,0 +1,124 @@
+body {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+    text-align: center;
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Old versions of Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */
+}
+
+.game-wrapper {
+    width: 100%;
+    background: black url(../Web_bg.webp) no-repeat center;
+    background-size: contain;
+    margin: 0;
+    min-height: 100%;
+}
+
+.game {
+    position: relative;
+    /* min-height: 100%; */
+}
+
+.webgl-content {
+    border: none;
+    bottom: 30%;
+    height: 100vh;
+    padding: 0;
+}
+
+#unityContainerCanvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+#logo {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 50%;
+    height: 50%;
+}
+
+.unityContainer {
+    width: 224vh;
+    height: 100vh;
+    object-fit: contain;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+
+    /* max-height: calc(100vw / 1.6); */
+    max-height: 100vh;
+    max-width: 100vw;
+
+    /* max-height: calc(100vh / 1.77); */
+    /* max-width: calc(56vh / 1.77); */
+
+    /* max-width: calc(1.77 / 56vw); */
+    background: no-repeat center url(../Web_bg.webp);
+    background-size: cover;
+}
+
+.progress {
+    position: absolute;
+
+    left: 0;
+    right: 0;
+    margin-inline: auto;
+    width: 36vh;
+    top: 85%;
+}
+
+
+.amount_container {
+    position: relative;
+    height: 4vh;
+    background: url(../TemplateData/progress-bar-empty-dark.webp) center no-repeat;
+    background-size: 100% 100%;
+
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.linear_progress_root {
+    position: relative;
+    width: 100%;
+    height: 3vh;
+    border-radius: 100px;
+    overflow: hidden;
+
+    transform-origin: left;
+    margin: 0 0.5vh 0 0.5vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.linear_progress_bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    border-radius: 100px;
+    transition: transform 400ms linear;
+    transform-origin: left;
+
+    background-image: url(../TemplateData/progress-bar-full-dark.webp);
+    background-size: cover;
+    background-repeat: no-repeat;
+}
