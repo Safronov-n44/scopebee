@@ -51,12 +51,6 @@
            data-umami-event="showcase-open" aria-current="true">Showcase</a>
         <a class="docs-btn" href="../docs/index.html" data-i18n="nav.docs"
            data-umami-event="docs-open">Docs</a>
-
-        <div class="lang" role="group" aria-label="Language" data-i18n-aria="a11y.lang">
-          <button type="button" class="lang__btn" data-lang="en">EN</button>
-          <span class="lang__sep" aria-hidden="true">/</span>
-          <button type="button" class="lang__btn" data-lang="ru">RU</button>
-        </div>
       </div>
     </nav>
   </div>
@@ -77,43 +71,92 @@
     <h1 class="docs__title" data-i18n="showcase.tab.games">Games</h1>
     <p class="docs__lead" data-i18n="showcase.lead">Games built with ScopeBee. Every one of them runs in the browser, right here on the engine’s site.</p>
 
-    <!-- One tile per game, newest first. The grid fills as many 180px columns as
-         fit, so a new game is one more <li> and no layout change. -->
-    <ul class="game-grid">
-      <li class="game-tile">
-        <img class="game-tile__icon" src="../assets/showcase/candybalance-256.webp"
-             srcset="../assets/showcase/candybalance-256.webp 256w, ../assets/showcase/candybalance-512.webp 512w"
-             sizes="(max-width: 520px) 45vw, 240px" width="256" height="256"
-             alt="Candy Balance icon" data-i18n-alt="showcase.icon.alt">
-        <h2 class="game-tile__title">Candy Balance</h2>
-        <a class="game-tile__about" href="../news/candy-balance.html"
-           data-umami-event="news-open" data-umami-event-post="candy-balance" data-i18n="showcase.about">About the game</a>
-        <ul class="game-tile__where">
-          <li>
-            <a class="game-tile__place" href="../games/candybalance/" target="_blank" rel="noopener"
-               data-umami-event="demo-open" data-umami-event-project="candybalance" data-umami-event-engine="scopebee">
-              <svg class="game-tile__play" viewBox="0 0 20 20" width="20" height="20" aria-hidden="true">
-                <defs>
-                  <linearGradient id="play-tile" x1="0" y1="0" x2="1" y2="1">
-                    <stop offset="0" stop-color="#b8603a"/>
-                    <stop offset=".5" stop-color="#a83d66"/>
-                    <stop offset="1" stop-color="#5a44b8"/>
-                  </linearGradient>
-                </defs>
-                <rect width="20" height="20" rx="5" fill="url(#play-tile)"/>
-                <path fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" d="M7 7.2h6a3 3 0 0 1 2.9 3.6l-.6 2.6a1.5 1.5 0 0 1-2.6.7L11.4 12.6H8.6l-1.3 1.5a1.5 1.5 0 0 1-2.6-.7l-.6-2.6A3 3 0 0 1 7 7.2z"/>
-                <path fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" d="M7.3 9.2v1.8M6.4 10.1h1.8"/>
-                <circle fill="#fff" cx="12.6" cy="9.7" r=".7"/>
-                <circle fill="#fff" cx="13.7" cy="11" r=".7"/>
-              </svg>
-              <span data-i18n="showcase.play">Play here</span>
-            </a>
-          </li>
-          <li class="game-tile__place game-tile__place--pending">
-            <img src="../assets/showcase/yandex-games.webp" alt="Yandex Games" width="20" height="20" data-i18n-alt="showcase.yandex">
-            <span data-i18n="showcase.pending">On moderation</span>
-          </li>
-        </ul>
+    <!-- One card per game, newest first: the game's art with its icon, name and
+         a line about it laid over the bottom, then a strip with the places to
+         play it and the link to its article. Two to a row, one on a phone; a
+         new game is one more <li>. -->
+    <ul class="game-list">
+      <li class="game-card">
+        <!-- the art leads to the article too; the "About the game" link below is
+             the one in the tab order, so this one stays out of it -->
+        <a class="game-card__media" href="../news/magic-school.html" tabindex="-1" aria-hidden="true"
+           data-umami-event="news-open" data-umami-event-post="magic-school">
+          <img class="game-card__art" src="../assets/news/magicschool-cover.webp" width="2732" height="1550" decoding="async" alt="">
+        </a>
+        <div class="game-card__over">
+          <img class="game-card__icon" src="../assets/showcase/magicschool-256.webp"
+               srcset="../assets/showcase/magicschool-256.webp 256w, ../assets/showcase/magicschool-512.webp 512w"
+               sizes="56px" width="56" height="56"
+               alt="Magic School icon" data-i18n-alt="showcase.icon.magicschool">
+          <h2 class="game-card__title">Magic School</h2>
+          <p class="game-card__desc" data-i18n="showcase.desc.magicschool">A full game moved from Unity to ScopeBee: locations, UI, animation and saves — and the main location on screen in under a second.</p>
+        </div>
+        <div class="game-card__foot">
+          <ul class="game-card__where">
+            <li>
+              <a class="game-card__place" href="../games/magicschool/scopebee/" target="_blank" rel="noopener"
+                 data-umami-event="demo-open" data-umami-event-project="magicschool" data-umami-event-engine="scopebee">
+                <svg class="game-card__play" viewBox="0 0 20 20" width="20" height="20" aria-hidden="true">
+                  <defs>
+                    <linearGradient id="play-tile" x1="0" y1="0" x2="1" y2="1">
+                      <stop offset="0" stop-color="#b8603a"/>
+                      <stop offset=".5" stop-color="#a83d66"/>
+                      <stop offset="1" stop-color="#5a44b8"/>
+                    </linearGradient>
+                  </defs>
+                  <rect width="20" height="20" rx="5" fill="url(#play-tile)"/>
+                  <path fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" d="M7 7.2h6a3 3 0 0 1 2.9 3.6l-.6 2.6a1.5 1.5 0 0 1-2.6.7L11.4 12.6H8.6l-1.3 1.5a1.5 1.5 0 0 1-2.6-.7l-.6-2.6A3 3 0 0 1 7 7.2z"/>
+                  <path fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" d="M7.3 9.2v1.8M6.4 10.1h1.8"/>
+                  <circle fill="#fff" cx="12.6" cy="9.7" r=".7"/>
+                  <circle fill="#fff" cx="13.7" cy="11" r=".7"/>
+                </svg>
+                <span data-i18n="showcase.play">Play here</span>
+              </a>
+            </li>
+          </ul>
+          <a class="game-card__about" href="../news/magic-school.html"
+             data-umami-event="news-open" data-umami-event-post="magic-school" data-i18n="showcase.about">About the game</a>
+        </div>
+      </li>
+
+      <li class="game-card">
+        <!-- the art leads to the article too; the "About the game" link below is
+             the one in the tab order, so this one stays out of it -->
+        <a class="game-card__media" href="../news/candy-balance.html" tabindex="-1" aria-hidden="true"
+           data-umami-event="news-open" data-umami-event-post="candy-balance">
+          <img class="game-card__art" src="../assets/news/candybalance-menu.webp" width="1280" height="633" loading="lazy" decoding="async" alt="">
+        </a>
+        <div class="game-card__over">
+          <img class="game-card__icon" src="../assets/showcase/candybalance-256.webp"
+               srcset="../assets/showcase/candybalance-256.webp 256w, ../assets/showcase/candybalance-512.webp 512w"
+               sizes="56px" width="56" height="56"
+               alt="Candy Balance icon" data-i18n-alt="showcase.icon.candybalance">
+          <h2 class="game-card__title">Candy Balance</h2>
+          <p class="game-card__desc" data-i18n="showcase.desc.candybalance">A Flash game from more than 14 years ago, remade on ScopeBee with physics, joints, animation and streamed music.</p>
+        </div>
+        <div class="game-card__foot">
+          <ul class="game-card__where">
+            <li>
+              <a class="game-card__place" href="../games/candybalance/" target="_blank" rel="noopener"
+                 data-umami-event="demo-open" data-umami-event-project="candybalance" data-umami-event-engine="scopebee">
+                <svg class="game-card__play" viewBox="0 0 20 20" width="20" height="20" aria-hidden="true">
+                  <rect width="20" height="20" rx="5" fill="url(#play-tile)"/>
+                  <path fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" d="M7 7.2h6a3 3 0 0 1 2.9 3.6l-.6 2.6a1.5 1.5 0 0 1-2.6.7L11.4 12.6H8.6l-1.3 1.5a1.5 1.5 0 0 1-2.6-.7l-.6-2.6A3 3 0 0 1 7 7.2z"/>
+                  <path fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" d="M7.3 9.2v1.8M6.4 10.1h1.8"/>
+                  <circle fill="#fff" cx="12.6" cy="9.7" r=".7"/>
+                  <circle fill="#fff" cx="13.7" cy="11" r=".7"/>
+                </svg>
+                <span data-i18n="showcase.play">Play here</span>
+              </a>
+            </li>
+            <li class="game-card__place game-card__place--pending">
+              <img src="../assets/showcase/yandex-games.webp" alt="Yandex Games" width="20" height="20" data-i18n-alt="showcase.yandex">
+              <span data-i18n="showcase.pending">On moderation</span>
+            </li>
+          </ul>
+          <a class="game-card__about" href="../news/candy-balance.html"
+             data-umami-event="news-open" data-umami-event-post="candy-balance" data-i18n="showcase.about">About the game</a>
+        </div>
       </li>
     </ul>
   </div>

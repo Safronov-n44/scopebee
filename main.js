@@ -1,4 +1,4 @@
-/* ScopeBee landing — i18n, scroll reveal, top bar state, mobile menu.
+/* ScopeBee landing — strings, scroll reveal, top bar state, mobile menu.
    No dependencies, no build step: the page must work straight from file://. */
 
 (function () {
@@ -9,9 +9,8 @@
      Every user-visible string in index.html carries data-i18n="<key>".
      Text that lives in an attribute instead of a text node uses the sibling
      forms data-i18n-aria (aria-label) and data-i18n-alt (alt) — same keys,
-     same dictionaries. Adding a string means adding the key to BOTH
-     dictionaries below.
-     The tagline stays English in every locale by design.
+     same dictionary. The site is English only; the dictionary is what the
+     archive rail and each article's <title> and description are read from.
      --------------------------------------------------------------------- */
 
   var I18N = {
@@ -22,13 +21,11 @@
       'meta.description': 'ScopeBee \u2014 most lightweight and performant game engine. Coming soon.',
 
       'a11y.menu': 'Menu',
-      'a11y.lang': 'Language',
 
       'a11y.zoom': 'Open the image at full size',
       'a11y.close': 'Close',
       'a11y.prev': 'Previous image',
       'a11y.next': 'Next image',
-      'a11y.demo': 'ScopeBee demo: converting a Unity project and running it in the browser',
 
       'alt.engine': 'ScopeBee editor with a Flappy Bird scene open',
       'alt.panels': 'ScopeBee editor panels: colour picker, gradient and curve editors',
@@ -36,9 +33,12 @@
 
       'hero.stat.size': 'Downloaded',
       'hero.stat.memory': 'Memory',
-      'hero.stat.physics': 'Physics at 60 FPS',
-      'hero.stat.note': 'The same Flappy Bird, release build',
+      'hero.stat.start': 'Game on screen',
+      'hero.stat.note': 'The same Magic School, release build',
+      'hero.game.alt': 'Magic School: two wizards and an owl in a snowy courtyard',
+      'hero.made': 'Made with ScopeBee',
       'hero.stat.link': 'see how it was measured',
+      'hero.partners': 'Partners',
 
       'news.title': 'News',
       'news.all': 'All news',
@@ -117,6 +117,7 @@
       'roadmap.m3': 'OCT',
       'roadmap.m4': 'NOV',
       'roadmap.m5': 'DEC',
+      'roadmap.m6': 'JAN',
       'roadmap.1.title': 'C# → Beef',
       'roadmap.1.text': 'Deeper and more accurate language conversion, sprites outside the view frustum dropped before drawing, hooks into web platforms.',
       'roadmap.1.tag1': 'Language coverage',
@@ -134,6 +135,10 @@
       'roadmap.3.tag2': 'Material parameters',
       'roadmap.3.tag3': 'Blend modes and presets',
       'roadmap.3.tag4': '3D physics',
+      'roadmap.ai.title': 'AI integration',
+      'roadmap.ai.text': 'AI, built into the workflow.',
+      'roadmap.ai.tag1': 'MCP',
+      'roadmap.ai.tag2': 'Skills',
       'roadmap.4.title': 'Tilemaps and audio mixers',
       'roadmap.4.text': 'Tile-based levels assembled from a palette in the editor, and sound routed through mixers and volume groups.',
       'roadmap.4.tag1': 'Tilemap',
@@ -148,143 +153,11 @@
       'footer.copyright': '© 2026 ScopeBee. All rights reserved.',
     },
 
-    ru: {
-      'skip': 'Перейти к содержимому',
-
-      'meta.title': 'ScopeBee — web-first игровой движок: лёгкий и производительный',
-      'meta.description': 'ScopeBee — самый лёгкий и производительный игровой движок. Скоро.',
-
-      'a11y.menu': 'Меню',
-      'a11y.lang': 'Язык',
-
-      'a11y.zoom': 'Открыть изображение в полном размере',
-      'a11y.close': 'Закрыть',
-      'a11y.prev': 'Предыдущее изображение',
-      'a11y.next': 'Следующее изображение',
-      'a11y.demo': 'Демо ScopeBee: конвертация Unity-проекта и запуск в браузере',
-
-      'alt.engine': 'Редактор ScopeBee с открытой сценой Flappy Bird',
-      'alt.panels': 'Панели редактора ScopeBee: пипетка, редакторы градиентов и кривых',
-      'alt.converter': 'Окно конвертера внутри Unity со списком сборок и типов для экспорта',
-
-      'hero.stat.size': 'Скачивается',
-      'hero.stat.memory': 'Память',
-      'hero.stat.physics': 'Физика при 60 FPS',
-      'hero.stat.note': 'Та же Flappy Bird, release-сборка',
-      'hero.stat.link': 'как это измерялось',
-
-      'news.title': 'Новости',
-      'news.all': 'Все новости',
-
-      'nav.news': 'Новости',
-      'nav.features': 'Возможности',
-      'nav.compare': 'Сравнение',
-      'nav.roadmap': 'Дорожная карта',
-      'nav.contact': 'Контакты',
-      'nav.docs': 'Документация',
-      'nav.showcase': 'Витрина',
-
-      'editor.eyebrow': 'Инструменты',
-      'editor.title': 'Редактор',
-      'editor.text': 'Редактор, который запускается мгновенно и не мешает работать. Никаких лаунчеров и лишних шагов — открыли проект и начали.',
-      'editor.check1': 'Лёгкость',
-      'editor.check2': 'Расширяемость',
-      'editor.check3': 'Отсутствие хаба',
-
-      'engine.eyebrow': 'Рантайм',
-      'engine.title': 'Движок',
-      'engine.text': 'Рантайм построен вокруг одного правила: собирать минимальный бинарник, который работает максимально быстро и одинаково на всех платформах.',
-      'engine.check1': 'Максимальная производительность',
-      'engine.check2': 'Минимальный билд',
-      'engine.check3': 'Минимальный размер оперативной памяти',
-      'engine.check4': 'Единообразие на всех платформах',
-
-      'beef.eyebrow': 'Язык',
-      'beef.title': 'Beef',
-      'beef.text': 'Движок написан на Beef — компилируемом языке, который читается как C#, а работает как C++. Сборщика мусора нет, поэтому кадр не спотыкается об уборку, которую вы не назначали.',
-      'beef.check1': 'Знакомый синтаксис, нативная скорость',
-      'beef.check2': 'Без сборщика мусора',
-      'beef.check3': 'Код порождается при компиляции, а не через рефлексию в рантайме',
-
-      'convert.eyebrow': 'Миграция',
-      'convert.title': 'Конвертер из Unity',
-      'convert.text': 'Перенести готовый проект Unity, а не переписывать его заново. Сцены, префабы и данные компонентов конвертируются, а C#-скрипты переводятся в Beef.',
-      'convert.check1': 'C# → AST → Beef',
-      'convert.check2': 'Сцены и префабы со всей иерархией',
-      'convert.check3': 'Компоненты Unity ложатся на движковые',
-      'convert.check4': 'Текстуры, спрайты и клипы анимации',
-
-      'compare.eyebrow': 'Цифры, а не обещания',
-      'compare.title': 'Сравнение',
-      'compare.lead': 'Одни и те же проекты, собранные на разных движках. Длина полоски — доля от самого большого значения, с которым она сравнивается.',
-      'compare.physics': 'Стресс-тест физики',
-      'compare.th.engine': 'Движок',
-      'compare.th.metric': 'Метрика',
-      'compare.th.ranked': 'Движки, лучший первым',
-      'compare.play.label': 'Сыграть в билды:',
-      'compare.th.bodies': 'Тел при 60 FPS',
-      'compare.th.transferred': 'По сети',
-      'compare.th.heap': 'Heap Snapshot',
-      'compare.th.demo': 'Демо',
-      'compare.th.file': 'HTML-файл',
-      'compare.th.res': 'Resources',
-      'compare.th.first': 'Первый кадр',
-      'compare.playable': 'Flappy Bird как playable-креатив',
-      'compare.platform.html': 'HTML5 \u00b7 .html',
-      'compare.playable.lead': 'Та же игра рекламным креативом: один HTML-файл, внутри которого движок, ассеты и скрипт, — так его запускает рекламная сеть. Собрано без дополнительных оптимизаций: ScopeBee, Cocos Creator и Defold — своими штатными playable-режимами, Pixi и PlayCanvas — те же веб-проекты, упакованные в один файл. У Unity такого режима нет.',
-      'compare.playable.more': 'Как собирали playable-билды',
-      'compare.play': 'Играть',
-      'compare.open': 'Открыть',
-      'compare.platform.fps': 'HTML5 · 60 FPS',
-      'compare.note3': 'Одна и та же сцена на каждом движке: вращающийся ящик, тела добавляются до тех пор, пока кадр держит 60 FPS. Больше — лучше. Замеры на Mac mini M2, 16 ГБ, Chrome 151.0.7922.138 (arm64).',
-      'compare.flappy.lead': 'Семь билдов одной игры, собранных на разных движках.',
-      'compare.flappy.more': 'Как мерили и что значат цифры',
-      'compare.platform.webgl': 'HTML5 \u00b7 WebGL',
-
-      'roadmap.eyebrow': 'Что дальше',
-      'roadmap.title': 'Дорожная карта',
-      'roadmap.now': 'Сейчас',
-      'roadmap.done': 'Готово',
-      'roadmap.m1': 'АВГ',
-      'roadmap.m2': 'СЕН',
-      'roadmap.m3': 'ОКТ',
-      'roadmap.m4': 'НОЯ',
-      'roadmap.m5': 'ДЕК',
-      'roadmap.1.title': 'C# → Beef',
-      'roadmap.1.text': 'Более глубокая и точная конвертация языка, отсечение спрайтов за пределами пирамиды видимости, подключение к веб-платформам.',
-      'roadmap.1.tag1': 'Покрытие языка',
-      'roadmap.1.tag2': 'Отсечение по фрустуму',
-      'roadmap.1.tag3': 'Интеграция веб-порталов',
-      'roadmap.1.tag4': 'Гизмо',
-      'roadmap.2.title': 'Бинарные ассеты и 3D',
-      'roadmap.2.text': 'Компактный бинарный формат данных и первое измерение за пределами плоскости: модели загружаются прямо из glb и рисуются в сцене.',
-      'roadmap.2.tag1': 'Бинарная сериализация',
-      'roadmap.2.tag2': 'Импорт glb',
-      'roadmap.2.tag3': '3D-рендеринг',
-      'roadmap.3.title': 'Частицы, материалы и 3D-физика',
-      'roadmap.3.text': 'Собственная система эффектов, настраиваемые материалы и режимы наложения, а также столкновение тел в трёх измерениях.',
-      'roadmap.3.tag1': 'Система частиц',
-      'roadmap.3.tag2': 'Параметры материалов',
-      'roadmap.3.tag3': 'Режимы наложения и пресеты',
-      'roadmap.3.tag4': '3D-физика',
-      'roadmap.4.title': 'Тайлмапы и аудиомикшеры',
-      'roadmap.4.text': 'Уровни из тайлов, выкладываемые в редакторе из палитры, и звук через микшеры и группы громкости.',
-      'roadmap.4.tag1': 'Тайлмап',
-      'roadmap.4.tag2': 'Аудиосистема',
-      'roadmap.4.tag3': 'Микшеры',
-      'roadmap.5.title': 'Кроссплатформенность',
-      'roadmap.5.text': 'Тот же проект собирается за пределы браузера без второй кодовой базы — начиная с Android.',
-      'roadmap.5.tag1': 'Android',
-
-      'footer.tagline': 'Web-first игровой движок: лёгкий и производительный.',
-      'footer.collab': 'Интересует сотрудничество?',
-      'footer.copyright': '© 2026 ScopeBee. Все права защищены.',
-    }
   };
 
   /* Sub-pages (news/) ship their own strings in a small script loaded before
      this one, so a new article never means editing the dictionaries above.
-     Same shape as I18N: { en: {...}, ru: {...} }. */
+     Same shape as I18N: { en: {...} }. */
   var extra = window.SCOPEBEE_I18N_EXTRA;
   if (extra) {
     Object.keys(I18N).forEach(function (lang) {
@@ -302,7 +175,7 @@
      This has to sit here, after the strings above are merged and before
      applyLang runs below: the links it builds carry data-i18n, and applyLang
      is called once and never watches the DOM, so anything built later would
-     stay English until someone switched language. */
+     keep empty labels. */
   var archiveNav = document.getElementById('archive-nav');
   var archiveList = document.getElementById('archive-list');
 
@@ -427,8 +300,8 @@
       if (!archiveStatus) return;
       archiveStatus.textContent = '';
       /* a clone of the active label rather than a sentence assembled here: it
-         carries data-i18n, so the next language switch translates it for free,
-         and leaving the count out keeps Russian plurals out of it */
+         carries data-i18n and is already filled in, and leaving the count out
+         keeps plurals out of it */
       if (current) archiveStatus.appendChild(current.querySelector('.archive__label').cloneNode(true));
     }
 
@@ -449,23 +322,6 @@
        place. */
     window.addEventListener('hashchange', function () { applyArchive(archiveFromHash()); });
     applyArchive(archiveFromHash()); // directly, not via a synthetic event: before first paint
-  }
-
-  var STORAGE_KEY = 'scopebee.lang';
-  var langButtons = document.querySelectorAll('.lang__btn');
-
-  function readStoredLang() {
-    try {
-      return localStorage.getItem(STORAGE_KEY);
-    } catch (e) {
-      return null; // private mode / file:// restrictions
-    }
-  }
-
-  function storeLang(lang) {
-    try {
-      localStorage.setItem(STORAGE_KEY, lang);
-    } catch (e) { /* not fatal */ }
   }
 
   var metaDescription = document.querySelector('meta[name="description"]');
@@ -497,31 +353,9 @@
       metaDescription.setAttribute('content', dict[descKey]);
     }
 
-    document.documentElement.lang = lang;
-
-    langButtons.forEach(function (btn) {
-      var active = btn.dataset.lang === lang;
-      btn.classList.toggle('is-active', active);
-      btn.setAttribute('aria-pressed', String(active));
-    });
   }
 
-  function initialLang() {
-    var stored = readStoredLang();
-    if (stored && I18N[stored]) return stored;
-    var nav = (navigator.language || 'en').slice(0, 2).toLowerCase();
-    return I18N[nav] ? nav : 'en';
-  }
-
-  langButtons.forEach(function (btn) {
-    btn.addEventListener('click', function () {
-      var lang = btn.dataset.lang;
-      applyLang(lang);
-      storeLang(lang);
-    });
-  });
-
-  applyLang(initialLang());
+  applyLang('en');
 
   /* ---------------------------------------------------------------------
      Scroll reveal
@@ -653,6 +487,71 @@
       else if (e.key === 'ArrowLeft' && current.length > 1) { e.preventDefault(); show(index - 1); }
       else if (e.key === 'ArrowRight' && current.length > 1) { e.preventDefault(); show(index + 1); }
     });
+  }
+
+  /* ---------------------------------------------------------------------
+     Showreel
+     The hero's carousel of games. One slide is .is-active; the rest are
+     hidden by CSS and made inert here, so Tab never lands on a link nobody
+     can see. It steps on its own every few seconds, stops while the pointer
+     or the focus is inside, and does not step at all with reduced motion or
+     while the tab is hidden — the dots still work in every case.
+     --------------------------------------------------------------------- */
+
+  var showreel = document.querySelector('.showreel');
+
+  if (showreel) {
+    var slides = showreel.querySelectorAll('.hero__game');
+    var dots = showreel.querySelectorAll('.showreel__dot');
+    var slideNow = 0;
+    var slideTimer = null;
+    var SLIDE_MS = 10000;
+
+    var showSlide = function (n) {
+      slideNow = (n + slides.length) % slides.length;
+      slides.forEach(function (slide, k) {
+        var on = k === slideNow;
+        slide.classList.toggle('is-active', on);
+        slide.inert = !on;
+        slide.setAttribute('aria-hidden', String(!on));
+      });
+      dots.forEach(function (dot, k) {
+        if (k === slideNow) dot.setAttribute('aria-current', 'true');
+        else dot.removeAttribute('aria-current'); // not "false" — that still reads as current
+      });
+    };
+
+    var stopReel = function () {
+      clearInterval(slideTimer);
+      slideTimer = null;
+    };
+
+    var startReel = function () {
+      if (reduceMotion || slides.length < 2 || document.hidden) return;
+      stopReel();
+      slideTimer = setInterval(function () { showSlide(slideNow + 1); }, SLIDE_MS);
+    };
+
+    dots.forEach(function (dot, k) {
+      dot.addEventListener('click', function () {
+        showSlide(k);
+        startReel(); // a fresh interval, so the chosen slide gets its full time
+      });
+    });
+
+    showreel.addEventListener('mouseenter', stopReel);
+    showreel.addEventListener('mouseleave', startReel);
+    showreel.addEventListener('focusin', stopReel);
+    showreel.addEventListener('focusout', function (e) {
+      if (!showreel.contains(e.relatedTarget)) startReel();
+    });
+    document.addEventListener('visibilitychange', function () {
+      if (document.hidden) stopReel();
+      else if (!showreel.matches(':hover, :focus-within')) startReel();
+    });
+
+    showSlide(0);
+    startReel();
   }
 
   /* ---------------------------------------------------------------------

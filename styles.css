@@ -199,41 +199,12 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .docs-btn {
   font-size: .875rem;
   font-weight: 700;
-  white-space: nowrap;  /* «Документация» не должна разложить шапку на две строки */
+  white-space: nowrap;  /* a link label must not wrap the top bar onto two lines */
   color: var(--text-muted);
   transition: color .2s var(--ease-out);
 }
 .docs-btn:hover { color: var(--text); }
 .docs-btn[aria-current] { color: var(--accent); }
-
-.lang {
-  display: inline-flex;
-  align-items: center;
-  gap: .35rem;
-  padding: .35rem .7rem;
-  border: 1px solid var(--border);
-  border-radius: 999px;
-  font-size: .8rem;
-  font-weight: 600;
-  letter-spacing: .06em;
-}
-.lang__btn {
-  position: relative;
-  padding: 0 .15rem;
-  color: var(--text-faint);
-  transition: color .2s var(--ease-out);
-}
-/* EN and RU are 22x20 of ink. The pill's proportions are the design, so the
-   touch target is grown with a pseudo-element instead of padding — it clears
-   the 24px minimum without moving a pixel. */
-.lang__btn::before {
-  content: "";
-  position: absolute;
-  inset: -.5rem -.35rem;
-}
-.lang__btn:hover { color: var(--text); }
-.lang__btn.is-active { color: var(--accent); }
-.lang__sep { color: var(--text-faint); }
 
 .burger {
   display: none;
@@ -268,7 +239,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   min-height: 100vh;
   min-height: 100svh;
   display: flex;
-  align-items: center;
+  flex-direction: column;
   overflow: hidden;
   isolation: isolate;
 }
@@ -329,7 +300,10 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   width: 100%;
   max-width: var(--maxw-hero);
   margin-inline: auto;
-  padding: calc(var(--topbar-h) + 3rem) var(--gutter) 6rem;
+  /* grows to fill the hero above the partners strip, content centred in it */
+  flex: 1;
+  align-content: center;
+  padding: calc(var(--topbar-h) + 3rem) var(--gutter) 3.5rem;
   display: grid;
   /* The left track is max-content — the brand row and the nowrap tagline are
      cut to the same width on purpose, and auto tracks would centre them.
@@ -434,7 +408,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   gap: clamp(1.25rem, 2.5vw, 2.25rem);
 }
 
-/* the demo player carries the right-hand column on its own */
+/* the frame of the showreel: border, corners and shadow around the slides */
 .hero__shot {
   margin: 0;
   width: clamp(320px, 46vw, 780px);
@@ -445,41 +419,101 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   background: #1f1f1f;
   box-shadow: 0 24px 60px -24px rgba(0, 0, 0, .75), 0 2px 8px rgba(0, 0, 0, .35);
 }
-/* display:block kills the inline-baseline gap that would show the figure's
-   background as a strip under the frame; aspect-ratio holds the box before
-   the poster decodes, so the hero never jumps on load. */
-.hero__shot video {
-  display: block;
-  width: 100%;
-  height: auto;
-  aspect-ratio: 16 / 9;
-  background: #04101a;  /* the video's own letterbox colour, not the frame's grey */
+/* The showreel takes over the width the figure used to carry; the figure
+   fills it. The label sits centred above the frame, the dots centred below. */
+.showreel {
+  width: clamp(320px, 46vw, 780px);
+  max-width: 100%;
 }
+.showreel .hero__shot { width: 100%; }
+.showreel__label {
+  margin-bottom: .85rem;
+  text-align: center;
+  font-size: .8rem;
+  font-weight: 700;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, .7);
+}
+.showreel__dots { display: flex; justify-content: center; gap: .5rem; margin-top: 1rem; }
+html:not(.js) .showreel__dots { display: none; }  /* nothing to switch without JS */
+.showreel__dot {
+  position: relative;
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, .3);
+  transition: width .3s var(--ease-out), background-color .3s var(--ease-out);
+}
+/* an 8px dot is too small to hit; the target grows, the dot does not */
+.showreel__dot::before { content: ""; position: absolute; inset: -8px -4px; }
+.showreel__dot:hover { background: rgba(255, 255, 255, .6); }
+.showreel__dot[aria-current] { width: 24px; background: var(--accent); }
 
-.hero__scroll {
+/* Slides are stacked in one 16:9 frame and crossfade; the art of each game is
+   cropped to that frame rather than letting the hero change height between
+   slides. The frame's aspect-ratio holds its size, so every slide can sit
+   absolutely on top of it. */
+.showreel__frame { position: relative; aspect-ratio: 16 / 9; }
+
+/* The whole slide is the link to the game's article. */
+.hero__game {
   position: absolute;
-  left: 50%;
-  bottom: 2.25rem;
-  translate: -50% 0;
-  width: 2px;
-  height: 56px;
-  border-radius: 2px;
-  background: rgba(255, 255, 255, .18);
-  overflow: hidden;
+  inset: 0;
+  display: block;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .6s var(--ease-out), visibility 0s linear .6s;
 }
-.hero__scroll-line {
+.hero__game.is-active {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity .6s var(--ease-out), visibility 0s;
+}
+.hero__game img {
   display: block;
   width: 100%;
-  height: 40%;
-  border-radius: 2px;
-  background: #fff;
-  animation: scrollHint 2.4s var(--ease-out) infinite;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .5s var(--ease-out);
 }
-@keyframes scrollHint {
-  0%   { transform: translateY(-100%); opacity: 0; }
-  35%  { opacity: 1; }
-  100% { transform: translateY(250%); opacity: 0; }
+.hero__game:hover img { transform: scale(1.03); }
+.hero__game:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+
+/* Partners: a glass strip across the bottom of the first screen, the label
+   above it on the gradient. The hero stacks as a column — the content row
+   grows and stays centred, the strip follows it in the flow — so a short
+   window pushes the strip down rather than laying it over the table. */
+.hero__partners { width: 100%; }
+.hero__partners-label {
+  display: block;
+  margin-bottom: .9rem;
+  text-align: center;
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, .45);
 }
+.hero__partners-strip {
+  padding: 1.4rem var(--gutter);
+  background: rgba(255, 255, 255, .04);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+  border-top: 1px solid rgba(255, 255, 255, .1);
+}
+.hero__partners-logos {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: clamp(2rem, 5vw, 4.5rem);
+}
+/* logos in their own colours, at full strength — no dimming, no greyscale */
+.hero__partner { display: block; border-radius: 6px; transition: transform .2s var(--ease-out); }
+.hero__partner:hover { transform: translateY(-2px); }
+.hero__partner:focus-visible { outline: 2px solid var(--accent); outline-offset: 6px; }
+.hero__partner img { display: block; height: 48px; width: auto; }
 
 /* ==========================================================================
    News
@@ -2048,65 +2082,100 @@ code, kbd, samp, pre { font-family: var(--mono); }
   padding: 2.75rem var(--gutter) 5rem;   /* the docsbar already paid --topbar-h */
 }
 
-.game-grid {
+/* A card per game: the art, with icon, name and description laid over its
+   bottom on a dark fade, and under it a strip with the places to play and the
+   link to the article. Art and overlay share one grid cell, so the overlay
+   always sits on the art whatever the text runs to; the strip is the next row.
+   The art is cropped to 16:10 so cards in a row match whatever the source is. */
+.game-list {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-  gap: 2rem 1.5rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.5rem;
   margin: 2.5rem 0 0;
   padding: 0;
   list-style: none;
 }
-/* two columns still fit a 360px phone; 180px would have left it one */
-@media (max-width: 520px) {
-  .game-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.75rem 1rem; }
+@media (max-width: 640px) {
+  .game-list { grid-template-columns: minmax(0, 1fr); }
 }
 
-.game-tile { min-width: 0; }
-.game-tile__icon {
+.game-card {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  min-width: 0;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  overflow: hidden;
+  background: var(--bg-alt);
+}
+.game-card__media,
+.game-card__over { grid-area: 1 / 1; }
+.game-card__media { display: block; overflow: hidden; }
+.game-card__art {
+  display: block;
   width: 100%;
   height: auto;
-  aspect-ratio: 1;
-  border-radius: 22%;
-  border: 1px solid var(--border);
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  transition: transform .5s var(--ease-out);
 }
-.game-tile__title {
-  margin-top: .9rem;
-  font-size: 1.05rem;
-  font-weight: 700;
-}
-.game-tile__about {
-  display: inline-block;
-  margin-top: .2rem;
-  font-size: .9rem;
-  color: var(--accent);
-}
-.game-tile__about:hover { text-decoration: underline; text-underline-offset: 3px; }
+.game-card__media:hover .game-card__art { transform: scale(1.03); }
 
-.game-tile__where {
+/* the overlay lets clicks through to the art's link beneath it */
+.game-card__over {
+  align-self: end;
   display: grid;
-  gap: .5rem;
-  margin: .85rem 0 0;
-  padding: .85rem 0 0;
-  border-top: 1px solid var(--border);
-  list-style: none;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: .2rem .9rem;
+  padding: 4.5rem 1.25rem 1.1rem;
+  background: linear-gradient(to top, rgba(8, 8, 18, .95) 15%, rgba(8, 8, 18, .7) 55%, transparent);
+  pointer-events: none;
 }
-.game-tile__place {
+.game-card__icon {
+  grid-row: span 2;
+  width: 56px;
+  height: 56px;
+  border-radius: 22%;
+  border: 1px solid rgba(255, 255, 255, .25);
+}
+.game-card__title { font-size: 1.15rem; font-weight: 700; }
+.game-card__desc { font-size: .9rem; line-height: 1.5; color: rgba(245, 245, 247, .8); }
+
+.game-card__foot {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: .25rem .5rem;
+  gap: .5rem 1.25rem;
+  padding: .9rem 1.25rem;
+  border-top: 1px solid var(--border);
+}
+.game-card__where {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem 1.25rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.game-card__place {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
   font-size: .875rem;
   color: var(--text);
 }
-.game-tile__place img { flex: none; width: 20px; height: 20px; border-radius: 5px; }
+.game-card__place img { flex: none; width: 20px; height: 20px; border-radius: 5px; }
 /* the play mark matches the platform icons beside it: an app-icon tile with the
    same 5px corner. Its gradient is the site's own, toned down so it sits level
    with the Yandex Games mark instead of outshouting it. Colours are hard-coded
    in the SVG for the same reason as in assets/ — the stops are not tokens. */
-.game-tile__play { flex: none; }
-a.game-tile__place:hover span { text-decoration: underline; text-underline-offset: 3px; }
-.game-tile__place--pending { color: var(--text-muted); }
-.game-tile__place--pending img { opacity: .6; }
+.game-card__play { flex: none; }
+a.game-card__place:hover span { text-decoration: underline; text-underline-offset: 3px; }
+.game-card__place--pending { color: var(--text-muted); }
+.game-card__place--pending img { opacity: .6; }
+.game-card__about { margin-left: auto; font-size: .9rem; color: var(--accent); }
+.game-card__about:hover { text-decoration: underline; text-underline-offset: 3px; }
 
 /* --------------------------------------------------------------------------
    API reference  (docs/api/**)
@@ -2345,7 +2414,7 @@ a.game-tile__place:hover span { text-decoration: underline; text-underline-offse
     align-items: flex-start;
     gap: 1.5rem;
     /* The panel is ~420px tall and fixed. On a phone in landscape (844x390)
-       that put Roadmap, Contact and the language switch below the fold with
+       that put Roadmap, Contact and the docs links below the fold with
        no way to reach them — the panel does not move with the page. */
     max-height: calc(100vh - var(--topbar-h));
     max-height: calc(100dvh - var(--topbar-h));
@@ -2409,15 +2478,19 @@ a.game-tile__place:hover span { text-decoration: underline; text-underline-offse
 
   .hero__inner {
     grid-template-columns: 1fr;
-    padding-bottom: 5rem;
+    padding-bottom: 2.5rem;  /* the partners strip follows; no scroll hint to clear */
     gap: 2.5rem;
   }
   /* Stacked layout: the tagline no longer has a brand row to match, so it
      wraps normally and the display size drops to fit a single column. */
   .hero { --hero-display: clamp(2.75rem, 12vw, 6rem); }
-  .hero__right { justify-self: start; align-items: flex-start; }
+  /* stretch, not start: the showreel's slides are absolutely placed, so it
+     has no width of its own, and a shrink-to-fit column would collapse it to
+     the width of its label */
+  .hero__right { justify-self: stretch; align-items: stretch; }
 
   .hero__shot { width: 100%; }
+  .showreel { width: 100%; }
   .hero__tagline { white-space: normal; max-width: 30ch; font-size: clamp(1.05rem, 3.4vw, 1.5rem); }
 
   .feature__inner { grid-template-columns: 1fr; }
@@ -2491,7 +2564,6 @@ a.game-tile__place:hover span { text-decoration: underline; text-underline-offse
     transform: none !important;
   }
 
-  .hero__scroll { display: none; }
 }
 
 /* ==========================================================================

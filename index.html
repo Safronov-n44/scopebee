@@ -60,12 +60,6 @@
            data-umami-event="showcase-open">Showcase</a>
         <a class="docs-btn" href="docs/index.html" data-i18n="nav.docs"
            data-umami-event="docs-open">Docs</a>
-
-        <div class="lang" role="group" aria-label="Language" data-i18n-aria="a11y.lang">
-          <button type="button" class="lang__btn" data-lang="en">EN</button>
-          <span class="lang__sep" aria-hidden="true">/</span>
-          <button type="button" class="lang__btn" data-lang="ru">RU</button>
-        </div>
       </div>
     </nav>
   </div>
@@ -97,38 +91,68 @@
           <tbody>
             <tr>
               <th scope="row" data-i18n="hero.stat.size">Downloaded</th>
-              <td class="is-ours">515 KB</td>
-              <td>6.4 MB</td>
+              <td class="is-ours">20.7 MB</td>
+              <td>57.6 MB</td>
+            </tr>
+            <tr>
+              <th scope="row" data-i18n="hero.stat.start">Game on screen</th>
+              <td class="is-ours">0.97 s</td>
+              <td>5.7 s</td>
             </tr>
             <tr>
               <th scope="row" data-i18n="hero.stat.memory">Memory</th>
-              <td class="is-ours">16.6 MB</td>
-              <td>136 MB</td>
-            </tr>
-            <tr>
-              <th scope="row" data-i18n="hero.stat.physics">Physics at 60 FPS</th>
-              <td class="is-ours">9000</td>
-              <td>4500</td>
+              <td class="is-ours">94.7 MB</td>
+              <td>434.4 MB</td>
             </tr>
           </tbody>
         </table>
-        <p class="hero__stats-note"><span data-i18n="hero.stat.note">The same Flappy Bird, release build</span> &mdash; <a href="#compare" data-i18n="hero.stat.link">see how it was measured</a></p>
+        <p class="hero__stats-note"><span data-i18n="hero.stat.note">The same Magic School, release build</span> &mdash; <a href="news/magic-school.html#ams-results" data-umami-event="news-open" data-umami-event-post="magic-school" data-i18n="hero.stat.link">see how it was measured</a></p>
       </div>
       <div class="hero__right">
-        <figure class="hero__shot">
-          <!-- preload="metadata" keeps the 20 MB file off the first paint; the
-               poster is a frame of the editor, so the hero reads as the engine
-               even before anyone presses play. -->
-          <video src="assets/scopebee-demo.mp4" poster="assets/demo-poster.jpg"
-                 width="2560" height="1440" controls playsinline preload="metadata"
-                 aria-label="ScopeBee demo: converting a Unity project and running it in the browser"
-                 data-i18n-aria="a11y.demo"></video>
-        </figure>
+        <!-- Games made with the engine, one at a time. The first slide is the
+             game the table measures; each slide leads to that game's article.
+             Without JS only the first slide shows and the dots stay hidden;
+             main.js steps through the slides and pauses on hover and focus.
+             A new game is one more slide and one more dot. -->
+        <section class="showreel" aria-roledescription="carousel" aria-label="Made with ScopeBee" data-i18n-aria="hero.made">
+          <p class="showreel__label" data-i18n="hero.made">Made with ScopeBee</p>
+          <figure class="hero__shot showreel__frame">
+            <a class="hero__game is-active" href="news/magic-school.html"
+               data-umami-event="news-open" data-umami-event-post="magic-school">
+              <img src="assets/news/magicschool-cover.webp" width="2732" height="1550" fetchpriority="high" decoding="async"
+                   alt="Magic School: two wizards and an owl in a snowy courtyard" data-i18n-alt="hero.game.alt">
+            </a>
+            <a class="hero__game" href="news/candy-balance.html"
+               data-umami-event="news-open" data-umami-event-post="candy-balance">
+              <img src="assets/news/candybalance-menu.webp" width="1280" height="633" loading="lazy" decoding="async"
+                   alt="The Candy Balance main menu" data-i18n-alt="acandy.alt1">
+            </a>
+          </figure>
+          <div class="showreel__dots">
+            <button type="button" class="showreel__dot" aria-label="Magic School" aria-current="true"></button>
+            <button type="button" class="showreel__dot" aria-label="Candy Balance"></button>
+          </div>
+        </section>
       </div>
     </div>
 
-    <div class="hero__scroll" aria-hidden="true">
-      <span class="hero__scroll-line"></span>
+    <!-- Partners: a glass strip along the bottom of the first screen, the label
+         just above it. It sits in the flow under .hero__inner rather than over
+         it, so a short window pushes it down instead of covering the table;
+         it took the place of the scroll hint. Logos keep their real colours.
+         A new partner is one more link in .hero__partners-logos. -->
+    <div class="hero__partners">
+      <span class="hero__partners-label" data-i18n="hero.partners">Partners</span>
+      <div class="hero__partners-strip">
+        <div class="hero__partners-logos">
+          <a class="hero__partner" href="https://redmachinegames.com/" target="_blank" rel="noopener"
+             data-umami-event="partner-open" data-umami-event-partner="redmachine">
+            <img src="assets/partners/redmachine-color-48.webp"
+                 srcset="assets/partners/redmachine-color-48.webp 1x, assets/partners/redmachine-color-96.webp 2x"
+                 width="67" height="48" alt="Red Machine">
+          </a>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -142,7 +166,16 @@
 
       <ul class="news__list">
         <li>
-          <a class="news-card" href="news/engine-comparison.html" data-reveal style="--i:0"
+          <a class="news-card" href="news/magic-school.html" data-reveal style="--i:0"
+             data-umami-event="news-open" data-umami-event-post="magic-school">
+            <p class="news-card__when"><time datetime="2026-10-29" data-i18n="ams.when">29 OCT 2026</time></p>
+            <h3 class="news-card__title" data-i18n="ams.card.title">Magic School: from Unity to ScopeBee</h3>
+            <p class="news-card__text" data-i18n="ams.card.text">The same game on two engines: a build 2.8 times smaller, the game on screen 5.9 times sooner, 4.6 times less memory.</p>
+          </a>
+        </li>
+
+        <li>
+          <a class="news-card" href="news/engine-comparison.html" data-reveal style="--i:1"
              data-umami-event="news-open" data-umami-event-post="engine-comparison">
             <p class="news-card__when"><time datetime="2026-10-05" data-i18n="acmp.when">5 OCT 2026</time></p>
             <h3 class="news-card__title" data-i18n="acmp.card.title">Updated engine comparison</h3>
@@ -151,20 +184,11 @@
         </li>
 
         <li>
-          <a class="news-card" href="news/release-0-4-0.html" data-reveal style="--i:1"
+          <a class="news-card" href="news/release-0-4-0.html" data-reveal style="--i:2"
              data-umami-event="news-open" data-umami-event-post="release-0-4-0">
             <p class="news-card__when"><time datetime="2026-10-01" data-i18n="a040.when">1 OCT 2026</time></p>
             <h3 class="news-card__title" data-i18n="a040.card.title">ScopeBee 0.4.0</h3>
             <p class="news-card__text" data-i18n="a040.card.text">Light and shadows, thousands of objects in two draw calls, and scenes baked to binary for the build.</p>
-          </a>
-        </li>
-
-        <li>
-          <a class="news-card" href="news/candy-balance.html" data-reveal style="--i:2"
-             data-umami-event="news-open" data-umami-event-post="candy-balance">
-            <p class="news-card__when"><time datetime="2026-09-24" data-i18n="acandy.when">24 SEP 2026</time></p>
-            <h3 class="news-card__title" data-i18n="acandy.card.title">Candy Balance: a Flash game, remade</h3>
-            <p class="news-card__text" data-i18n="acandy.card.text">A Flash game from more than 14 years ago, rebuilt with tags, physics materials, joints, animation and streamed music.</p>
           </a>
         </li>
       </ul>
@@ -573,6 +597,19 @@
           <div class="milestone__when"><span class="milestone__mon" data-i18n="roadmap.m4">NOV</span><span class="milestone__year">2026</span></div>
           <div class="milestone__rail" aria-hidden="true"><span class="milestone__node"></span></div>
           <div class="milestone__body">
+            <h3 class="milestone__title" data-i18n="roadmap.ai.title">AI integration</h3>
+            <p class="milestone__text" data-i18n="roadmap.ai.text">AI, built into the workflow.</p>
+            <ul class="tags">
+              <li data-i18n="roadmap.ai.tag1">MCP</li>
+              <li data-i18n="roadmap.ai.tag2">Skills</li>
+            </ul>
+          </div>
+        </li>
+
+        <li class="milestone" data-reveal style="--i:4">
+          <div class="milestone__when"><span class="milestone__mon" data-i18n="roadmap.m5">DEC</span><span class="milestone__year">2026</span></div>
+          <div class="milestone__rail" aria-hidden="true"><span class="milestone__node"></span></div>
+          <div class="milestone__body">
             <h3 class="milestone__title" data-i18n="roadmap.4.title">Tilemaps and audio mixers</h3>
             <p class="milestone__text" data-i18n="roadmap.4.text">Tile-based levels assembled from a palette in the editor, and sound routed through mixers and volume groups.</p>
             <ul class="tags">
@@ -583,8 +620,8 @@
           </div>
         </li>
 
-        <li class="milestone" data-reveal style="--i:4">
-          <div class="milestone__when"><span class="milestone__mon" data-i18n="roadmap.m5">DEC</span><span class="milestone__year">2026</span></div>
+        <li class="milestone" data-reveal style="--i:5">
+          <div class="milestone__when"><span class="milestone__mon" data-i18n="roadmap.m6">JAN</span><span class="milestone__year">2027</span></div>
           <div class="milestone__rail" aria-hidden="true"><span class="milestone__node"></span></div>
           <div class="milestone__body">
             <h3 class="milestone__title" data-i18n="roadmap.5.title">Cross-platform</h3>

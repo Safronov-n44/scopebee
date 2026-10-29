@@ -1,7 +1,7 @@
 /* Strings for the showcase section.
 
    Same shape and the same rules as news/news-i18n.js: loaded before main.js,
-   every visible string carries data-i18n and lives in BOTH languages here.
+   every visible string carries data-i18n and lives here.
    Keys are namespaced showcase.*. Game names are names and carry no key.
 
    Merges into SCOPEBEE_I18N_EXTRA rather than assigning it: main.js reads one
@@ -21,21 +21,11 @@
       'showcase.play': 'Play here',
       'showcase.yandex': 'Yandex Games',
       'showcase.pending': 'On moderation',
-      'showcase.icon.alt': 'Candy Balance icon',
-    },
-    ru: {
-      'showcase.meta.title': 'Игры — витрина ScopeBee',
-      'showcase.meta.desc': 'Игры на движке ScopeBee, в которые можно сыграть прямо в браузере.',
-      'showcase.tabs.aria': 'Разделы витрины',
-      'showcase.tab.games': 'Игры',
-      'showcase.eyebrow': 'Витрина',
-      'showcase.lead': 'Игры, сделанные на ScopeBee. Каждая работает в браузере — прямо здесь, на сайте движка.',
-      'showcase.about': 'Об игре',
-      'showcase.play': 'Играть здесь',
-      'showcase.yandex': 'Яндекс Игры',
-      'showcase.pending': 'На модерации',
-      'showcase.icon.alt': 'Иконка Candy Balance',
-    },
+      'showcase.icon.candybalance': 'Candy Balance icon',
+      'showcase.icon.magicschool': 'Magic School icon',
+      'showcase.desc.magicschool': 'A full game moved from Unity to ScopeBee: locations, UI, animation and saves \u2014 and the main location on screen in under a second.',
+      'showcase.desc.candybalance': 'A Flash game from more than 14 years ago, remade on ScopeBee with physics, joints, animation and streamed music.',
+    }
   };
 
   var bag = window.SCOPEBEE_I18N_EXTRA || (window.SCOPEBEE_I18N_EXTRA = {});

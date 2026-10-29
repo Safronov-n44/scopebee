@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en" data-i18n-title="ams.meta.title" data-i18n-desc="ams.meta.desc">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Magic School — from Unity to ScopeBee</title>
+<meta name="description" content="Magic School moved from Unity to ScopeBee: the same game, measured twice — build size, download, load time and memory.">
+<meta name="theme-color" content="#0b0b16">
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="Magic School — from Unity to ScopeBee">
+<meta property="og:description" content="Magic School moved from Unity to ScopeBee: the same game, measured twice — build size, download, load time and memory.">
+<meta property="og:image" content="../assets/news/magicschool-cover.webp">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" href="../assets/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../styles.css">
+
+<script>document.documentElement.classList.add('js');</script>
+<script defer src="https://cloud.umami.is/script.js"
+        data-website-id="d878d1d4-c979-49f4-8593-c104f9459d83"
+        data-domains="scopebee.tech,www.scopebee.tech"
+        data-performance="true"></script>
+</head>
+<body>
+
+<a class="skip-link" href="#main" data-i18n="skip">Skip to content</a>
+
+<header class="topbar" id="topbar">
+  <div class="topbar__inner">
+    <a class="brand" href="../index.html#top">
+      <img class="brand__mark" src="../assets/logo.svg" alt="" width="36" height="36">
+      <span class="brand__name">ScopeBee</span>
+    </a>
+
+    <button class="burger" id="burger" aria-expanded="false" aria-controls="nav" aria-label="Menu" data-i18n-aria="a11y.menu">
+      <span></span><span></span><span></span>
+    </button>
+
+    <nav class="nav" id="nav">
+      <ul class="nav__list">
+        <li><a href="../index.html#news" data-i18n="nav.news">News</a></li>
+        <li><a href="../index.html#engine" data-i18n="nav.features">Features</a></li>
+        <li><a href="../index.html#compare" data-i18n="nav.compare">Comparison</a></li>
+        <li><a href="../index.html#roadmap" data-i18n="nav.roadmap">Roadmap</a></li>
+        <li><a href="../index.html#footer" data-i18n="nav.contact">Contact</a></li>
+      </ul>
+      <div class="topbar__end">
+        <a class="docs-btn" href="../showcase/index.html" data-i18n="nav.showcase"
+           data-umami-event="showcase-open">Showcase</a>
+        <a class="docs-btn" href="../docs/index.html" data-i18n="nav.docs"
+           data-umami-event="docs-open">Docs</a>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+  <article class="article">
+    <a class="article__back" href="../index.html#news">
+      <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M8.5 3 4.5 7l4 4"/>
+      </svg>
+      <span data-i18n="article.back">Back to the site</span>
+    </a>
+
+    <p class="article__when"><time datetime="2026-10-29" data-i18n="ams.when">29 OCT 2026</time></p>
+    <h1 class="article__title" data-i18n="ams.title">Magic School: from Unity to ScopeBee</h1>
+    <p class="article__lead" data-i18n="ams.lead">Magic School was a Unity game. Now it runs on ScopeBee — the same game with the same code and art, and both builds are on this site, so the difference can be measured rather than described.</p>
+
+    <p class="article__cta-row"><a class="article__cta" href="../games/magicschool/scopebee/" target="_blank" rel="noopener"
+       data-umami-event="demo-open" data-umami-event-project="magicschool" data-umami-event-engine="scopebee"
+       data-i18n="ams.play">Play it in the browser</a></p>
+
+    <div class="article__body">
+      <figure class="article__media">
+        <div class="article__shots" data-gallery>
+          <button type="button" class="shot" data-i18n-aria="a11y.zoom" aria-label="Open the image at full size">
+            <img src="../assets/news/magicschool-cover.webp" width="2732" height="1550" loading="lazy" decoding="async"
+                 alt="Magic School loading screen art" data-i18n-alt="ams.alt1">
+          </button>
+        </div>
+      </figure>
+
+      <h2 data-i18n="ams.h1">One game, two builds</h2>
+      <p data-i18n="ams.p1">This is not a small demo made for a benchmark: Magic School is a full game with locations, UI, animation and saves. Both builds print the same timing lines from the game code itself — when the preloader shows its first frame and when the main location does — so the load time is measured by the game, not guessed from the outside.</p>
+
+      <h2 id="ams-results" data-i18n="ams.h2">Results</h2>
+      <figure class="article__media article__media--wide">
+          <div class="table-scroll" role="region" aria-labelledby="ams-results" tabindex="0">
+            <table class="cmp cmp--rank">
+              <thead>
+                <tr>
+                  <th scope="col" data-i18n="compare.th.metric">Metric</th>
+                  <th scope="col" data-i18n="compare.th.ranked">Engines, best first</th>
+                </tr>
+              </thead>
+              <tbody>
+              <tr>
+                <th class="cmp__metric" scope="row" data-i18n="ams.th.build">Build size</th>
+                <td>
+                  <ol class="cmp__rank">
+                    <li class="cmp__best"><span class="cmp__name cmp__name--ours">ScopeBee</span><span class="cmp__bar" style="--w:36.0%"></span><span class="cmp__value">20.9 MB</span></li>
+                    <li class="cmp__worst"><span class="cmp__name">Unity</span><span class="cmp__bar" style="--w:100%"></span><span class="cmp__value">58.0 MB</span></li>
+                  </ol>
+                </td>
+              </tr>
+              <tr>
+                <th class="cmp__metric" scope="row" data-i18n="compare.th.transferred">Transferred</th>
+                <td>
+                  <ol class="cmp__rank">
+                    <li class="cmp__best"><span class="cmp__name cmp__name--ours">ScopeBee</span><span class="cmp__bar" style="--w:36.0%"></span><span class="cmp__value">20.7 MB</span></li>
+                    <li class="cmp__worst"><span class="cmp__name">Unity</span><span class="cmp__bar" style="--w:100%"></span><span class="cmp__value">57.6 MB</span></li>
+                  </ol>
+                </td>
+              </tr>
+              <tr>
+                <th class="cmp__metric" scope="row" data-i18n="compare.th.res">Resources</th>
+                <td>
+                  <ol class="cmp__rank">
+                    <li class="cmp__best"><span class="cmp__name cmp__name--ours">ScopeBee</span><span class="cmp__bar" style="--w:38.0%"></span><span class="cmp__value">42.7 MB</span></li>
+                    <li class="cmp__worst"><span class="cmp__name">Unity</span><span class="cmp__bar" style="--w:100%"></span><span class="cmp__value">112.5 MB</span></li>
+                  </ol>
+                </td>
+              </tr>
+              <tr>
+                <th class="cmp__metric" scope="row" data-i18n="ams.th.preloader">Preloader on screen</th>
+                <td>
+                  <ol class="cmp__rank">
+                    <li class="cmp__best"><span class="cmp__name cmp__name--ours">ScopeBee</span><span class="cmp__bar" style="--w:34.2%"></span><span class="cmp__value">673 ms</span></li>
+                    <li class="cmp__worst"><span class="cmp__name">Unity</span><span class="cmp__bar" style="--w:100%"></span><span class="cmp__value">1969 ms</span></li>
+                  </ol>
+                </td>
+              </tr>
+              <tr>
+                <th class="cmp__metric" scope="row" data-i18n="ams.th.location">Main location on screen</th>
+                <td>
+                  <ol class="cmp__rank">
+                    <li class="cmp__best"><span class="cmp__name cmp__name--ours">ScopeBee</span><span class="cmp__bar" style="--w:16.8%"></span><span class="cmp__value">965 ms</span></li>
+                    <li class="cmp__worst"><span class="cmp__name">Unity</span><span class="cmp__bar" style="--w:100%"></span><span class="cmp__value">5731 ms</span></li>
+                  </ol>
+                </td>
+              </tr>
+              <tr>
+                <th class="cmp__metric" scope="row" data-i18n="compare.th.heap">Heap Snapshot</th>
+                <td>
+                  <ol class="cmp__rank">
+                    <li class="cmp__best"><span class="cmp__name cmp__name--ours">ScopeBee</span><span class="cmp__bar" style="--w:21.8%"></span><span class="cmp__value">94.7 MB</span></li>
+                    <li class="cmp__worst"><span class="cmp__name">Unity</span><span class="cmp__bar" style="--w:100%"></span><span class="cmp__value">434.4 MB</span></li>
+                  </ol>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="cmp__demos">
+            <span data-i18n="compare.play.label">Play the builds:</span>
+            <a class="cmp__demo" href="../games/magicschool/scopebee/" data-umami-event="demo-open" data-umami-event-project="magicschool" data-umami-event-engine="scopebee" target="_blank" rel="noopener">ScopeBee</a>
+            <a class="cmp__demo" href="../games/magicschool/unity/" data-umami-event="demo-open" data-umami-event-project="magicschool" data-umami-event-engine="unity" target="_blank" rel="noopener">Unity</a>
+          </p>
+          <p class="article__note" data-i18n="ams.table.note">Measured on a local server that serves everything in brotli, so that the speed of the internet connection stays out of the results: over a real network the download time changes from run to run and would bury the difference between the engines.</p>
+      </figure>
+
+      <h2 data-i18n="ams.h3">What the move gave the game</h2>
+      <ul>
+        <li data-i18n="ams.i.size">A build 2.8 times smaller: 20.9 MB instead of 58.0 MB, and the player downloads 2.8 times less.</li>
+        <li data-i18n="ams.i.start">A start 5.9 times sooner: the main location is on screen in under a second rather than in almost six.</li>
+        <li data-i18n="ams.i.scene">Almost no wait between the preloader and the game: 0.3 s on ScopeBee, 3.8 s on Unity.</li>
+        <li data-i18n="ams.i.mem">4.6 times less memory: 94.7 MB instead of 434.4 MB — the figure a phone browser runs out of first.</li>
+      </ul>
+
+      <h2 data-i18n="ams.h4">How it was measured</h2>
+      <p data-i18n="ams.p2">Each build was served from its own local server that serves only its folder in brotli, with caching off, so the speed of the connection stays out of the result. Every load is a cold one in a fresh Chrome profile on Apple Silicon, driven over the DevTools protocol; each figure is the median of five loads.</p>
+      <ul>
+        <li data-i18n="ams.m.build">Build size — every file of the build folder on disk, as it is published.</li>
+        <li data-i18n="ams.m.net">Transferred — what the server actually sent, by its own log.</li>
+        <li data-i18n="ams.m.res">Resources — the same files after decompression.</li>
+        <li data-i18n="ams.m.first">Preloader and main location on screen — the lines the game prints on its first frame of each, performance.now() counted from opening the page, download included.</li>
+        <li data-i18n="ams.m.heap">Heap Snapshot — a heap snapshot of the page ten seconds after the main location appears, after garbage collection.</li>
+      </ul>
+      <p class="article__note"><span data-i18n="ams.note">The Unity build is Unity 6000.4. For how the other engines compare on a smaller game, see</span> <a href="engine-comparison.html" data-umami-event="news-open" data-umami-event-post="engine-comparison" data-i18n="ams.note.link">the engine comparison</a>.</p>
+
+      <h2 data-i18n="ams.h5">Try it</h2>
+      <p data-i18n="ams.p3">Open both builds side by side and watch which one reaches the game first.</p>
+      <p class="article__cta-row"><a class="article__cta" href="../games/magicschool/scopebee/" target="_blank" rel="noopener"
+       data-umami-event="demo-open" data-umami-event-project="magicschool" data-umami-event-engine="scopebee"
+       data-i18n="ams.play">Play it in the browser</a></p>
+    </div>
+  </article>
+</main>
+
+<script src="news-i18n.js"></script>
+<script src="../main.js"></script>
+</body>
+</html>
